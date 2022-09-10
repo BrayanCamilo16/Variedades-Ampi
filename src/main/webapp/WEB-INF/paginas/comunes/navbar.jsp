@@ -30,7 +30,7 @@
                         <a class="nav-link fw-bold" aria-current="page" href="">Facturas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" aria-current="page" href="">Reportes</a>
+                        <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/vendedor/reporte.jsp">Reportes</a>
                     </li>
                     <%
                         } else {

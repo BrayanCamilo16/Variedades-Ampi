@@ -390,3 +390,8 @@ END;
 //
 
 -- Quitar la doble relación y agregar un check
+
+---===============vista de reportes=======----------------------------
+CREATE VIEW reporte as
+SELECT p.fecha_pedido,p.fecha_entrega,pr.nombre_producto,pr.descripcion_producto,dp.precio_unidad,dp.cantidad,p.destino_pedido,dp.precio_unidad*dp.cantidad AS total FROM `detalles_pedido` dp INNER JOIN pedido p 
+ON dp.id_pedido=p.id_pedido INNER join producto pr on dp.id_producto=pr.id_producto WHERE p.fecha_pedido LIKE "2022-08-02%" OR p.fecha_entrega like "2022-08-04%";

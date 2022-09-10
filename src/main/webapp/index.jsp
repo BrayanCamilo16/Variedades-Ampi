@@ -1,6 +1,5 @@
 <%@include file="cache.jsp" %>
 
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -13,7 +12,6 @@
         <!-- /header  -->
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta.jsp" />
-
         <section>
             <div class="container">
                 <div class="row">
@@ -30,7 +28,6 @@
                 </div>
             </div>
         </section>
-
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
         <!-- /footer  -->

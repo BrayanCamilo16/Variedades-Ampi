@@ -23,7 +23,7 @@
                             <tr class="text-center">
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
+                                <th scope="col">Descripciï¿½n</th>
                                 <th scope="col">Imagen</th>
                                 <th scope="col">Editar</th>
                             </tr>
@@ -69,7 +69,6 @@
         <!-- /File js  -->
         
         <jsp:include page="../WEB-INF/paginas/comunes/alerta-modal.jsp" />
-       
     </body>
 </html>
 

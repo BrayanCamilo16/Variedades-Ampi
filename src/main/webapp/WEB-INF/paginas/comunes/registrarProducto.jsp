@@ -125,7 +125,6 @@
         <jsp:include page="/WEB-INF/paginas/comunes/archivos-js.jsp" />
         <!-- /File js  -->
 
-
         <%
             if (hayUnProductoConsultado) {
         %>

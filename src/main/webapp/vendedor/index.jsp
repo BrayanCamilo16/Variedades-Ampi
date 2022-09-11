@@ -10,7 +10,18 @@
         <jsp:include page="/WEB-INF/paginas/comunes/navbar.jsp" />
         <!-- /header  -->
         
-        <h1>Bienvenido ${usuarioVo.nombreUsuario}</h1>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Bienvenido ${usuarioVo.nombreUsuario}</h1>
+                        <p><a href="pedidos.jsp">Gestionar pedidos</a></p>
+                        <p><a href=""></a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />

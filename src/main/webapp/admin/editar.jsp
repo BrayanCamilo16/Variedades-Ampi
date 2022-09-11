@@ -1,4 +1,3 @@
-<%@include file="../cache.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>

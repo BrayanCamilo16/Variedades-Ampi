@@ -2,33 +2,23 @@ package vo;
 
 /**
  *
- * @author jhona
+ * @author Camargo
  */
 public class PedidoVO {
     private int idPedido;
-    private String fechaPedido;
-    private String fechaEntrega;
-    private String destinoPedido;
-    private String estadoPedido;
-    private int idProducto;
+    private String fechaPedido, fechaEntrega, destinoPedido, estadoPedido ,nombreCliente, nombreVendedor;
+    private int idCliente, idVendedor;
 
-    public PedidoVO() {
-    }
-
-    public PedidoVO(String fechaPedido, String fechaEntrega, String destinoPedido, String estadoPedido) {
-        this.fechaPedido = fechaPedido;
-        this.fechaEntrega = fechaEntrega;
-        this.destinoPedido = destinoPedido;
-        this.estadoPedido = estadoPedido;
-    }
-
-    public PedidoVO(int idPedido, String fechaPedido, String fechaEntrega, String destinoPedido, String estadoPedido, int idProducto) {
+    public PedidoVO(int idPedido, String fechaPedido, String fechaEntrega, String destinoPedido, String estadoPedido, int idCliente, String nombreCliente, int idVendedor, String nombreVendedor) {
         this.idPedido = idPedido;
         this.fechaPedido = fechaPedido;
         this.fechaEntrega = fechaEntrega;
         this.destinoPedido = destinoPedido;
         this.estadoPedido = estadoPedido;
-        this.idProducto = idProducto;
+        this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        this.idVendedor = idVendedor;
+        this.nombreVendedor = nombreVendedor;
     }
 
     public int getIdPedido() {
@@ -71,17 +61,41 @@ public class PedidoVO {
         this.estadoPedido = estadoPedido;
     }
 
-    public int getIdProducto() {
-        return idProducto;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public int getIdVendedor() {
+        return idVendedor;
+    }
+
+    public void setIdVendedor(int idVendedor) {
+        this.idVendedor = idVendedor;
+    }
+
+    public String getNombreVendedor() {
+        return nombreVendedor;
+    }
+
+    public void setNombreVendedor(String nombreVendedor) {
+        this.nombreVendedor = nombreVendedor;
     }
 
     @Override
     public String toString() {
-        return "PedidoVO{" + "idPedido=" + idPedido + ", fechaPedido=" + fechaPedido + ", fechaEntrega=" + fechaEntrega + ", destinoPedido=" + destinoPedido + ", estadoPedido=" + estadoPedido + ", idProducto=" + idProducto + '}';
+        return "PedidoVO{" + "idPedido=" + idPedido + ", fechaPedido="+ fechaPedido + ", fechaEntrega=" + fechaEntrega + ", destinoPedido=" + destinoPedido + ", estadoPedido=" + estadoPedido + ", idCliente=" + idCliente + ", nombreCliente=" + nombreCliente + ", idVendedor=" + idVendedor + ", nombreVendedor=" + nombreVendedor + '}';
     }
-    
+
 }

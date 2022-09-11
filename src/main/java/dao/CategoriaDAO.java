@@ -3,13 +3,14 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
+import util.Conexion2;
 import vo.CategoriaVO;
 
 /**
  *
  * @author Camargo
  */
-public class CategoriaDAO extends Conexion {
+public class CategoriaDAO extends Conexion2 {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;
@@ -21,7 +22,7 @@ public class CategoriaDAO extends Conexion {
         List<CategoriaVO> categorias = new ArrayList();
         CategoriaVO categoriaVo = null;
 
-        sql = "SELECT * FROM categoria ORDER BY nombre_categoria";
+        sql = "SELECT * FROM categoria WHERE categoria_activa = 1 ORDER BY nombre_categoria";
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -35,9 +36,10 @@ public class CategoriaDAO extends Conexion {
             System.out.println("Ocurrió un error al listar las categorias: " + ex.toString());
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }   
         }
 
         return categorias;
@@ -60,9 +62,10 @@ public class CategoriaDAO extends Conexion {
             System.out.println("Ocurrió un error al consultar la categoria: " + ex.toString());
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
 
         return categoriaVo;
@@ -86,8 +89,10 @@ public class CategoriaDAO extends Conexion {
             System.out.println("Error al insertar la categoria: " + ex.toString());
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
 
         return operacionExitosa;
@@ -112,8 +117,35 @@ public class CategoriaDAO extends Conexion {
             System.out.println("Error al actualizar la categoria: " + ex.toString());
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
+        }
+
+        return operacionExitosa;
+    }
+    
+    public boolean delete(int idCategoria) {
+
+        sql = "UPDATE categoria SET categoria_activa = 0 WHERE id_categoria = ?";
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idCategoria);
+            stmt.executeUpdate();
+            
+            operacionExitosa = true;
+            
+        } catch (SQLException ex) {
+            operacionExitosa = false;
+            System.out.println("Error al eliminar la categoria: " + ex.toString());
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
 
         return operacionExitosa;

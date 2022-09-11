@@ -3,13 +3,14 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
+import util.Conexion2;
 import vo.ProductoVO;
 
 /**
  *
  * @author Camargo
  */
-public class ProductoDAO extends Conexion{
+public class ProductoDAO extends Conexion2 {
     private Connection conn = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -20,7 +21,7 @@ public class ProductoDAO extends Conexion{
         List<ProductoVO> productos = new ArrayList();
         ProductoVO productoVo = null;
 
-        sql = "SELECT * FROM producto ORDER BY nombre_producto";
+        sql = "SELECT * FROM producto WHERE producto_activo = 1 ORDER BY nombre_producto";
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -130,34 +131,27 @@ public class ProductoDAO extends Conexion{
         return operacionExitosa;
     }
     
-    // Este metodo devuelve los VO de pedido
-    public List<ProductoVO> consultarProductosDePedidosCliente(int idCliente) {
-        ProductoVO productoVo = null;
-        
-        List<ProductoVO> productos = new ArrayList();
-        
-        sql = "SELECT prod.id_producto, nombre_producto, descripcion_producto, precio_unitario_producto, stock_producto, unidad_minima_producto, nombre_img_producto, estado_producto, id_marca_fk, id_categoria_fk, cantidad FROM producto AS prod INNER JOIN detalles_pedido AS det_ped ON prod.id_producto = det_ped.id_producto INNER JOIN pedido AS ped ON ped.id_pedido = det_ped.id_pedido INNER JOIN usuario_pedido AS usu_ped ON ped.id_pedido = usu_ped.id_pedido_fk WHERE id_usuario_cliente_fk = ?";
+    public boolean delete(int idProducto) {
+
+        sql = "UPDATE producto SET producto_activo = 0 WHERE id_producto = ?";
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                // Lenamos el VO de producto
-                productoVo = new ProductoVO(rs.getInt("id_producto"), rs.getString("nombre_producto"), rs.getString("descripcion_producto"), rs.getDouble("precio_unitario_producto"), rs.getDouble("stock_producto"), rs.getDouble("unidad_minima_producto"), rs.getString("nombre_img_producto"),rs.getString("estado_producto"), rs.getInt("id_marca_fk"), rs.getInt("id_categoria_fk"), rs.getInt("cantidad"));
-                
-                productos.add(productoVo);
-            }
+            stmt.setInt(1, idProducto);
+            stmt.executeUpdate();
+            
+            operacionExitosa = true;
             
         } catch (SQLException ex) {
             operacionExitosa = false;
-            System.out.println("Error al consultar los pedidos: " + ex.toString());
-            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al eliminar la categoria: " + ex.toString());
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
-        return productos;
+        return operacionExitosa;
     }
 }

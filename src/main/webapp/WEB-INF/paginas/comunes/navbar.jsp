@@ -18,30 +18,45 @@
                         UsuarioVO userVo = (UsuarioVO) sesion.getAttribute("usuarioVo");
                         int idRol = userVo.getIdRol();
 
-                        if (idRol == 1 || idRol == 2) {
-                    %>
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bold" aria-current="page" href="">Vender</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/cliente/pedidos.jsp">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold" aria-current="page" href="">Facturas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold" aria-current="page" href="">Reportes</a>
-                    </li>
-                    <%
-                        } else {
-                    %>
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bold" aria-current="page" href="">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold" aria-current="page" href="">Mis pedidos</a>
-                    </li>
-                    <%
+                        switch (idRol) {
+                            case 1:
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="categorias.jsp">Categorias</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="">Marcas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="productos.jsp">Productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="">Usuarios</a>
+                                </li>
+                                <%
+                                break;
+                            case 2:
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="pedidos.jsp">Pedidos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="productos.jsp">Productos</a>
+                                </li>
+                                <%
+                                break;
+                            case 3:
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link active fw-bold" aria-current="page" href="">Productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" aria-current="page" href="">Mis pedidos</a>
+                                </li>
+                                <%
+                                break;
+                            default:
+                                throw new AssertionError();
                         }
                     %>
                 </ul>
@@ -49,7 +64,7 @@
             <div class="ms-auto">
                 <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-self-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white ms-1" href="" data-bs-toggle="modal" data-bs-target="#login"><i class="fas fa-sign-out-alt me-1"></i>Cerrar sesi&#243;n</a>
+                        <a class="nav-link btn btn-primary text-white ms-1" href="../" data-bs-toggle="modal" data-bs-target="#login"><i class="fas fa-sign-out-alt me-1"></i></a>
                     </li>
                     <li class="nav-item">
                         <button class="nav-link btn btn-transparent text-dark mx-2"><i class="far fa-bell"></i></button>

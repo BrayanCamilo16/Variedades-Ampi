@@ -1,4 +1,5 @@
-<%@page import="vo.*"%>
+<%@page import="vo.CategoriaVO"%>
+<%@page import="vo.ProductoVO"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.CategoriaDAO"%>
 <%

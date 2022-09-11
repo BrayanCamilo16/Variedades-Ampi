@@ -42,7 +42,7 @@ create table pedido (
     fecha_entrega DATETIME NOT NULL,
     destino_pedido VARCHAR(100) NOT NULL,
     estado_pedido VARCHAR(50) NOT NULL,
---     id_producto_FK INT NOT NULL
+    id_producto_FK INT NOT NULL
 );
 
 create table detalles_pedido (

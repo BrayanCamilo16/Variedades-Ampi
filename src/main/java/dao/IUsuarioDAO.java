@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import vo.UsuarioVO;
 
 /**
  *

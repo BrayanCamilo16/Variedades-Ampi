@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h3 class="modal-title fw-bold lead">Iniciar sesi&#243;n</h3>
+                <h3 class="modal-title fw-bold lead">Iniciar sesi&#243;n</h5>
                 <button type="button" class="text-white bg-transparent border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
             </div>
             <form action="${pageContext.request.contextPath}/Usuario" method="POST">

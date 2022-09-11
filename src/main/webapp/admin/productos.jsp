@@ -2,11 +2,10 @@
 <%@page import="dao.ProductoDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="vo.ProductoVO"%>
-<%@include file="../cache.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Categorias</title>
+        <title>Productos</title>
         <jsp:include page="../WEB-INF/paginas/comunes/head.jsp" />
     </head>
     <body>
@@ -30,6 +29,7 @@
                                 <th scope="col">Estado</th>
                                 <th scope="col">Imagen</th>
                                 <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +56,11 @@
                             <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto() %>">
                             <input type="hidden" name="opcion" value="1">
                             <td class="text-center align-middle"><button type="submit" class="border-0 bg-transparent text-primary"><i class="fas fa-edit"></i></button></td>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/Producto" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto() %>">
+                            <input type="hidden" name="opcion" value="5">
+                            <td class="text-center align-middle"><button type="submit" class="border-0 bg-transparent text-primary"><i class="fas fa-minus-circle" style='color: red'></i></button></td>
                         </form>
                         </tr>
                         <%

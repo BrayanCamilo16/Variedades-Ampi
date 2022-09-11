@@ -1,6 +1,6 @@
 package util;
 
-import dao.Conexion;
+import dao.*;
 import java.sql.*;
 import java.util.logging.*;
 

@@ -31,6 +31,8 @@ public class UsuarioVO {
         this.TipoDocumento = TipoDocumento;
     }
     
+    
+
     public UsuarioVO() {
     }
 
@@ -89,6 +91,8 @@ public class UsuarioVO {
         this.TipoDocumento = TipoDocumento;
     }
 
+    
+    
     public int getIdUsuario() {
         return this.idUsuario;
     }
@@ -185,6 +189,7 @@ public class UsuarioVO {
         this.TipoDocumento = TipoDocumento;
     }
     
+
     @Override
     public String toString() {
         return "UsuarioVO{" + "idUsuario=" + idUsuario + ", emailUsuario=" + emailUsuario + ", passUsuario=" + passUsuario + ", nombreUsuario=" + nombreUsuario + ", apellidoUsuario=" + apellidoUsuario + ", numDocumentoUsuario=" + numDocumentoUsuario + ", telefonoUsuario=" + telefonoUsuario + ", direccionUsuario=" + direccionUsuario + ", sexoUsuario=" + sexoUsuario + ", estadoUsuario=" + estadoUsuario + ", idRol=" + idRol + '}';

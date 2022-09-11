@@ -1,19 +1,13 @@
 package web;
 
-import vo.PedidoVO;
-import vo.DetallesPedidoVO;
-import vo.UsuarioVO;
-import vo.UsuarioPedidoVO;
-import dao.ProductoDAO;
-import dao.PedidoDAO;
-import dao.UsuarioPedidoDAO;
-import dao.DetallesPedidoDAO;
-import util.*;
 import java.io.*;
 import java.util.*;
+import vo.ProductoVO;
+import util.ManejoImg;
+import util.Validacion;
 import java.nio.file.*;
 import javax.servlet.*;
-import vo.ProductoVO;
+import dao.ProductoDAO;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import static util.ManejoImg.saveFile;
@@ -31,9 +25,6 @@ public class ProductoController extends HttpServlet {
     private final String pathFiles = "C:\\variedades-ampi\\src\\main\\webapp\\files\\producto\\";
     private File uploads = new File(pathFiles);
     private final String[] extens = {".ico", ".png", ".jpg", ".jpeg"};
-//    private Set<Integer> idProductos = new HashSet();
-    private List<Integer> idProductos = new ArrayList();
-    private HttpSession sesion = null;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,21 +38,20 @@ public class ProductoController extends HttpServlet {
         String idCategoria = request.getParameter("idCategoria");
         String nombreImg = request.getParameter("nombreImg");
         String idMarca = "1";
-        String direccion = request.getParameter("direccionEnvio");
         Part imgProducto = request.getPart("imgProducto");
         int opcion = Integer.parseInt(request.getParameter("opcion"));
 
         switch (opcion) {
             case 1: // Consultar
                 if (Validacion.isNullStr(idProducto)) {
-                    this.generarError(request, response, "Error al consultar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente", "admin/productos.jsp");
+                    this.generarError(request, response, "Error al consultar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente");
                 } else {
                     this.consultarProducto(request, response, Integer.parseInt(idProducto));
                 }
                 break;
             case 2: // Insertar
                 if (Validacion.isNullStr(nombreProducto) || Validacion.isNullStr(descripcionProducto) || Validacion.isNullStr(precioProducto) || Validacion.isNullStr(stockProducto) || Validacion.isNullStr(unidadMinimaProducto) || Validacion.isNullStr(estadoProducto) || Validacion.isNullStr(idCategoria) || Validacion.isNullStr(idMarca)) {
-                    this.generarError(request, response, "Error al insertar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente", "admin/productos.jsp");
+                    this.generarError(request, response, "Error al insertar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente");
                 } else {
                     productoVo = new ProductoVO(nombreProducto, descripcionProducto, Double.parseDouble(precioProducto), Double.parseDouble(stockProducto), Double.parseDouble(unidadMinimaProducto), "", estadoProducto, Integer.parseInt(idMarca), Integer.parseInt(idCategoria));
                     this.insertProducto(request, response, productoVo, imgProducto);
@@ -69,31 +59,24 @@ public class ProductoController extends HttpServlet {
                 break;
             case 3: // Actualizar
                 if (Validacion.isNullStr(nombreProducto) || Validacion.isNullStr(descripcionProducto) || Validacion.isNullStr(precioProducto) || Validacion.isNullStr(stockProducto) || Validacion.isNullStr(unidadMinimaProducto) || Validacion.isNullStr(estadoProducto) || Validacion.isNullStr(idCategoria) || Validacion.isNullStr(idMarca)) {
-                    this.generarError(request, response, "Error al insertar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente", "admin/productos.jsp");
+                    this.generarError(request, response, "Error al insertar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente");
                 } else {
                     productoVo = new ProductoVO(Integer.parseInt(idProducto), nombreProducto, descripcionProducto, Double.parseDouble(precioProducto), Double.parseDouble(stockProducto), Double.parseDouble(unidadMinimaProducto), nombreImg, estadoProducto, Integer.parseInt(idMarca), Integer.parseInt(idCategoria));
                     this.actualizarProducto(request, response, productoVo, imgProducto);
                 }
                 break;
-            case 4: // Agregar al producto
+            case 4:
                 if (Validacion.isNullStr(idProducto)) {
                     response.sendRedirect("cliente/");
                 } else {
                     this.agregarAlCarrito(request, response, Integer.parseInt(idProducto));
                 }
                 break;
-            case 5: // Registrar pedido
-                sesion = request.getSession();
-                if (sesion.getAttribute("productoCarrito") != null) {
-                    List<ProductoVO> productosEnElCarrito = (List<ProductoVO>) sesion.getAttribute("productoCarrito");
-                    System.out.println("productosEnElCarrito = " + productosEnElCarrito);
-
-                    this.registrarProducto(request, response, productosEnElCarrito, direccion);
-
+            case 5: //Eliminar
+                if (Validacion.isNullStr(idProducto)) {
+                    this.generarError(request, response, "Error al eliminar el producto", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente");
                 } else {
-                    request.setAttribute("tituloError", "No tiene productos en el carrito");
-                    request.setAttribute("mensajeDescriptivo", "No tiene ningún producto agregado al carrito, agreguelos e intente nuevamente");
-                    request.getRequestDispatcher("cliente/").forward(request, response);
+                    this.deleteProducto(request, response, Integer.parseInt(idProducto));
                 }
                 break;
             default:
@@ -106,7 +89,7 @@ public class ProductoController extends HttpServlet {
     private void insertProducto(HttpServletRequest request, HttpServletResponse response, ProductoVO productVo, Part imgProducto) throws ServletException, IOException {
         // Comprobamos que si la imagen es nula
         if (imgProducto == null) {
-            this.generarError(request, response, "Error al insertar el producto", "No ha seleccionado la imagen del producto", "admin/productos.jsp");
+            this.generarError(request, response, "Error al insertar el producto", "No ha seleccionado la imagen del producto");
         } else {
             // Comprobamos que la imagen tenga la extencion correcta (jpg, png, ...)
             if (ManejoImg.isExtension(imgProducto.getSubmittedFileName(), extens)) {
@@ -122,11 +105,11 @@ public class ProductoController extends HttpServlet {
                     request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
                 } else {
                     // En caso de que no se haya podido registrar, mandamos un mensaje
-                    this.generarError(request, response, "Error al insertar el producto", "Ocurrió un error, por favor recarga e intenta nuevamente", "admin/productos.jsp");
+                    this.generarError(request, response, "Error al insertar el producto", "Ocurrió un error, por favor recarga e intenta nuevamente");
                 }
             } else {
                 // Devolvemos un error en caso de que el archivo no sea una imagen
-                this.generarError(request, response, "Error al insertar el producto", "Debe escoger una imagen", "admin/productos.jsp");
+                this.generarError(request, response, "Error al insertar el producto", "Debe escoger una imagen");
             }
         }
     }
@@ -145,10 +128,10 @@ public class ProductoController extends HttpServlet {
                 request.setAttribute("mensajeDescriptivo", "El producto se actualiz\u00F3 correctamente");
                 request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
             } else {
-                this.generarError(request, response, "Error al actualizar el producto", "Ocurrió un error, por favor recarga e intenta nuevamente", "admin/productos.jsp");
+                this.generarError(request, response, "Error al actualizar el producto", "Ocurrió un error, por favor recarga e intenta nuevamente");
             }
         } else {
-            this.generarError(request, response, "Error al actualizar el producto", "Debe escoger una imagen", "admin/productos.jsp");
+            this.generarError(request, response, "Error al actualizar el producto", "Debe escoger una imagen");
         }
     }
 
@@ -158,106 +141,68 @@ public class ProductoController extends HttpServlet {
             request.setAttribute("producto", productoVo);
             request.getRequestDispatcher("WEB-INF/paginas/comunes/registrarProducto.jsp").forward(request, response);
         } else {
-            this.generarError(request, response, "Error al consultar el producto", "No se encontró el producto", "admin/productos.jsp");
+            this.generarError(request, response, "Error al consultar el producto", "No se encontró el producto");
         }
 
     }
 
     private void agregarAlCarrito(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
         ProductoVO productVo = null;
-        int posicion = 0;
-        int cantidad = 0;
-
+        
+        // Consultamos el producto
+        productVo = productoDao.selectById(id);
+        
+        // Alcance aplication
+//        ServletContext aplication = request.getServletContext();
+        
         // Alcance sesion
         HttpSession aplication = request.getSession();
-
+        
         // Se obtienen los productos que ya esten en el carrito
         List<ProductoVO> productoEnElCarrito = (List<ProductoVO>) aplication.getAttribute("productoCarrito");
-
+        
         // Comprobamos si hay producto en el carrito
-        if (productoEnElCarrito == null) {
+        if(productoEnElCarrito == null){
             productoEnElCarrito = new ArrayList<>();
+            aplication.setAttribute("productoCarrito", productoEnElCarrito);
         }
-
-        idProductos.add(id);
-
-        System.out.println(idProductos);
-
-        if (productoEnElCarrito.size() > 0) {
-            for (int i = 0; i < productoEnElCarrito.size(); i++) {
-                if (id == productoEnElCarrito.get(i).getIdProducto()) {
-                    posicion = i;
-                }
-            }
-            if (id == productoEnElCarrito.get(posicion).getIdProducto()) {
-                cantidad = productoEnElCarrito.get(posicion).getCantidad() + 1;
-                productoEnElCarrito.get(posicion).setCantidad(cantidad);
-            } else {
-                productVo = productoDao.selectById(id);
-                cantidad += 1;
-                productVo.setCantidad(cantidad);
-                productoEnElCarrito.add(productVo);
-
-            }
-
-        } else {
-            productVo = productoDao.selectById(id);
-            cantidad += 1;
-            productVo.setCantidad(cantidad);
+        
+        // Revisar y agregar el nuevo producto al carrito
+        if(productVo != null){
             productoEnElCarrito.add(productVo);
         }
-
-        aplication.setAttribute("productoCarrito", productoEnElCarrito);
         response.sendRedirect("cliente/");
     }
-
+    
+    private void deleteProducto(HttpServletRequest request, HttpServletResponse response, int idProducto) throws ServletException, IOException {
+        productoVo = productoDao.selectById(idProducto);
+        if (productoVo != null) {
+            if (productoDao.delete(idProducto)) {
+                    request.setAttribute("tituloExito", "Producto eliminada");
+                    request.setAttribute("mensajeDescriptivo", "El producto se elimino correctamente");
+                    request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
+                } else {
+                    this.generarError(request, response, "Error al eliminar el producto", "Ocurrió un error, por favor recarga e intenta nuevamente");
+                }
+//            response.sendRedirect("admin/productos.jsp");
+        } else {
+            this.generarError(request, response, "Error al eliminar el produto", "No se encontró el producto");
+        }
+    }
+    
     private void accionDefault(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("menu.jsp").forward(request, response);
     }
 
-    private void generarError(HttpServletRequest request, HttpServletResponse response, String tituloError, String descripcionError, String direccion) throws ServletException, IOException {
+    private void generarError(HttpServletRequest request, HttpServletResponse response, String tituloError, String descripcionError) throws ServletException, IOException {
         request.setAttribute("tituloError", tituloError);
         request.setAttribute("mensajeDescriptivo", descripcionError);
-        request.getRequestDispatcher(direccion).forward(request, response);
-    }
-
-    private void registrarProducto(HttpServletRequest request, HttpServletResponse response, List<ProductoVO> productosEnElCarrito, String direccion) throws ServletException, IOException {
-        PedidoVO pedidoVo = new PedidoVO("22/08/13", "22/08/13", direccion, "Pendiente");
-        DetallesPedidoVO detallesPedidoVO = null;
-        UsuarioPedidoVO usuarioPedidoVo = null;
-        PedidoDAO pedidoDao = new PedidoDAO();
-        DetallesPedidoDAO detallesPedidoDAO = new DetallesPedidoDAO();
-        UsuarioPedidoDAO usuarioPedidoDAO = new UsuarioPedidoDAO();
-
-        sesion = request.getSession();
-
-        UsuarioVO usuarioVo = (UsuarioVO) sesion.getAttribute("usuarioVo");
-        int idUsuarioCliente = usuarioVo.getIdUsuario();
-
-        for (ProductoVO productoVo : productosEnElCarrito) {
-            int idPedido = pedidoDao.insert(pedidoVo);
-            if (idPedido > 0) {
-                detallesPedidoVO = new DetallesPedidoVO(String.valueOf(idPedido), String.valueOf(productoVo.getIdProducto()), productoVo.getPrecioUnitarioProducto(), productoVo.getCantidad());
-                if (detallesPedidoDAO.insert(detallesPedidoVO)) {
-                    usuarioPedidoVo = new UsuarioPedidoVO(0, idPedido, idUsuarioCliente, 1);
-                    if (usuarioPedidoDAO.insert(usuarioPedidoVo)) {
-                        request.setAttribute("tituloExito", "Pedido hecho");
-                        request.setAttribute("mensajeDescriptivo", "El pedido se realizó correctamente, pronto estará listo");
-                        request.getRequestDispatcher("cliente/").forward(request, response);
-                    } else {
-                        this.generarError(request, response, "Ocurrió un error", "No se pudo realizar el pedido", "cliente/");
-                    }
-                } else {
-                }
-            } else {
-                this.generarError(request, response, "Ocurrió un error", "No se pudo realizar el pedido", "cliente/");
-            }
-        }
-
+        request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         this.accionDefault(request, response);
     }
+
 }

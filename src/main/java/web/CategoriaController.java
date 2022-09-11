@@ -63,6 +63,13 @@ public class CategoriaController extends HttpServlet {
                     this.updateCategoria(request, response, categoriaVo, part);
                 }
                 break;
+            case 4: // Eliminar
+                if (Validacion.isNullStr(idCategoria)) {
+                    this.generarError(request, response, "Error al eliminar la categoria", "Debe proporcionar todos los datos solicitados, verifiquelos e intente nuevamente");
+                } else {
+                    this.deleteCategoria(request, response, Integer.parseInt(idCategoria));
+                }
+                break;
 
             default:
                 this.accionDefault(request, response);
@@ -133,6 +140,22 @@ public class CategoriaController extends HttpServlet {
             }
         } else {
             this.generarError(request, response, "Error al actualizar la categoria", "Debe escoger una imagen");
+        }
+    }
+    
+    private void deleteCategoria(HttpServletRequest request, HttpServletResponse response, int idCategoria) throws ServletException, IOException {
+        CategoriaVO categoria = categoriaDao.selectById(idCategoria);
+        if (categoria != null) {
+            if (categoriaDao.delete(idCategoria)) {
+                    request.setAttribute("tituloExito", "Categoria eliminada");
+                    request.setAttribute("mensajeDescriptivo", "La categoria se elimino correctamente");
+                    request.getRequestDispatcher("admin/categorias.jsp").forward(request, response);
+                } else {
+                    this.generarError(request, response, "Error al eliminar la categoria", "Ocurrió un error, por favor recarga e intenta nuevamente");
+                }
+//            response.sendRedirect("admin/categorias.jsp");
+        } else {
+            this.generarError(request, response, "Error al eliminar la categoria", "No se encontró la categoria");
         }
     }
 

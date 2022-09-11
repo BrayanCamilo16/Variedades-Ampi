@@ -2,70 +2,75 @@ package vo;
 
 /**
  *
- * @author jhona
+ * @author Camargo
  */
-public class DetallesPedidoVO {
-    private String idPedido;
-    private String idProducto;
-    private double precioUnidad;
-    private double cantidad;
+public class DetallespedidoVO {
+    private int idPedido, cantidadProducto;
+    private String nombreProducto, categoriaProducto, marcaProducto;
+    private float precioUnitarioProducto;
 
-    public DetallesPedidoVO() {
-    }
-
-    public DetallesPedidoVO(String idProducto, double cantidad) {
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-    }
-
-    public DetallesPedidoVO(String idPedido, String idProducto, double cantidad) {
+    public DetallespedidoVO(int idPedido, int cantidadProducto, String nombreProducto, String categoriaProducto, String marcaProducto, float precioUnitarioProducto) {
         this.idPedido = idPedido;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
+        this.cantidadProducto = cantidadProducto;
+        this.nombreProducto = nombreProducto;
+        this.categoriaProducto = categoriaProducto;
+        this.marcaProducto = marcaProducto;
+        this.precioUnitarioProducto = precioUnitarioProducto;
     }
 
-    public DetallesPedidoVO(String idPedido, String idProducto, double precioUnidad, double cantidad) {
-        this.idPedido = idPedido;
-        this.idProducto = idProducto;
-        this.precioUnidad = precioUnidad;
-        this.cantidad = cantidad;
-    }
-
-    public String getIdPedido() {
+    public int getIdpedido() {
         return idPedido;
     }
 
-    public void setIdPedido(String idPedido) {
+    public void setIdpedido(int idPedido) {
         this.idPedido = idPedido;
     }
 
-    public String getIdProducto() {
-        return idProducto;
+    public int getCantidadProducto() {
+        return cantidadProducto;
     }
 
-    public void setIdProducto(String idProducto) {
-        this.idProducto = idProducto;
+    public void setCantidadProducto(int cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
     }
 
-    public double getPrecioUnidad() {
-        return precioUnidad;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setPrecioUnidad(double precioUnidad) {
-        this.precioUnidad = precioUnidad;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
-    public double getCantidad() {
-        return cantidad;
+    public String getCategoriaProducto() {
+        return categoriaProducto;
     }
 
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
+    public void setCategoriaProducto(String categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
+
+    public String getMarcaProducto() {
+        return marcaProducto;
+    }
+
+    public void setMarcaProducto(String marcaProducto) {
+        this.marcaProducto = marcaProducto;
+    }
+
+    public float getPrecioUnitarioProducto() {
+        return precioUnitarioProducto;
+    }
+
+    public void setPrecioUnitarioProducto(float precioUnitarioProducto) {
+        this.precioUnitarioProducto = precioUnitarioProducto;
+    }
+
+    
 
     @Override
     public String toString() {
-        return "DetallesPedido{" + "idPedido=" + idPedido + ", idProducto=" + idProducto + ", precioUnidad=" + precioUnidad + ", cantidad=" + cantidad + '}';
+        return "DetallespedidoVO{" + "idPedido=" + idPedido + ", nombreProducto=" + nombreProducto + ", categoriaProducto=" + categoriaProducto + ", marcaProducto=" + marcaProducto + ", precioUnitarioProducto=" + precioUnitarioProducto + ", cantidadProducto=" + marcaProducto + '}';
     }
     
 }

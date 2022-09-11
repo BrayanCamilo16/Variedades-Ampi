@@ -15,7 +15,6 @@ public class ProductoVO {
     private String estadoProducto;
     private int idMarca;
     private int idCategoria;
-    private int cantidad;
 
     public ProductoVO() {
     }
@@ -55,20 +54,6 @@ public class ProductoVO {
         this.idCategoria = idCategoria;
     }
 
-    public ProductoVO(int idProducto, String nombreProducto, String descripcionProducto, double precioUnitarioProducto, double stockProducto, double unidadMinimaProducto, String nombreImgProducto, String estadoProducto, int idMarca, int idCategoria, int cantidad) {
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
-        this.descripcionProducto = descripcionProducto;
-        this.precioUnitarioProducto = precioUnitarioProducto;
-        this.stockProducto = stockProducto;
-        this.unidadMinimaProducto = unidadMinimaProducto;
-        this.nombreImgProducto = nombreImgProducto;
-        this.estadoProducto = estadoProducto;
-        this.idMarca = idMarca;
-        this.idCategoria = idCategoria;
-        this.cantidad = cantidad;
-    }
-    
     public int getIdProducto() {
         return idProducto;
     }
@@ -148,18 +133,10 @@ public class ProductoVO {
     public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
-    
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     @Override
     public String toString() {
-        return "ProductoVO{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", precioUnitarioProducto=" + precioUnitarioProducto + ", stockProducto=" + stockProducto + ", unidadMinimaProducto=" + unidadMinimaProducto + ", nombreImgProducto=" + nombreImgProducto + ", estadoProducto=" + estadoProducto + ", idMarca=" + idMarca + ", idCategoria=" + idCategoria + ", cantidad=" + cantidad + '}';
+        return "ProductoVO{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", precioUnitarioProducto=" + precioUnitarioProducto + ", stockProducto=" + stockProducto + ", unidadMinimaProducto=" + unidadMinimaProducto + ", nombreImgProducto=" + nombreImgProducto + ", estadoProducto=" + estadoProducto + ", idMarca=" + idMarca + ", idCategoria=" + idCategoria + '}';
     }
     
 }

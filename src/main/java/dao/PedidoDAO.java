@@ -2,14 +2,15 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
-import vo.PedidoVO;
 import java.util.logging.*;
+import util.Conexion2;
+import vo.PedidoVO;
 
 /**
  *
- * @author jhona
+ * @author Camargo
  */
-public class PedidoDAO {
+public class PedidoDAO extends Conexion2 {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;
@@ -17,71 +18,156 @@ public class PedidoDAO {
     private String sql = "";
     boolean operacionExitosa = false;
 
-    // Este metodo inserta un pedido y retorna el id de ese pedido
-    public int insert(PedidoVO pedidoVo) {
-        int idPedido = 0;
-
-        sql = "INSERT INTO pedido (fecha_pedido, fecha_entrega, destino_pedido, estado_pedido) VALUES (?,?,?,?)";
+    public List<PedidoVO> select() {
+        List<PedidoVO> pedidos = new ArrayList();
+        PedidoVO pedidoVo = null;
+        sql = "SELECT * FROM pedidos ORDER BY fecha_pedido desc";
         try {
-            // Se inserta el pedido
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, pedidoVo.getFechaPedido());
-            stmt.setString(2, pedidoVo.getFechaEntrega());
-            stmt.setString(3, pedidoVo.getDestinoPedido());
-            stmt.setString(4, pedidoVo.getEstadoPedido());
-            stmt.executeUpdate();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                pedidoVo = new PedidoVO(rs.getInt("id_pedido"), rs.getString("fecha_pedido"), rs.getString("fecha_entrega"), rs.getString("destino_pedido"), rs.getString("estado_pedido"), rs.getInt("id_cliente"), rs.getString("nombre_cliente"), rs.getInt("id_vendedor"), rs.getString("nombre_vendedor"));
+                pedidos.add(pedidoVo);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Ocurrió un error al listar los pedidos: " + ex.toString());
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+            }   
+        }
 
-            // Se consulta el ultimo pedido insertado
-            sql = "SELECT id_pedido FROM pedido ORDER BY id_pedido DESC LIMIT 1";
+        return pedidos;
+    }
+    
+    public PedidoVO selectById(int id) {
+        PedidoVO pedidoVo = null;
+
+        sql = "SELECT * FROM pedidos WHERE id_pedido = ?";
+        try {
+            conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                idPedido = rs.getInt(1);
+                pedidoVo = new PedidoVO(rs.getInt("id_pedido"), rs.getString("fecha_pedido"), rs.getString("fecha_entrega"), rs.getString("destino_pedido"), rs.getString("estado_pedido"), rs.getInt("id_cliente"), rs.getString("nombre_cliente"), rs.getInt("id_vendedor"), rs.getString("nombre_vendedor"));
             }
-
         } catch (SQLException ex) {
-            operacionExitosa = false;
-            System.out.println("Error al insertar el producto: " + ex.toString());
+            System.out.println("Ocurrió un error al consultar el pedido: " + ex.toString());
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
-        return idPedido;
+
+        return pedidoVo;
     }
     
-    // Este metodo devuelve los VO de pedido
-    public List<PedidoVO> consultarPedidosCliente(int idCliente) {
-        PedidoVO pedidoVo = null;
-        
+    /*public List<PedidoVO> selectByIdUsuario(int idUsuario) {
         List<PedidoVO> pedidos = new ArrayList();
-        
-        
-        sql = "SELECT id_pedido, fecha_pedido, fecha_entrega, destino_pedido, estado_pedido FROM pedido AS ped INNER JOIN usuario_pedido AS usu_ped ON ped.id_pedido = usu_ped.id_pedido_fk WHERE id_usuario_cliente_fk = ?";
+        PedidoVO pedidoVo = null;
+        sql = "SELECT * FROM categoria WHERE idUsuario = ?  ORDER BY fecha_pedido";
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
+            stmt.setString(1, usuarioVo.get());
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Llenamos el VO del pedido
-                pedidoVo = new PedidoVO(rs.getInt("id_pedido"), rs.getString("fecha_pedido"), rs.getString("fecha_entrega"), rs.getString("destino_pedido"), rs.getString("estado_pedido"), rs.getInt("id_pedido"));
-                
+                pedidoVo = new PedidoVO(rs.getInt("id_pedido"), rs.getString("fecha_pedido"), rs.getString("fecha_entrega"), rs.getString("destino_pedido"), rs.getString("estado_pedido"), rs.getInt("id_producto_fk"));
                 pedidos.add(pedidoVo);
             }
+        } catch (SQLException ex) {
+            System.out.println("Ocurrió un error al listar los pedidos: " + ex.toString());
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+            }   
+        }
+
+        return pedidos;
+    }*/
+
+    public boolean insert(PedidoVO pedidoVo) {
+
+        sql = "INSERT INTO pedido (fecha_pedido, fecha_entrega, destino_pedido, estado_pedido, id_producto_FK) VALUES (?,?,?,`Entregado`,null)";
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, pedidoVo.getEstadoPedido());
+            stmt.setString(2, pedidoVo.getFechaEntrega());
+            stmt.setString(3, pedidoVo.getDestinoPedido());
+            stmt.executeUpdate();
+            
+            operacionExitosa = true;
             
         } catch (SQLException ex) {
             operacionExitosa = false;
-            System.out.println("Error al consultar los pedidos: " + ex.toString());
+            System.out.println("Error al insertar el pedido: " + ex.toString());
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion.close(stmt);
-            Conexion.close(conn);
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
         }
-        return pedidos;
-    }
 
+        return operacionExitosa;
+    }
+    
+    public boolean update(PedidoVO pedidoVo) {
+
+        sql = "UPDATE pedido SET estado_pedido = ? WHERE id_pedido = ?";
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(4, pedidoVo.getEstadoPedido());
+            stmt.setInt(5, pedidoVo.getIdPedido());
+            stmt.executeUpdate();
+            
+            operacionExitosa = true;
+            
+        } catch (SQLException ex) {
+            operacionExitosa = false;
+            System.out.println("Error al actualizar el pedido: " + ex.toString());
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
+        }
+
+        return operacionExitosa;
+    }
+    
+    public boolean delete(int idPedido) {
+        sql = "UPDATE pedido SET estado_pedido = 'Cancelado' WHERE id_pedido = ? and estado_pedido `No entregado`";
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idPedido);
+            stmt.executeUpdate();
+            operacionExitosa = true;
+        } catch (SQLException ex) {
+            operacionExitosa = false;
+            System.out.println("Error al cancelar el pedido: " + ex.toString());
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+            }
+        }
+
+        return operacionExitosa;
+    }
 }

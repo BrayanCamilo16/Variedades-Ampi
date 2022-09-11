@@ -1,11 +1,8 @@
+<%@page import="java.util.List"%>
 <%@page import="vo.CategoriaVO"%>
 <%@page import="dao.CategoriaDAO"%>
-<%@page import="java.util.List"%>
-<i class="boton boton-left fas fa-chevron-circle-left" id="btn-left"></i>
-<i class="boton boton-right fas fa-chevron-circle-right" id="btn-right"></i>
 
-
-<div class="col-md-12 d-flex word-wrap categorias">
+<div class="col-md-12 d-flex word-wrap">
     <%
         HttpSession sesion = request.getSession();
         CategoriaDAO categoriaDao = new CategoriaDAO();
@@ -16,12 +13,10 @@
             categoriaVo = categorias.get(i);
     %>
 
-    <div class="categoria">
-        <div class="" id="">
-            <img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" class="card-img-top mb-2" alt="<%= categoriaVo.getDescripcionCategoria()%>" title="<%= categoriaVo.getDescripcionCategoria()%>" width="6.25rem">
-            <div class="mt-2 text-center d-flex justify-content-center">
-                <h5 class="card-text fw-bold"><%= categoriaVo.getNombreCategoria()%></h5>
-            </div>
+    <div class="m-2 p-2 div_categorias">
+        <img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" class="card-img-top" alt="<%= categoriaVo.getDescripcionCategoria()%>" title="<%= categoriaVo.getDescripcionCategoria()%>" width="6.25rem">
+        <div class="card-body text-center">
+            <h5 class="card-text fw-bold"><%= categoriaVo.getNombreCategoria()%></h5>
         </div>
     </div>
     <%

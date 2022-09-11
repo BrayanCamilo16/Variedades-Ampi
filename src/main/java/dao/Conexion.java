@@ -10,7 +10,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author Camargo
  */
 public class Conexion {
-    
+
 //    //Declarar variables
 //    private String driver, userDB, passwordDB, dataBase, urlDB;
 //

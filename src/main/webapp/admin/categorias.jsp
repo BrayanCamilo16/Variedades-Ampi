@@ -1,7 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="vo.CategoriaVO"%>
 <%@page import="dao.CategoriaDAO"%>
-<%@include file="../cache.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +25,7 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Imagen</th>
                                 <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +49,11 @@
                             <input type="hidden" name="opcion" value="1">
                             <td class="text-center align-middle"><button type="submit" class="border-0 bg-transparent text-primary"><i class="fas fa-edit"></i></button></td>
                         </form>
+                        <form action="${pageContext.request.contextPath}/Categoria" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="idCategoria" value="<%= categoriaVo.getIdCategoria()%>">
+                            <input type="hidden" name="opcion" value="4">
+                            <td class="text-center align-middle"><button type="submit" class="border-0 bg-transparent text-primary"><i class='fas fa-minus-circle' style='color: red'></i></button></td>
+                        </form>
                         </tr>
                         <%
                             }
@@ -58,7 +63,6 @@
                 </div>
             </div>
         </div>
-
         <!-- footer  -->
         <jsp:include page="../WEB-INF/paginas/comunes/footer.jsp" />
         <!-- /footer  -->

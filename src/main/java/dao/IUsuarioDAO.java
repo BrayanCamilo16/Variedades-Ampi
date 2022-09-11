@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import vo.UsuarioVO;
 
 /**
  *
@@ -12,7 +13,7 @@ public interface IUsuarioDAO {
 
     boolean update() throws SQLException;
 
-    boolean delect() throws SQLException;
+    boolean Inactivar() throws SQLException;
 
     boolean select() throws SQLException;
 }

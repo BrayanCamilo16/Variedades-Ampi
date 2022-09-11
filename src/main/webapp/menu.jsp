@@ -1,16 +1,14 @@
 <%@page import="vo.UsuarioVO"%>
 <%@include file="cache.jsp" %>
-<%    
-    HttpSession sesion = request.getSession();
+<%    HttpSession sesion = request.getSession();
 
     UsuarioVO userVo = (UsuarioVO) sesion.getAttribute("usuarioVo");
-    int idRol = userVo.getIdRol();
-
-    if (idRol == 1) {
+    String idRol = userVo.getIdRol();
+    if (idRol.equals("1")) {
         response.sendRedirect("admin/");
-    } else if (idRol == 2) {
+    } else if (idRol.equals("2")) {
         response.sendRedirect("vendedor/");
-    } else if (idRol == 3) {
+    } else if (idRol.equals("3")) {
         response.sendRedirect("cliente/");
     } else {
         response.sendRedirect("index.jsp");

@@ -15,10 +15,32 @@ public class UsuarioVO {
     private String direccionUsuario;
     private String sexoUsuario;
     private boolean estadoUsuario;
-    private int idRol;
+    private String idRol;
     private String TipoDocumento;
 
-    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String nombreUsuario, String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario, String sexoUsuario, String TipoDocumento) {
+    public UsuarioVO() {
+    }
+
+    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String nombreUsuario,
+            String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario,
+            String sexoUsuario, boolean estadoUsuario, String idRol, String TipoDocumento) {
+        this.idUsuario = idUsuario;
+        this.emailUsuario = emailUsuario;
+        this.passUsuario = passUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.apellidoUsuario = apellidoUsuario;
+        this.numDocumentoUsuario = numDocumentoUsuario;
+        this.telefonoUsuario = telefonoUsuario;
+        this.direccionUsuario = direccionUsuario;
+        this.sexoUsuario = sexoUsuario;
+        this.estadoUsuario = estadoUsuario;
+        this.idRol = idRol;
+        this.TipoDocumento = TipoDocumento;
+    }
+
+    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String nombreUsuario,
+            String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario,
+            String sexoUsuario, String TipoDocumento) {
         this.idUsuario = idUsuario;
         this.emailUsuario = emailUsuario;
         this.passUsuario = passUsuario;
@@ -29,9 +51,6 @@ public class UsuarioVO {
         this.direccionUsuario = direccionUsuario;
         this.sexoUsuario = sexoUsuario;
         this.TipoDocumento = TipoDocumento;
-    }
-    
-    public UsuarioVO() {
     }
 
     public UsuarioVO(int idUsuario) {
@@ -43,14 +62,15 @@ public class UsuarioVO {
         this.passUsuario = passUsuario;
     }
 
-    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, int idRol) {
+    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String idRol) {
         this.idUsuario = idUsuario;
         this.emailUsuario = emailUsuario;
         this.passUsuario = passUsuario;
         this.idRol = idRol;
     }
 
-    public UsuarioVO(int idUsuario, String nombreUsuario, String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario, String sexoUsuario, boolean estadoUsuario) {
+    public UsuarioVO(int idUsuario, String nombreUsuario, String apellidoUsuario, String numDocumentoUsuario,
+            String telefonoUsuario, String direccionUsuario, String sexoUsuario, boolean estadoUsuario) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -61,7 +81,9 @@ public class UsuarioVO {
         this.estadoUsuario = estadoUsuario;
     }
 
-    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String nombreUsuario, String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario, String sexoUsuario, boolean estadoUsuario, int idRol) {
+    public UsuarioVO(int idUsuario, String emailUsuario, String passUsuario, String nombreUsuario,
+            String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario,
+            String sexoUsuario, boolean estadoUsuario, String idRol) {
         this.idUsuario = idUsuario;
         this.emailUsuario = emailUsuario;
         this.passUsuario = passUsuario;
@@ -75,7 +97,9 @@ public class UsuarioVO {
         this.idRol = idRol;
     }
 
-    public UsuarioVO(String emailUsuario, String passUsuario, String nombreUsuario, String apellidoUsuario, String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario, String sexoUsuario, boolean estadoUsuario, int idRol, String TipoDocumento) {
+    public UsuarioVO(String emailUsuario, String passUsuario, String nombreUsuario, String apellidoUsuario,
+            String numDocumentoUsuario, String telefonoUsuario, String direccionUsuario, String sexoUsuario,
+            boolean estadoUsuario, String idRol, String TipoDocumento) {
         this.emailUsuario = emailUsuario;
         this.passUsuario = passUsuario;
         this.nombreUsuario = nombreUsuario;
@@ -87,6 +111,11 @@ public class UsuarioVO {
         this.estadoUsuario = estadoUsuario;
         this.idRol = idRol;
         this.TipoDocumento = TipoDocumento;
+    }
+
+    public UsuarioVO(int idUsuario, boolean estadoUsuario) {
+        this.idUsuario = idUsuario;
+        this.estadoUsuario = estadoUsuario;
     }
 
     public int getIdUsuario() {
@@ -169,14 +198,14 @@ public class UsuarioVO {
         this.estadoUsuario = estadoUsuario;
     }
 
-    public int getIdRol() {
+    public String getIdRol() {
         return this.idRol;
     }
 
-    public void setIdRol(int idRol) {
+    public void setIdRol(String idRol) {
         this.idRol = idRol;
     }
-    
+
     public String getTipoDocumento() {
         return TipoDocumento;
     }
@@ -184,10 +213,14 @@ public class UsuarioVO {
     public void setTipoDocumento(String TipoDocumento) {
         this.TipoDocumento = TipoDocumento;
     }
-    
+
     @Override
     public String toString() {
-        return "UsuarioVO{" + "idUsuario=" + idUsuario + ", emailUsuario=" + emailUsuario + ", passUsuario=" + passUsuario + ", nombreUsuario=" + nombreUsuario + ", apellidoUsuario=" + apellidoUsuario + ", numDocumentoUsuario=" + numDocumentoUsuario + ", telefonoUsuario=" + telefonoUsuario + ", direccionUsuario=" + direccionUsuario + ", sexoUsuario=" + sexoUsuario + ", estadoUsuario=" + estadoUsuario + ", idRol=" + idRol + '}';
+        return "UsuarioVO{" + "idUsuario=" + idUsuario + ", emailUsuario=" + emailUsuario + ", passUsuario="
+                + passUsuario + ", nombreUsuario=" + nombreUsuario + ", apellidoUsuario=" + apellidoUsuario
+                + ", numDocumentoUsuario=" + numDocumentoUsuario + ", telefonoUsuario=" + telefonoUsuario
+                + ", direccionUsuario=" + direccionUsuario + ", sexoUsuario=" + sexoUsuario + ", estadoUsuario="
+                + estadoUsuario + ", idRol=" + idRol + '}';
     }
 
 }

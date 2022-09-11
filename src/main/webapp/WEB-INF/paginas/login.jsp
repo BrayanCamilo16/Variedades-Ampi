@@ -17,6 +17,7 @@
                         <input type="password" class="form-control mt-1" name="pass" id="pass" required>
                     </div>
                 </div>
+                <a href="/RecuperarContrase�a.jsp">�Olvido la contrase�a?</a>
 
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Ingresar</button>

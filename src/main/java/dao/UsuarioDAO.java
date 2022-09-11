@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.*;
 import util.Conexion2;
 import vo.UsuarioVO;
@@ -20,9 +21,9 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
     public UsuarioDAO() {
     }
 
-    private String email = "", pass = "", nombre = "", apellido = "", TipoDocu = "", numDocu = "", telefono = "", direccion = "", sexo = "";
+    private String email = "", pass = "", nombre = "", apellido = "", TipoDocu = "", numDocu = "", telefono = "", direccion = "", sexo = "", rol="";
     private boolean estado;
-    private int usuId, idRol;
+    private int usuId;
 //metodo constructor para recibir datos del VO
 
     public UsuarioDAO(UsuarioVO usuVO) {
@@ -41,7 +42,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             direccion = usuVO.getDireccionUsuario();
             sexo = usuVO.getSexoUsuario();
             estado = usuVO.isEstadoUsuario();
-            idRol = usuVO.getIdRol();
+            rol = usuVO.getIdRol();
             TipoDocu = usuVO.getTipoDocumento();
         } catch (Exception e) {
             //traiga el log de la clase e imprima los errores
@@ -52,9 +53,11 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
     @Override
     public boolean insert() {
         try {
+//            String consulta = "select * usuario where email_usuario=?";
             sql = "insert into usuario(email_usuario, pass_usuario, nombre_usuario, apellido_usuario, num_documento_usuario, telefono_usuario, direccion_usuario, sexo_usuario, estado_usuario, id_rol_FK, id_tipo_doc_FK) values(?,?,?,?,?,?,?,?,?,?,?)";
-
-            conn = this.getConnection();
+//            conn = this.getConnection();
+//            stmt = conn.prepareStatement(consulta);
+//            stmt.executeQuery();
             //crear el puente, prepara lo que va a mandar
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a insertar
@@ -67,7 +70,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             stmt.setString(7, direccion);
             stmt.setInt(8, Integer.parseInt(sexo));
             stmt.setBoolean(9, estado);
-            stmt.setInt(10, idRol);
+            stmt.setString(10, rol);
             stmt.setString(11, TipoDocu);
 
             stmt.executeUpdate();
@@ -87,16 +90,256 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         return operacionExitosa;
     }
 
-    @Override
-    public boolean update() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<UsuarioVO> listar() {
+        ArrayList<UsuarioVO> listarUsuarios = new ArrayList<>();
+        try {
+            String sexos = "";
+            //String rol="";
+            //int roll = Integer.toString("roll");
+            conn = this.getConnection();
+            sql = "SELECT u.id_usuario, u.email_usuario, u.pass_usuario, u.nombre_usuario, u.apellido_usuario, u.num_documento_usuario, u.telefono_usuario, u.direccion_usuario, u.sexo_usuario, u.estado_usuario, r.nombre_rol, t.nombre_tipo_doc FROM usuario as u INNER JOIN rol as r ON u.id_rol_FK=r.id_rol INNER JOIN tipo_doc as t ON u.id_tipo_doc_fk=t.id_tipo_doc ORDER BY u.id_usuario";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString(9).equals("1")) {
+                    sexos = "M";
+                } else if (rs.getString(9).equals("2")) {
+                    sexos = "F";
+                } else if (rs.getString(9).equals("3")) {
+                    sexos = "Otro";
+                } else {
+                    sexos = "Sexo Desconocido";
+                }
+
+                    UsuarioVO usuVO = new UsuarioVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                            rs.getString(6), rs.getString(7), rs.getString(8), sexos, rs.getBoolean(10), rs.getString(11),  rs.getString(12));
+
+                    listarUsuarios.add(usuVO);
+                
+                
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
+
+        return listarUsuarios;
+    }
+//principals
+
+    public UsuarioVO leerUsuarioPorID(String usuId) {
+        UsuarioVO usus = new UsuarioVO();
+        sql = "select * from usuario where id_usuario = ?";
+        try {
+            conn = this.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuId);
+            rs = stmt.executeQuery();
+            //esto reornara un boolean
+            if (rs.next()) {
+                usus.setIdUsuario(rs.getInt("id_usuario"));
+                usus.setEmailUsuario(rs.getString("email_usuario"));
+                usus.setPassUsuario(rs.getString("pass_usuario"));
+                usus.setNombreUsuario(rs.getString("nombre_usuario"));
+                usus.setApellidoUsuario(rs.getString("apellido_usuario"));
+                usus.setNumDocumentoUsuario(rs.getString("num_documento_usuario"));
+                usus.setTelefonoUsuario(rs.getString("telefono_usuario"));
+                usus.setDireccionUsuario(rs.getString("direccion_usuario"));
+                usus.setSexoUsuario(rs.getString("sexo_usuario"));
+                usus.setEstadoUsuario(rs.getBoolean("estado_usuario"));
+                usus.setIdRol(rs.getString("id_rol_FK"));
+                usus.setTipoDocumento(rs.getString("id_tipo_doc_fk"));
+            }
+            this.close();
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return usus;
     }
 
     @Override
-    public boolean delect() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update() {
+        UsuarioVO usuario = null;
+        try {
+            sql = "update usuario set nombre_usuario=?, apellido_usuario=?, email_usuario=?, pass_usuario=?, num_documento_usuario=?, telefono_usuario=?, direccion_usuario=?, sexo_usuario=?, estado_usuario=?, id_rol_FK=?,  id_tipo_doc_FK=? where id_usuario=?";
+
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a modificar
+            
+            stmt.setString(1, nombre);
+            stmt.setString(2, apellido);
+            stmt.setString(3, email);
+            stmt.setString(4, pass);
+            stmt.setString(5, numDocu);
+            stmt.setString(6, telefono);
+            stmt.setString(7, direccion);
+            stmt.setString(8, sexo);
+            stmt.setBoolean(9, estado);
+            stmt.setString(10, rol);
+            stmt.setString(11, TipoDocu);
+            stmt.setInt(12, usuId);
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
+    
+    public boolean updateAdministrador() {
+        UsuarioVO usuario = null;
+        try {
+            sql = "update usuario set id_rol_FK=? where id_usuario=?";
+
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a modificar
+            stmt.setString(1, rol);
+            stmt.setInt(2, usuId);
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
+    
+    
+    
+    
+
+    public UsuarioVO consultarNumeroDocumento(String numDocu) {
+        UsuarioVO usuariovo = null;
+
+        try {
+            conn = this.getConnection();
+            sql = "select * from usuario where num_documento_usuario=?";
+            stmt = conn.prepareStatement(sql);
+            //posicion
+            stmt.setString(1, numDocu);
+            rs = stmt.executeQuery();
+            //si en el mensajero encuentra lo buscado
+            while (rs.next()) {
+                usuariovo = new UsuarioVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getBoolean(10), rs.getString(11), rs.getString(12));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return usuariovo;
     }
 
+    @Override
+    public boolean Inactivar() {
+        try {
+            sql = "update usuario set estado_usuario=false  where id_usuario=?";
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a eliminar, estos van en orden a la base de datos
+            stmt.setInt(1, usuId);
+            
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
+    public boolean Activar() {
+        try {
+            sql = "update usuario set estado_usuario=true  where id_usuario=?";
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a eliminar, estos van en orden a la base de datos
+            stmt.setInt(1, usuId);
+            
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+
+//    public void CambiarVigencia() {
+//        try {
+//            sql = "UPDATE usuario set estado_usuario =?  WHERE id_usuario = ?";
+//
+//            conn = this.getConnection();
+//            //crear el puente, prepara lo que va a mandar
+//            stmt = conn.prepareStatement(sql);
+//
+//            stmt.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+//        } //
+//        finally {
+//            try {
+//                this.close();
+//            } catch (Exception e) {
+//                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+//            }
+//        }
+    
+    }
     @Override
     public boolean select() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -124,9 +367,9 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
                 String direccionUsuario = rs.getString("direccion_usuario");
                 String sexoUsuario = rs.getString("sexo_usuario");
                 boolean estadoUsuario = rs.getBoolean("estado_usuario");
-                int idRol = rs.getInt("id_rol_FK");
+                String idrol = rs.getString("id_rol_FK");
 
-                usuarioVo = new UsuarioVO(idUsuario, emailUsuario, passUsuario, nombreUsuario, apellidoUsuario, numDocumentoUsuario, telefonoUsuario, direccionUsuario, sexoUsuario, estadoUsuario, idRol);
+                usuarioVo = new UsuarioVO(idUsuario, emailUsuario, passUsuario, nombreUsuario, apellidoUsuario, numDocumentoUsuario, telefonoUsuario, direccionUsuario, sexoUsuario, estadoUsuario, idrol);
             }
 
         } catch (SQLException ex) {
@@ -138,4 +381,15 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
 
         return usuarioVo;
     }
+    
+    public String generarContraseña(int longitud){
+        String res = "";
+        for(int cont=1; cont<=longitud; cont++){
+            int num =(int)((Math.random()*(('Z'-'A')+1)) + 'a');
+            char letra = (char)num;
+            res =res + letra;
+        }
+    return res;
+    }
+    
 }

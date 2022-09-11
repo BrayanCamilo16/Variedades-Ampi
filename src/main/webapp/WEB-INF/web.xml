@@ -9,4 +9,23 @@
             4320
         </session-timeout>
     </session-config>
+    <context-param>
+        <param-name>servidor</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>puerto</param-name>
+        <param-value>587</param-value>
+    </context-param>
+    <context-param>
+        <param-name>usuario</param-name>
+        <param-value>variedadesampi@gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>clave</param-name>
+        <param-value>gjxvflnwxltrgoka</param-value>
+    </context-param>
+    <welcome-file-list>
+        <welcome-file>RecuperarContraseña.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

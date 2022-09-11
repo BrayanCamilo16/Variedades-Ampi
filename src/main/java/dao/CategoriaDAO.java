@@ -3,13 +3,14 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
+import util.Conexion2;
 import vo.CategoriaVO;
 
 /**
  *
  * @author Camargo
  */
-public class CategoriaDAO extends Conexion {
+public class CategoriaDAO extends Conexion2 {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;

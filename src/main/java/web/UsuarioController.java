@@ -45,24 +45,20 @@ public class UsuarioController extends HttpServlet {
         UsuarioDAO UsuaDAO = new UsuarioDAO(UsuVO);
         if (request.getParameter("action").equals("true")) {
             if (UsuaDAO.Inactivar()) {
-                String redirigirA = "admin/index.jsp";
-                request.setAttribute("redirigir", redirigirA);
+                String redirigirA = "";
                 request.setAttribute("titleexito", "Usuario Inactivado Correctamente");
-                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
             } else {
-                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleerror", "El usuario no se pudo Inactivar");
-                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
             }
         } else {
             if (UsuaDAO.Activar()) {
-                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleexito", "Usuario Activado Correctamente");
-                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
             } else {
-                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleerror", "El usuario no se pudo Activar");
-                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
             }
 
         }

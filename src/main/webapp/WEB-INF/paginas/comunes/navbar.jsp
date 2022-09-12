@@ -38,12 +38,12 @@
                                     <a class="nav-link fw-bold" aria-current="page" href="">Mis pedidos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fw-bold" aria-current="page" href="categorias.jsp">Categorias</a>
+                                    <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/admin/categorias.jsp">Categorias</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fw-bold" aria-current="page" href="productos.jsp">Productos</a>
+                                    <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/admin/productos.jsp">Productos</a>
                                 </li>  
-                                  <li class="nav-item">
+                                <li class="nav-item">
                                 <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/vendedor/reporte.jsp">Reportes</a>
                             </li>
                                 <% } %>

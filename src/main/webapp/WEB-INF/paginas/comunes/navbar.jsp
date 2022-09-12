@@ -26,7 +26,10 @@
                             <li class="nav-item">
                                 <a class="nav-link fw-bold" aria-current="page" href="">Facturas</a>
                             </li>
-                        
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" aria-current="page" href="${pageContext.request.contextPath}/vendedor/reporte.jsp">Reportes</a>
+                            </li>
+
                             <% } else { %>
                                 <li class="nav-item">
                                     <a class="nav-link active fw-bold" aria-current="page" href="${pageContext.request.contextPath}/admin/index.jsp">Usuarios</a>

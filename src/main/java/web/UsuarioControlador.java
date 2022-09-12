@@ -78,7 +78,7 @@ public class UsuarioControlador extends HttpServlet {
                     break;
 
                 case 2: {
-                    usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo, Boolean.parseBoolean(estado),Integer.parseInt(rol), tipoDocu);
+                    usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo, Boolean.parseBoolean(estado),rol, tipoDocu);
                     usuDAO = new UsuarioDAO(usuarioVo);
                     if(usuDAO.insert()){
                 request.setAttribute("mensajeExito", "El usuario se registro correctamente");

@@ -17,7 +17,7 @@ import vo.UsuarioVO;
  *
  * @author SENA
  */
-@WebServlet(name = "UsuarioControlador", urlPatterns = { "/Usuario" })
+@WebServlet(name = "UsuarioControlador", urlPatterns = {"/Usuario"})
 public class UsuarioController extends HttpServlet {
 
     private String servidor, puerto, usuario, clave;
@@ -45,19 +45,24 @@ public class UsuarioController extends HttpServlet {
         UsuarioDAO UsuaDAO = new UsuarioDAO(UsuVO);
         if (request.getParameter("action").equals("true")) {
             if (UsuaDAO.Inactivar()) {
+                String redirigirA = "admin/index.jsp";
+                request.setAttribute("redirigir", redirigirA);
                 request.setAttribute("titleexito", "Usuario Inactivado Correctamente");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
             } else {
+                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleerror", "El usuario no se pudo Inactivar");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
             }
         } else {
             if (UsuaDAO.Activar()) {
+                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleexito", "Usuario Activado Correctamente");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
             } else {
+                request.setAttribute("redirigir", "admin/index.jsp");
                 request.setAttribute("titleerror", "El usuario no se pudo Activar");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("redirigir.jsp").forward(request, response);
             }
 
         }
@@ -67,10 +72,10 @@ public class UsuarioController extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -133,16 +138,17 @@ public class UsuarioController extends HttpServlet {
                     if (idRol.equals(1)) {
                         rol = request.getParameter("idRol");
                     }
-                } {
-                usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo,
-                        Boolean.parseBoolean(estadoCliente), rol, tipoDocu);
-                usuDAO = new UsuarioDAO(usuarioVo);
-                if (usuDAO.insert()) {
-                    request.setAttribute("mensajeExito", "El usuario se registro correctamente");
-                } else {
-                    request.setAttribute("mensajeError", "El usuario no se registro correctamente");
                 }
-            }
+                 {
+                    usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo,
+                            Boolean.parseBoolean(estadoCliente), rol, tipoDocu);
+                    usuDAO = new UsuarioDAO(usuarioVo);
+                    if (usuDAO.insert()) {
+                        request.setAttribute("mensajeExito", "El usuario se registro correctamente");
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                    }
+                }
 
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;

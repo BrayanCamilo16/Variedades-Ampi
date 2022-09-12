@@ -2,8 +2,7 @@
 <html lang="es">
     <head>
         <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
-        
-        
+
     </head>
     <body>
 

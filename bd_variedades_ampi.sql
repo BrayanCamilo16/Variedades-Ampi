@@ -437,3 +437,10 @@ SELECT * ,totaldepedido(codigo)as total ,descuentos(totaldepedido(codigo),SUM(ca
 FROM reporte2 WHERE pedido = codigo GROUP BY producto; 
 END;
 //
+
+
+------ ====== modificaciones usuario
+
+ALTER TABLE `usuario` CHANGE `num_documento_usuario` `num_documento_usuario` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `usuario` CHANGE `telefono_usuario` `telefono_usuario` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `usuario` CHANGE `direccion_usuario` `direccion_usuario` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;

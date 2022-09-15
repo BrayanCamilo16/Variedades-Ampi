@@ -391,7 +391,49 @@ END;
 
 -- Quitar la doble relación y agregar un check
 
----===============vista de reportes=======----------------------------
+--- vista de reportes general 
 CREATE VIEW reporte as
-SELECT p.fecha_pedido,p.fecha_entrega,pr.nombre_producto,pr.descripcion_producto,dp.precio_unidad,dp.cantidad,p.destino_pedido,dp.precio_unidad*dp.cantidad AS total FROM `detalles_pedido` dp INNER JOIN pedido p 
-ON dp.id_pedido=p.id_pedido INNER join producto pr on dp.id_producto=pr.id_producto WHERE p.fecha_pedido LIKE "2022-08-02%" OR p.fecha_entrega like "2022-08-04%";
+SELECT p.fecha_pedido,p.fecha_entrega,pr.nombre_producto,pr.descripcion_producto,dp.precio_unidad,dp.cantidad,p.destino_pedido,
+dp.precio_unidad*dp.cantidad AS total FROM `detalles_pedido` dp INNER JOIN pedido p 
+ON dp.id_pedido=p.id_pedido INNER join producto pr on dp.id_producto=pr.id_producto WHERE p.fecha_pedido 
+LIKE "2022-08-02%" OR p.fecha_entrega like "2022-08-04%";
+
+----- vista de reporte por dato
+
+funciones 
+
+ DELIMITER //
+ CREATE FUNCTION totaldepedido (codigo int) RETURNS float
+BEGIN 
+RETURN(SELECT sum(precio_unidad*cantidad) FROM detalles_pedido  WHERE id_pedido= codigo)
+END;
+//
+
+ DELIMITER //
+ CREATE FUNCTION descuento (num1 float,cantidad float) RETURNS float
+BEGIN 
+IF cantidad >=10 THEN
+RETURN(SELECT num1-((num1*10)/100));
+end if;
+IF cantidad <10 THEN
+RETURN(SELECT num1);
+end if;
+END;
+//
+
+vistas 
+
+CREATE VIEW reporte2 as
+SELECT dp.id_pedido as pedido, p.fecha_pedido as fecha,p.fecha_entrega as entrega,pr.nombre_producto as producto,dp.cantidad,dp.precio_unida as precio,dp.destino_pedido as direccion,p.estado_pedido as estado,dp.precio_unidad*dp.cantidad AS costeporproducto FROM `detalles_pedido` dp INNER JOIN pedido p 
+ON dp.id_pedido=p.id_pedido INNER join producto pr on dp.id_producto=pr.id_producto;
+
+
+procedimientos
+
+delimiter //
+CREATE PROCEDURE reportes (codigo int) 
+BEGIN 
+SELECT * ,totaldepedido(codigo)as total ,descuentos(totaldepedido(codigo),SUM(cantidad)) as totalcondescuento 
+FROM reporte2 WHERE pedido = codigo GROUP BY producto; 
+END;
+//

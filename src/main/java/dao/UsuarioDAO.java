@@ -417,5 +417,42 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return user;
     }
+    
+    
+    public boolean signup() {
+        try {
+//            String consulta = "select * usuario where email_usuario=?";
+            sql = "insert into usuario(email_usuario, pass_usuario, nombre_usuario, apellido_usuario, sexo_usuario, estado_usuario, id_rol_FK, id_tipo_doc_FK) values(?,?,?,?,?,?,?,?)";
+//            conn = this.getConnection();
+//            stmt = conn.prepareStatement(consulta);
+//            stmt.executeQuery();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a insertar
+            stmt.setString(1, email);
+            stmt.setString(2, Password.encript(pass));
+            stmt.setString(3, nombre);
+            stmt.setString(4, apellido);
+            stmt.setInt(5, Integer.parseInt(sexo));
+            stmt.setBoolean(6, estado);
+            stmt.setString(7, rol);
+            stmt.setString(8, TipoDocu);
+
+            stmt.executeUpdate();
+
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
 
 }

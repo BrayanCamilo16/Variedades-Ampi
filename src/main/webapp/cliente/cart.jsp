@@ -64,6 +64,8 @@
                         </div>
                         <div class="mt-3">
                             <button type="button" class="btn w-100 btn-lg btn-secondary float-start" data-bs-toggle="modal" data-bs-target="#generarPedido">Generar pedido</button>
+                            <a href="factura.jsp"><button type="butoon" class="btn w-100 btn-lg btn-secondary float-start" data-bs-toggle="modal">generar factura</button></a>
+                            
                         </div>
                     </div>
                 </div>

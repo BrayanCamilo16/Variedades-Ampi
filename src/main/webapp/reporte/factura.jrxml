@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb6e1506-22f0-4110-bd69-9f7efe414e79">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Text Body" fill="Solid"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#000000">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E6CFCF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="1106cc01-8e90-48cf-825f-1b6a631dabe9"/>
+	<queryString>
+		<![CDATA[call factura(4);]]>
+	</queryString>
+	<field name="pedido" class="java.lang.Integer"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Double"/>
+	<field name="costeporproducto" class="java.lang.Double"/>
+	<field name="total" class="java.lang.Float"/>
+	<field name="totalcondescuento" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="105" y="0" width="344" height="79" uuid="0c70a7c3-e222-45ed-aafb-930f1e87530e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB Demi" size="40"/>
+				</textElement>
+				<text><![CDATA[Factura de venta]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="125" y="30" width="100" height="20" uuid="3316237e-b584-451d-b60e-cf1acb8fab9e"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="30" width="59" height="20" uuid="6c3532b7-0ca5-41d2-b490-3c9886d28788"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="284" y="30" width="54" height="20" backcolor="#E1E1E1" uuid="34f94f68-d4a3-4aef-b14f-143553bd360a"/>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="30" width="46" height="20" uuid="ec842c7d-7aaa-4ba2-aba0-1f033854b4f6"/>
+				<text><![CDATA[Coste]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="30" width="46" height="20" uuid="2beb8423-6645-43d4-8e4c-1d74b4efba70"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="126" splitType="Stretch">
+			<textField>
+				<reportElement x="125" y="33" width="100" height="20" uuid="c5f522b1-fcb0-4377-9473-1d534a1a92fd"/>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="33" width="59" height="20" uuid="f139b099-af32-4720-b41c-db8580ace28b"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="33" width="54" height="20" uuid="f758c3b9-493b-4726-9015-04887bb40dc4"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="33" width="46" height="20" uuid="9d79bfa9-f851-4e72-a110-76915623ccb0"/>
+				<textFieldExpression><![CDATA[$F{costeporproducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="33" width="46" height="20" uuid="8e7c0f62-c83f-4761-a99f-2e27d3e8b42b"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="41" splitType="Stretch"/>
+	</summary>
+</jasperReport>

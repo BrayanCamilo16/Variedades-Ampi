@@ -17,6 +17,7 @@
     </head>
     <body>
 
+        ${userConsultado}
         <!-- Navbar  -->
         <jsp:include page="/WEB-INF/paginas/comunes/navbar.jsp" />
         <!-- /Navbar  -->
@@ -31,7 +32,7 @@
                 </div>
             </div>
         </section> -->
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -53,11 +54,11 @@
                                         <th class="text-center">Direccion</th>
                                         <th class="text-center">Sexo</th>
                                         <th class="text-center">Rol/Cargo</th>
-            
+
                                         <th class="text-center" colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
-            
+
                                 <!-- <tfoot> 
                                     <tr>
                                         <th>#</th>
@@ -80,7 +81,7 @@
                                     ArrayList<UsuarioVO> listarUsuarios = usuDAO.listar();
                                     request.setAttribute("lista", listarUsuarios);
                                 %>
-            
+
                                 <c:forEach items="${lista}" var="u">
                                     <tbody>
                                         <tr>
@@ -91,7 +92,7 @@
                                             <!-- <td class="text-center">${u.getPassUsuario()}</td> -->
                                             <td class="text-center">${u.getTipoDocumento()}</td>
                                             <td class="text-center">${u.getNumDocumentoUsuario()}</td>
-            
+
                                             <td class="text-center">
                                                 <c:if test="${u.isEstadoUsuario() == true}">
                                                     <button class="btn btn-success rounded-pill">${u.isEstadoUsuario()}</button>
@@ -106,9 +107,9 @@
                                             <td class="text-center">${u.getIdRol()}</td>
                                             <td class="text-center">
                                                 <form action="${pageContext.request.contextPath}/Usuario"  method="POST" >
-                                                    <input type="hidden" name="codigoId" value="${u.getIdUsuario()}">
-                                                    <a class="btn-transparent bg-transparent border-0 text-info" href="" data-bs-toggle="modal" data-bs-target="#Update"><button class="btn-transparent bg-transparent border-0" type="submit"><i class="fas fa-edit text-info"></i></button></a>
-                                                    <input type="hidden" name="action" value="4">
+                                                    <input type="hidden" name="codigo" value="${u.getIdUsuario()}">
+                                                    <button class="btn-transparent bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#Update" type="submit"><i class="fas fa-edit text-info"></i></button>
+                                                    <input type="hidden" name="action" value="8">
                                                 </form>
                                             </td>
                                             <c:if test="${u.isEstadoUsuario() == true}">
@@ -117,8 +118,8 @@
                                                     <button class="btn-transparent border-0 bg-transparent" onclick="alertaInactivar(${u.getIdUsuario()}, true)"><i class="bi bi-person-check-fill fa-x5 text-success" style="font-size: 50px;"></i></button>
                                                 </td>
                                             </c:if>
-            
-            
+
+
                                             <c:if test="${u.isEstadoUsuario() == false}">
                                                 <td>
                                                     <input type="hidden" name="codigoId" value="${u.getIdUsuario()}">
@@ -134,17 +135,18 @@
                 </div>
             </div>
         </div>
-        
+
+        <jsp:include page="CreateUser.jsp" />
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
         <!-- /footer  -->
 
         <!-- File js  -->
         <jsp:include page="/WEB-INF/paginas/comunes/archivos-js.jsp" />
-        <!-- /File js  -->
+        <!-- /File js  -->  
+
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
-        <jsp:include page="CreateUser.jsp" />
-        <jsp:include page="updateUser.jsp" />
+        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -153,7 +155,7 @@
         <!-- BOOTSTRAP -->
         <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
         <script>
-                                            $('#example').DataTable({});
+                                                        $('#example').DataTable({});
         </script>
         <%//cuando es diferente a nulo es que si hubo un error
             if (request.getAttribute("titleerror") != null) {%>

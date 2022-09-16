@@ -268,7 +268,7 @@ public class UsuarioController extends HttpServlet {
                     UsuarioVO userVO = new UsuarioVO();
                     UsuarioDAO userDAO = new UsuarioDAO();
                        //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO 
-                       //userVO = userDAO.consultarId(codigo);
+                       userVO = userDAO.leerUsuarioPorID(codigo);
                        //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
                        if(userVO !=null){
                            request.setAttribute("userConsultado", userVO);

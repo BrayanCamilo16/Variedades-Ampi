@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.logging.*;
 import util.Conexion2;
 import vo.UsuarioVO;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import util.Password;
 
 /**
  *
@@ -21,7 +23,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
     public UsuarioDAO() {
     }
 
-    private String email = "", pass = "", nombre = "", apellido = "", TipoDocu = "", numDocu = "", telefono = "", direccion = "", sexo = "", rol="";
+    private String email = "", pass = "", nombre = "", apellido = "", TipoDocu = "", numDocu = "", telefono = "", direccion = "", sexo = "", rol = "";
     private boolean estado;
     private int usuId;
 //metodo constructor para recibir datos del VO
@@ -62,7 +64,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a insertar
             stmt.setString(1, email);
-            stmt.setString(2, pass);
+            stmt.setString(2, Password.encript(pass));
             stmt.setString(3, nombre);
             stmt.setString(4, apellido);
             stmt.setString(5, numDocu);
@@ -112,12 +114,11 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
                     sexos = "Sexo Desconocido";
                 }
 
-                    UsuarioVO usuVO = new UsuarioVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                            rs.getString(6), rs.getString(7), rs.getString(8), sexos, rs.getBoolean(10), rs.getString(11),  rs.getString(12));
+                UsuarioVO usuVO = new UsuarioVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), sexos, rs.getBoolean(10), rs.getString(11), rs.getString(12));
 
-                    listarUsuarios.add(usuVO);
-                
-                
+                listarUsuarios.add(usuVO);
+
             }
 
         } catch (SQLException e) {
@@ -129,7 +130,6 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        
 
         return listarUsuarios;
     }
@@ -182,7 +182,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             //crear el puente, prepara lo que va a mandar
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a modificar
-            
+
             stmt.setString(1, nombre);
             stmt.setString(2, apellido);
             stmt.setString(3, email);
@@ -210,7 +210,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
-    
+
     public boolean updateAdministrador() {
         UsuarioVO usuario = null;
         try {
@@ -237,10 +237,6 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
-    
-    
-    
-    
 
     public UsuarioVO consultarNumeroDocumento(String numDocu) {
         UsuarioVO usuariovo = null;
@@ -278,7 +274,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a eliminar, estos van en orden a la base de datos
             stmt.setInt(1, usuId);
-            
+
             stmt.executeUpdate();
             operacionExitosa = true;
 
@@ -294,6 +290,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
+
     public boolean Activar() {
         try {
             sql = "update usuario set estado_usuario=true  where id_usuario=?";
@@ -302,7 +299,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a eliminar, estos van en orden a la base de datos
             stmt.setInt(1, usuId);
-            
+
             stmt.executeUpdate();
             operacionExitosa = true;
 
@@ -338,8 +335,8 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
 //                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
 //            }
 //        }
-    
     }
+
     @Override
     public boolean select() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -348,28 +345,29 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
     public UsuarioVO login(String email, String pass) {
         UsuarioVO usuarioVo = null;
 
-        sql = "SELECT * FROM usuario WHERE BINARY email_usuario = ? AND BINARY pass_usuario = ?";
+        sql = "SELECT * FROM usuario WHERE BINARY email_usuario = ?";
         try {
             conn = this.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
-            stmt.setString(2, pass);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                int idUsuario = rs.getInt("id_usuario");
-                String emailUsuario = rs.getString("email_usuario");
-                String passUsuario = rs.getString("pass_usuario");
-                String nombreUsuario = rs.getString("nombre_usuario");
-                String apellidoUsuario = rs.getString("apellido_usuario");
-                String numDocumentoUsuario = rs.getString("num_documento_usuario");
-                String telefonoUsuario = rs.getString("telefono_usuario");
-                String direccionUsuario = rs.getString("direccion_usuario");
-                String sexoUsuario = rs.getString("sexo_usuario");
-                boolean estadoUsuario = rs.getBoolean("estado_usuario");
-                String idrol = rs.getString("id_rol_FK");
+                if (Password.verifyPassword(pass, rs.getString("pass_usuario"))) {
+                    int idUsuario = rs.getInt("id_usuario");
+                    String emailUsuario = rs.getString("email_usuario");
+                    String passUsuario = rs.getString("pass_usuario");
+                    String nombreUsuario = rs.getString("nombre_usuario");
+                    String apellidoUsuario = rs.getString("apellido_usuario");
+                    String numDocumentoUsuario = rs.getString("num_documento_usuario");
+                    String telefonoUsuario = rs.getString("telefono_usuario");
+                    String direccionUsuario = rs.getString("direccion_usuario");
+                    String sexoUsuario = rs.getString("sexo_usuario");
+                    boolean estadoUsuario = rs.getBoolean("estado_usuario");
+                    String idrol = rs.getString("id_rol_FK");
 
-                usuarioVo = new UsuarioVO(idUsuario, emailUsuario, passUsuario, nombreUsuario, apellidoUsuario, numDocumentoUsuario, telefonoUsuario, direccionUsuario, sexoUsuario, estadoUsuario, idrol);
+                    usuarioVo = new UsuarioVO(idUsuario, emailUsuario, passUsuario, nombreUsuario, apellidoUsuario, numDocumentoUsuario, telefonoUsuario, direccionUsuario, sexoUsuario, estadoUsuario, idrol);
+                }
             }
 
         } catch (SQLException ex) {
@@ -381,15 +379,43 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
 
         return usuarioVo;
     }
-    
-    public String generarContraseña(int longitud){
+
+    public String generarContraseña(int longitud) {
         String res = "";
-        for(int cont=1; cont<=longitud; cont++){
-            int num =(int)((Math.random()*(('Z'-'A')+1)) + 'a');
-            char letra = (char)num;
-            res =res + letra;
+        for (int cont = 1; cont <= longitud; cont++) {
+            int num = (int) ((Math.random() * (('Z' - 'A') + 1)) + 'a');
+            char letra = (char) num;
+            res = res + letra;
         }
-    return res;
+        return res;
     }
-    
+
+    //recibe una id
+    public UsuarioVO consultarId(int usuId) {
+        //por si no encuentra el usuario retorne null
+        UsuarioVO user = null;
+
+        try {
+            conn = this.getConnection();
+            sql = "select * from usuario where id_usuario=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, usuId);
+            rs = stmt.executeQuery();
+            //si en el mensajero encuentra lo buscado
+            while (rs.next()) {
+                user = new UsuarioVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getBoolean(10), rs.getString(11), rs.getString(12));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return user;
+    }
+
 }

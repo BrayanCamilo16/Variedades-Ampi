@@ -3,13 +3,14 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
+import util.Conexion2;
 import vo.ProductoVO;
 
 /**
  *
  * @author Camargo
  */
-public class ProductoDAO extends Conexion{
+public class ProductoDAO extends Conexion2{
     private Connection conn = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;

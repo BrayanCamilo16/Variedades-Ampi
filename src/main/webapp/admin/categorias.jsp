@@ -43,7 +43,7 @@
                                 <td class="text-center align-middle"><%= contador %></td>
                                 <td class="align-middle"><%= categoriaVo.getNombreCategoria()%></td>
                                 <td class="align-middle"><%= categoriaVo.getDescripcionCategoria()%></td>
-                                <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" alt="<%= categoriaVo.getNombreCategoria()%>" width="50px"/></td>
+                                <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" alt="<%= categoriaVo.getNombreCategoria()%>" loading="lazy" width="50px"/></td>
                         <form action="${pageContext.request.contextPath}/Categoria" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="idCategoria" value="<%= categoriaVo.getIdCategoria()%>">
                             <input type="hidden" name="opcion" value="1">

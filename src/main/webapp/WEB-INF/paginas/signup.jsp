@@ -6,11 +6,11 @@
                 <div class="modal-header bg-primary text-white">
                     <div>
                         <h3 class="modal-title fw-bold lead">Registrarte</h3>
-                            <span>Es f&#225;cil y r&#225;pido.</span>
+                        <span>Es f&#225;cil y r&#225;pido.</span>
                     </div>
                     <button type="button" class="text-white bg-transparent border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
                 </div>
-                <form action="${pageContext.request.contextPath}/Usuario" method="POST" style="overflow-y: scroll;" id="formulario">
+                <form action="${pageContext.request.contextPath}/Usuario" method="POST" id="formulario">
                     <div class="modal-body">
 
 
@@ -40,49 +40,14 @@
                             <input type="text" class="form-control mt-1" name="email" id="emailSingup" required><span id="text"></span>
                             <span class="correoText"></span>
                         </div>
-
-
-
-
+                        
+                        
                         <div class="grupopassword">
                             <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>
                             <input type="password" class="form-control mt-1" name="pass" id="password" required>
                             <span class="passwordText"></span>
                         </div>
 
-
-
-
-                        <div class="form-group mb-2">
-                            <label for="tipo-doc">Tipo de Documento<span class="text-danger">*</span></label>
-                            <select class="form-select" name="tipoDocu" required>
-                                <option value="1">C&#233;dula de ciudadan&#237;a</option>
-                                <option value="2">C&#233;lula de extranjer&#237;a</option>
-                                <option value="3">Tarjeta de identidad</option>
-                                <option value="4">Pasaporte</option>
-                                <option value="5">Nit</option>
-
-                            </select>
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="num-documento">No. Documento <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-1" name="numDocu" id="num-documento" onkeydown="validation()" required>
-                        </div>
-
-
-
-                        <div class="grupotelefono">
-                            <label for="telefono">Telefono <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-1" name="telefono" id="telefono" required>
-                            <span class="telefonoText"></span>
-                        </div>
-
-
-
-                        <div class="form-group mb-2">
-                            <label for="direccion">Direcci&#243;n <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-1" name="direccion" id="direccion" required>
-                        </div>
                         <div class="form-group mb-2">
                             <label for="sexo">Sexo <span class="text-danger">*</span></label>
                             <select class="form-select" name="sexo" required>
@@ -171,11 +136,11 @@
         const passwordPattern = /^.{4,12}$/;
         const telefonoPattern = /^\d{7,14}$/;
         let mensaje = document.getElementById("mensaje");
-        
-        formulario.addEventListener('submit', (e)=> {
-            if(!nombre.value.match(NombrePattern)|| !apellido.value.match(ApellidoPattern) || 
-                    !email.value.match(correoPattern) || !password.value.match(passwordPattern) || 
-                    !telefono.value.match(telefonoPattern)){
+
+        formulario.addEventListener('submit', (e) => {
+            if (!nombre.value.match(NombrePattern) || !apellido.value.match(ApellidoPattern) ||
+                    !email.value.match(correoPattern) || !password.value.match(passwordPattern) ||
+                    !telefono.value.match(telefonoPattern)) {
                 e.preventDefault();
                 mensaje.classList.remove("d-none");
             }

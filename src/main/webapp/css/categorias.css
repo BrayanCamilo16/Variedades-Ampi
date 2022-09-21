@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.todo-contenido{
+    width: 210px;
+    perspective: 1000px;
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+}
+.carrusel{
+    width: 100%;
+    position: absolute;
+    animation: rotar 10s infinite linear;
+    transform-style: preserve-3d;
+}
+.carrusel:hover{
+    animation-play-state: paused;
+}
+.carrusel figure{
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+}
+figure .capa {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(104, 117, 119, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    transition: all 500ms ease-out;
+}
+figure:hover > .capa {
+    opacity: 2;
+    visibility: visible;
+}
+/*aqui se esta seleccionando la primera figura y asi sucesivamente con todas las que se seleccionen*/
+/*en la segunda parte como un circulo tiene 360 grados debemos dividir ese 360 grados en 10 que son las 10 figuras e ir sumandole 36 a cada resultado que fue la division de 360/10*/
+.carrusel figure:nth-child(1){
+    transform: rotateY(0deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(40deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(80deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(120deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(160deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(200deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(240deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(280deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(320deg)
+    translateZ(300px);
+}
+.carrusel figure:nth-child(1){
+    transform: rotateY(360deg)
+    translateZ(300px);
+}
+.carrusel figure img{
+    width: 100%;
+}
+@keyframes rotar{
+    from{
+        transform: rotateY(0deg);
+    }to{
+        transform: rotateY(360deg);
+    }
+}

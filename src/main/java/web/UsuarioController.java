@@ -76,7 +76,7 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String codigo = (request.getParameter("codigo"));
+        String codigo =(request.getParameter("codigo"));
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
         String nombre = request.getParameter("nombre");
@@ -165,8 +165,10 @@ public class UsuarioController extends HttpServlet {
                     HttpSession sessioon = request.getSession();
                     UsuarioVO usuaaaVO = (UsuarioVO) sessioon.getAttribute("usuarioVo");
                     UsuarioDAO usuaaDAO = new UsuarioDAO(usuaVO);
-
-                    if (usuaaDAO.updateAdministrador()) {
+                    
+                    
+                    if (usuaaaVO.getIdRol().equals("1")) {
+                        usuaaDAO.updateAdministrador();
                         request.getRequestDispatcher("admin/index.jsp").forward(request, response);
                         request.setAttribute("mensajeExito", "Tus datos se modificaron correctamente");
                     } else if (usuaaDAO.update()) {
@@ -217,42 +219,6 @@ public class UsuarioController extends HttpServlet {
 
                 break;
 
-            case 5: // eliminar o cambiar estado usuario
-                UsuarioDAO DAO = null;
-                UsuarioVO VO = new UsuarioVO();
-                // try {
-                if (request.getParameter("cambiar") != null) {
-                    if (request.getParameter("cambiar").equals("false")) {
-                        VO.setEstadoUsuario(true);
-                    } else {
-                        VO.setEstadoUsuario(false);
-                    }
-                }
-
-                if (request.getParameter("codigoId") != null) {
-                    System.out.println(request.getParameter("codigoId"));
-                    request.setAttribute("Usuarioc", VO);
-                    VO.setIdUsuario(Integer.parseInt(request.getParameter("codigoId")));
-                    DAO = new UsuarioDAO(VO);
-                    if (DAO.Inactivar()) {
-                        request.setAttribute("MensajeExito", "El usuario se inactivo correcctamente");
-                    } else {
-                        request.setAttribute("MensajeError", "El usuario NO se inactivo");
-                    }
-                    if (DAO.Activar()) {
-                        request.setAttribute("MensajeExito", "El usuario se activo correcctamente");
-                    } else {
-                        request.setAttribute("MensajeError", "El usuario NO se activo");
-                    }
-                } else {
-                    request.setAttribute("MensajeError", "No se obtuvo el ID del usuario");
-                }
-
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-                // } catch (Exception e) {
-                // }
-                break;
-
             case 6:
                 usuarioVo = usuDAO.consultarNumeroDocumento(numDocu);
                 // CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
@@ -297,6 +263,22 @@ public class UsuarioController extends HttpServlet {
                 }
 
                 break;
+                
+                case 8:
+                    UsuarioVO userVO = new UsuarioVO();
+                    UsuarioDAO userDAO = new UsuarioDAO();
+                       //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO 
+                       userVO = userDAO.leerUsuarioPorID(codigo);
+                       //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
+                       if(userVO !=null){
+                           request.setAttribute("userConsultado", userVO);
+                           request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                       }
+                       else{
+                           request.setAttribute("MensajeError", "El usuario no se ha registrado");
+                           request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                       }
+                       break;
 
         }
 

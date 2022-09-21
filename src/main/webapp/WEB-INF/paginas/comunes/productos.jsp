@@ -1,30 +1,79 @@
 <%@page import="vo.ProductoVO"%>
 <%@page import="dao.ProductoDAO"%>
 <%@page import="java.util.List"%>
-<div class="col-md-12 d-flex word-wrap">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../css/productos.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../css/swiper-bundle.min.css" rel="stylesheet" type="text/css"/>
+    </head>
     <%
-        ProductoDAO productoDao = new ProductoDAO();
-        ProductoVO productoVo = null;
-        List<ProductoVO> productos = productoDao.select();
+            ProductoDAO productoDao = new ProductoDAO();
+            ProductoVO productoVo = null;
+            List<ProductoVO> productos = productoDao.select();
 
-        for (int i = 0; i < productos.size(); i++) {
-            productoVo = productos.get(i);
-    %>
+            for (int i = 0; i < productos.size(); i++) {
+                productoVo = productos.get(i);
+        %>
+    <body>
+        <div class="contenido-completo swiper">
+            <div class="contenido-caja">
+                <div class="cardd-wrapper swiper-wrapper">
+                    <div class="tarjeta swiper-slide">
+                        <div class="contenido-imagen">
+                            <span class="fondo"></span>
+                            <div class="imagen-tarjeta">
+                                <img src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto()%>" alt="alt" class="imagen"/>
+                            </div>
+                        </div>
 
-    <div class="mx-2 p-2 div_categorias">
-        <div class="card-body text-center">
-            <img src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto() %>" width="100px" alt="alt"/>
-            <p>Precio: <span class="fw-bold"><%= productoVo.getPrecioUnitarioProducto() %></span></p>
-            <h5 class="card-text fw-bold"><%= productoVo.getNombreProducto() %></h5>
-            <p><%= productoVo.getDescripcionProducto() %></p>
-            <form action="${pageContext.request.contextPath}/Producto" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="opcion" value="4">
-                <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto() %>">
-                <button class="btn btn-primary">Agregar <i class="fas fa-shopping-cart ms-1"></i></button>
-            </form>
+                        <div class="contenido-tarjeta">
+                            <h2 class="nombre"><%= productoVo.getNombreProducto()%></h2>
+                            <h3 class="precio"><%= productoVo.getPrecioUnitarioProducto()%></h3>
+                            <p class="descripcion"><%= productoVo.getDescripcionProducto()%></p>
+                            <form action="${pageContext.request.contextPath}/Producto" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="opcion" value="4">
+                                <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto()%>">
+                                <button class="button">Agregar&nbsp;&nbsp;<i class="fas fa-shopping-cart"></i></button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
-    </div>
+    </body>
+    <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
+    <script src="../../../js/swiper-bundle.min.js" type="text/javascript"></script>
+    <script>
+        var swiper = new Swiper(".contenido-caja", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            centerSlide: 'true',
+            fade: 'true',
+            grabCursor: 'true',
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                DynamicsBullets: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
     <%
-        }
-    %>
-</div>
+            }
+        %>
+</html>
+

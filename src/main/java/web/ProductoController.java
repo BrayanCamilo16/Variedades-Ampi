@@ -28,7 +28,7 @@ public class ProductoController extends HttpServlet {
 
     private ProductoVO productoVo = null;
     private ProductoDAO productoDao = new ProductoDAO();
-    private final String pathFiles = "C:\\variedades-ampi\\src\\main\\webapp\\files\\producto\\";
+    private final String pathFiles = "C:\\variedades-ampi\\src\\main\\webapp\\files\\categoria\\producto\\";
     private File uploads = new File(pathFiles);
     private final String[] extens = {".ico", ".png", ".jpg", ".jpeg"};
 //    private Set<Integer> idProductos = new HashSet();

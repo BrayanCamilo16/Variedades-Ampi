@@ -34,6 +34,7 @@ public class UsuarioController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
     }
 
     @Override
@@ -142,7 +143,7 @@ public class UsuarioController extends HttpServlet {
                     usuDAO = new UsuarioDAO(usuarioVo);
                     String resultado = "";
                     String asunto = "Bienvenido!!";
-                    String contenido = "Registro Existoso<br> <p style='background: yellow;'>"+ nombre + " "+ apellido + "</p>.Te acabas de registrar a Variedades Ampi <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Volver</a>";
+                    String contenido = "Registro Existoso<br> <p style='background: yellow;'>" + nombre + " " + apellido + "</p>.Te acabas de registrar a Variedades Ampi <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Volver</a>";
                     //SI ESTO RETORNA UN VERDADERO RETORNA UN MENSAJE EXITO
                     try {
                         EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, email, asunto, contenido);
@@ -254,26 +255,6 @@ public class UsuarioController extends HttpServlet {
                 break;
 
             case 7:
-                UsuarioDAO uusuaDAO = new UsuarioDAO();
-                List<UsuarioVO> uuusuaVO = null;
-                try {
-                    uuusuaVO = uusuaDAO.listar();
-                    request.setAttribute("listarusuarios", uuusuaVO);
-                } catch (Exception e) {
-                    request.setAttribute("msje", "No se pudo listar los usuarios" + e.getMessage());
-                } finally {
-                    uusuaDAO = null;
-                }
-                try {
-                    this.getServletConfig().getServletContext().getRequestDispatcher("admin/index.jsp").forward(request,
-                            response);
-                } catch (Exception ex) {
-                    request.setAttribute("msje", "No se pudo realizar la peticion" + ex.getMessage());
-                }
-
-                break;
-
-            case 8:
                 UsuarioVO userVO = new UsuarioVO();
                 UsuarioDAO userDAO = new UsuarioDAO();
                 //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO 
@@ -285,6 +266,29 @@ public class UsuarioController extends HttpServlet {
                 } else {
                     request.setAttribute("MensajeError", "El usuario no se ha registrado");
                     request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                }
+                break;
+
+            case 8:
+                String direccion2 = request.getParameter("email");
+                String asunto2 = "Recuperacion de Contraseña";
+                UsuarioDAO USUDAO = new UsuarioDAO();
+                String contenido2 = "Su Codigo de Verificacion es" + USUDAO.generarNumeroAleatorio() + "asegurese de suministrarlo  bien";
+                String resultado = "";
+
+                try {
+                    EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, direccion2, asunto2, contenido2);
+                    UsuarioDAO uusDao = new UsuarioDAO();
+//                    if (uusDao.generarNumeroAleatorio()) {
+//                        request.setAttribute("mensajeExito", "Porfavor mire el correo que suministro, el codigo de verificacion fue enviado.");
+//                        request.getRequestDispatcher("comprobarCodigo.jsp").forward(request, response);
+//                    } else {
+//                        request.setAttribute("mensajeError", "El codigo no se pudo enviar");
+//                        request.getRequestDispatcher("Password.jsp").forward(request, response);
+//                    }
+                } catch (MessagingException e) {
+                    resultado = "Error de envio " + e.getMessage();
+                    e.printStackTrace();
                 }
                 break;
 

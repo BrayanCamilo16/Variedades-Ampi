@@ -481,7 +481,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         return operacionExitosa;
     }
     
-    public static String generarNumeroAleatorio() {
+    public String generarNumeroAleatorio() {
         Random random = new Random();
         int randomNumber = random.nextInt(999999);
         return String.valueOf(randomNumber);

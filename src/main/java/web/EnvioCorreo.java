@@ -57,7 +57,7 @@ public class EnvioCorreo {
 
         msg.setSubject(asunto);
         msg.setSentDate(new Date());
-        msg.setText(mensaje);
+        msg.setContent(mensaje, "text/html; charset=utf-8");
 
         Transport.send(msg, usuario, clave);
     }

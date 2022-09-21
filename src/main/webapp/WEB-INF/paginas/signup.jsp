@@ -10,7 +10,7 @@
                     </div>
                     <button type="button" class="text-white bg-transparent border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
                 </div>
-                <form action="${pageContext.request.contextPath}/Usuario" method="POST" id="formulario">
+                <form action="${pageContext.request.contextPath}/Usuario" method="POST" id="formulario" style="overflow-y: scroll;">
                     <div class="modal-body">
 
 
@@ -40,8 +40,8 @@
                             <input type="text" class="form-control mt-1" name="email" id="emailSingup" required><span id="text"></span>
                             <span class="correoText"></span>
                         </div>
-                        
-                        
+
+
                         <div class="grupopassword">
                             <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>
                             <input type="password" class="form-control mt-1" name="pass" id="password" required>
@@ -92,9 +92,10 @@
                                                 </div>-->
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro correctamente</p>
+                        <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro correctamente</p><br>
+                        <div class="g-recaptcha" data-sitekey="6Ld_AhkiAAAAAA1ltvB7iId9Ga3VczHWVSJ2qFVo"></div><br>
+                        <p id="mensaje2" class="d-none">Por favor seleccione el no soy un robot</p><br>
                         <button type="submit" class="btn btn-primary btn-lg">Registrarte</button>
-
                     </div>
                     <input type="hidden" value="2" name="action">
 
@@ -123,7 +124,27 @@
                     })
                 })();
             </script>      -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
+
+
+        window.onload = function () {
+            let isValid = false;
+            const formu = document.getElementById("formulario");
+            let mensaje2 = document.getElementById("mensaje2");
+
+            formu.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const response = grecaptcha.getResponse();
+                if (response) {
+                    formu.submit();
+                }else{
+                    mensaje2.classList.remove("d-none");
+                }
+            });
+        };
+
+
         const formulario = document.getElementById("formulario");
         const nombre = document.getElementById("nombre");
         const apellido = document.getElementById("apellido");
@@ -145,6 +166,8 @@
                 mensaje.classList.remove("d-none");
             }
         });
+
+
         nombre.addEventListener('input', () => {
             const gruponombre = document.querySelector(".gruponombre");
             const nombreText = document.querySelector(".nombreText");
@@ -153,7 +176,7 @@
             if (nombre.value.match(NombrePattern)) {
                 gruponombre.classList.add('valid');
                 gruponombre.classList.remove('invalid');
-                nombreText.innerHTML = "El nombre escrito es v�lido";
+                nombreText.innerHTML = "El nombre escrito es v&aacute;lido";
                 nombreText.style.color = "#2A892D";
             } else {
                 gruponombre.classList.add('invalid');
@@ -248,6 +271,5 @@
 
         });
     </script>
-
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>

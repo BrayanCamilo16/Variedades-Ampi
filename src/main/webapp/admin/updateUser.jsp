@@ -11,8 +11,6 @@
             } else {
                 out.print(request.getAttribute("UsuarioConsultado"));
             }
-
-
         %>
         Este es el ususario: ${UsuarioConsultado}
         <div class="modal fade" id="Update">

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.*;
 import util.Conexion2;
 import vo.UsuarioVO;
@@ -380,15 +381,15 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         return usuarioVo;
     }
 
-    public String generarContraseña(int longitud) {
-        String res = "";
-        for (int cont = 1; cont <= longitud; cont++) {
-            int num = (int) ((Math.random() * (('Z' - 'A') + 1)) + 'a');
-            char letra = (char) num;
-            res = res + letra;
-        }
-        return res;
-    }
+//    public String generarContraseña(int longitud) {
+//        String res = "";
+//        for (int cont = 1; cont <= longitud; cont++) {
+//            int num = (int) ((Math.random() * (('Z' - 'A') + 1)) + 'a');
+//            char letra = (char) num;
+//            res = res + letra;
+//        }
+//        return res;
+//    }
 
     //recibe una id
     public UsuarioVO consultarId(int usuId) {
@@ -454,5 +455,35 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
+    
+    
+    
+    public boolean recoverPassword() {
+        try {
+            sql = "update usuario pass_usuario? where id_usuario=?";
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a modificar
+            stmt.setString(1, pass);
+            stmt.setInt(2, usuId);
+            stmt.executeUpdate();
+            operacionExitosa = true;
 
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
+    
+    public static String generarNumeroAleatorio() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(999999);
+        return String.valueOf(randomNumber);
+    }
 }

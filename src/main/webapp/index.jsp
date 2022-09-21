@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <h4 class="text-center fw-bold my-4">Compra por categor&#237;as</h4>
                         <!-- categorias  -->
-                        <jsp:include page="WEB-INF/paginas/comunes/categorias.jsp" />
+                        
                         <!-- /categorias  -->
                         <h4 class="text-center fw-bold my-4">Productos</h4>
                         <!-- Productos  -->

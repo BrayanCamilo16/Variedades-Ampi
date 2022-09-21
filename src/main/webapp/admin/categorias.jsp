@@ -29,8 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                CategoriaDAO categoriaDao = new CategoriaDAO();
+                            <%                                CategoriaDAO categoriaDao = new CategoriaDAO();
                                 CategoriaVO categoriaVo = null;
                                 List<CategoriaVO> categorias = categoriaDao.select();
                                 int contador = 0;
@@ -40,7 +39,7 @@
                                     contador++;
                             %>
                             <tr class="">
-                                <td class="text-center align-middle"><%= contador %></td>
+                                <td class="text-center align-middle"><%= contador%></td>
                                 <td class="align-middle"><%= categoriaVo.getNombreCategoria()%></td>
                                 <td class="align-middle"><%= categoriaVo.getDescripcionCategoria()%></td>
                                 <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" alt="<%= categoriaVo.getNombreCategoria()%>" loading="lazy" width="50px"/></td>
@@ -55,6 +54,15 @@
                         %>
                         </tbody>
                     </table>
+                    <h5 class="my-3">Agregar registro por archivo Excel (csv)</h5>
+                    <form action="${pageContext.request.contextPath}/Archivos" id="form" method="POST"
+                          enctype="multipart/form-data">
+                        <input type="file" class="form-control" accept=".csv" id="excel" name="excel">
+                        <button type="submit" class="btn btn-secondary mt-3 mb-1">Registrar catagorias</button>
+                    </form>
+                    <a href="${pageContext.request.contextPath}/categorias.csv" download="categorias.csv">Descargar formato</a>
+                    <div id="msg">
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,7 +75,7 @@
         <!-- File js  -->
         <jsp:include page="../WEB-INF/paginas/comunes/archivos-js.jsp" />
         <!-- /File js  -->
-        
+
         <jsp:include page="../WEB-INF/paginas/comunes/alerta-modal.jsp" />
     </body>
 </html>
@@ -75,3 +83,25 @@
 <!-- registrar categoria  -->
 <jsp:include page="../WEB-INF/paginas/registrarCategoria.jsp" />
 <!-- /registrar categoria  -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $('#form').on('submit', (e) => {
+        e.preventDefault();
+        let data = new FormData();
+        data.append("option", 1);
+        data.append("excel", ($("#excel"))[0].files[0]);
+        $.ajax({
+            data: data,
+            url: '${pageContext.request.contextPath}/Files',
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function (mensaje) {
+                $('#msg').html(mensaje);
+                setTimeout(() => {
+                    $('#msg').html("");
+                }, 5000);
+            }
+        });
+    })
+</script>

@@ -14,7 +14,7 @@
         <!-- Navbar  -->
         <jsp:include page="..//WEB-INF/paginas/comunes/navbar.jsp" />
         <!-- /Navbar  -->
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -33,27 +33,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                ProductoDAO productoDao = new ProductoDAO();
+                            <%                                ProductoDAO productoDao = new ProductoDAO();
                                 ProductoVO productoVo = null;
                                 List<ProductoVO> categorias = productoDao.select();
                                 DecimalFormat f = new DecimalFormat("##.00");
                                 int contadorProductos = 0;
-                                
+
                                 for (int i = 0; i < categorias.size(); i++) {
                                     productoVo = categorias.get(i);
                                     contadorProductos++;
                             %>
                             <tr class="">
-                                <td class="text-center align-middle"><%= contadorProductos %></td>
-                                <td class="align-middle"><%= productoVo.getNombreProducto() %></td>
-                                <td class="align-middle"><%= productoVo.getDescripcionProducto() %></td>
-                                <td class="text-center align-middle">$ <%= f.format(productoVo.getPrecioUnitarioProducto()) %></td>
-                                <td class="text-center align-middle"><%= f.format(productoVo.getStockProducto()) %></td>
-                                <td class="text-center align-middle"><%= productoVo.getEstadoProducto() %></td>
-                                <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto() %>" alt="<%= productoVo.getNombreProducto() %>" width="50px"/></td>
+                                <td class="text-center align-middle"><%= contadorProductos%></td>
+                                <td class="align-middle"><%= productoVo.getNombreProducto()%></td>
+                                <td class="align-middle"><%= productoVo.getDescripcionProducto()%></td>
+                                <td class="text-center align-middle">$ <%= f.format(productoVo.getPrecioUnitarioProducto())%></td>
+                                <td class="text-center align-middle"><%= f.format(productoVo.getStockProducto())%></td>
+                                <td class="text-center align-middle"><%= productoVo.getEstadoProducto()%></td>
+                                <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto()%>" alt="<%= productoVo.getNombreProducto()%>" width="50px"/></td>
                         <form action="${pageContext.request.contextPath}/Producto" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto() %>">
+                            <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto()%>">
                             <input type="hidden" name="opcion" value="1">
                             <td class="text-center align-middle"><button type="submit" class="border-0 bg-transparent text-primary"><i class="fas fa-edit"></i></button></td>
                         </form>
@@ -74,9 +73,9 @@
         <!-- File js  -->
         <jsp:include page="../WEB-INF/paginas/comunes/archivos-js.jsp" />
         <!-- /File js  -->
-        
-       <jsp:include page="../WEB-INF/paginas/comunes/alerta-modal.jsp" />
-        
+
+        <jsp:include page="../WEB-INF/paginas/comunes/alerta-modal.jsp" />
+
     </body>
 </html>
 

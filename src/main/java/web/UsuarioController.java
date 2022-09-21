@@ -8,6 +8,7 @@ package web;
 import dao.UsuarioDAO;
 import java.io.IOException;
 import java.util.List;
+import javax.mail.MessagingException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -76,7 +77,7 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String codigo =(request.getParameter("codigo"));
+        String codigo = (request.getParameter("codigo"));
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
         String nombre = request.getParameter("nombre");
@@ -139,14 +140,23 @@ public class UsuarioController extends HttpServlet {
                     usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo,
                             Boolean.parseBoolean(estadoCliente), rol, tipoDocu);
                     usuDAO = new UsuarioDAO(usuarioVo);
-                    if (usuDAO.insert()) {
-                        request.setAttribute("mensajeExito", "El usuario se registro correctamente");
-                    } else {
-                        request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                    String resultado = "";
+                    String asunto = "Bienvenido!!";
+                    String contenido = "Registro Existoso<br> <p style='background: yellow;'>"+ nombre + " "+ apellido + "</p>.Te acabas de registrar a Variedades Ampi <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Volver</a>";
+                    //SI ESTO RETORNA UN VERDADERO RETORNA UN MENSAJE EXITO
+                    try {
+                        EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, email, asunto, contenido);
+                        if (usuDAO.insert()) {
+                            request.setAttribute("mensajeExito", "El usuario se registro correctamente");
+                        } else {
+                            request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                        }
+                    } catch (MessagingException e) {
+                        resultado = "Error de envio " + e.getMessage();
+                        e.printStackTrace();
                     }
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
-
-                request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;
 
             case 3: // update
@@ -165,8 +175,7 @@ public class UsuarioController extends HttpServlet {
                     HttpSession sessioon = request.getSession();
                     UsuarioVO usuaaaVO = (UsuarioVO) sessioon.getAttribute("usuarioVo");
                     UsuarioDAO usuaaDAO = new UsuarioDAO(usuaVO);
-                    
-                    
+
                     if (usuaaaVO.getIdRol().equals("1")) {
                         usuaaDAO.updateAdministrador();
                         request.getRequestDispatcher("admin/index.jsp").forward(request, response);
@@ -263,22 +272,21 @@ public class UsuarioController extends HttpServlet {
                 }
 
                 break;
-                
-                case 8:
-                    UsuarioVO userVO = new UsuarioVO();
-                    UsuarioDAO userDAO = new UsuarioDAO();
-                       //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO 
-                       userVO = userDAO.leerUsuarioPorID(codigo);
-                       //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
-                       if(userVO !=null){
-                           request.setAttribute("userConsultado", userVO);
-                           request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-                       }
-                       else{
-                           request.setAttribute("MensajeError", "El usuario no se ha registrado");
-                           request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-                       }
-                       break;
+
+            case 8:
+                UsuarioVO userVO = new UsuarioVO();
+                UsuarioDAO userDAO = new UsuarioDAO();
+                //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO 
+                userVO = userDAO.leerUsuarioPorID(codigo);
+                //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
+                if (userVO != null) {
+                    request.setAttribute("userConsultado", userVO);
+                    request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("MensajeError", "El usuario no se ha registrado");
+                    request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                }
+                break;
 
         }
 

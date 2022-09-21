@@ -47,7 +47,8 @@ public class Recuperacion extends HttpServlet {
         String direccion = request.getParameter("email");
         String asunto= "Recuperacion de Contraseña";
         UsuarioDAO USUDAO = new UsuarioDAO();
-        USUDAO.generarContraseña(0);
+//        USUDAO.generarContraseña(0);
+        USUDAO.generarNumeroAleatorio();
         String contenido ="Nueva Contraseña" + USUDAO;
         String resultado="";
         

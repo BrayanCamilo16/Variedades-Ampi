@@ -315,27 +315,6 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
             }
         }
         return operacionExitosa;
-
-//    public void CambiarVigencia() {
-//        try {
-//            sql = "UPDATE usuario set estado_usuario =?  WHERE id_usuario = ?";
-//
-//            conn = this.getConnection();
-//            //crear el puente, prepara lo que va a mandar
-//            stmt = conn.prepareStatement(sql);
-//
-//            stmt.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-//        } //
-//        finally {
-//            try {
-//                this.close();
-//            } catch (Exception e) {
-//                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-//            }
-//        }
     }
 
     @Override
@@ -481,7 +460,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         return operacionExitosa;
     }
     
-    public String generarNumeroAleatorio() {
+    public static String generarNumeroAleatorio() {
         Random random = new Random();
         int randomNumber = random.nextInt(999999);
         return String.valueOf(randomNumber);

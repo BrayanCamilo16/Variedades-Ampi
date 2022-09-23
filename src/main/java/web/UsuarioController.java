@@ -284,7 +284,7 @@ public class UsuarioController extends HttpServlet {
 //                        request.getRequestDispatcher("comprobarCodigo.jsp").forward(request, response);
 //                    } else {
 //                        request.setAttribute("mensajeError", "El codigo no se pudo enviar");
-//                        request.getRequestDispatcher("Password.jsp").forward(request, response);
+//                        request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
 //                    }
                 } catch (MessagingException e) {
                     resultado = "Error de envio " + e.getMessage();
@@ -292,6 +292,15 @@ public class UsuarioController extends HttpServlet {
                 }
                 break;
 
+            case 9:
+                UsuarioDAO DAO = new UsuarioDAO();
+                if (DAO.recoverPassword()) {
+                    request.setAttribute("mensajeExito", "Tu contrase&ntilde;a se ha recuperado.");
+                } else {
+                    request.setAttribute("mensajeError", "Tu contrase&ntilde;a NO se´pudo recuperar.");
+                }
+                request.getRequestDispatcher("Password.jsp").forward(request, response);
+                break;
         }
 
     }

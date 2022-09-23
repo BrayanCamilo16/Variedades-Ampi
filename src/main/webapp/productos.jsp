@@ -7,10 +7,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../../../css/productos.css" rel="stylesheet" type="text/css"/>
-        <link href="../../../css/swiper-bundle.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/swiper-bundle.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/productos.css" rel="stylesheet" type="text/css"/>
+
     </head>
-    <%
+
+    <body>
+        <%
             ProductoDAO productoDao = new ProductoDAO();
             ProductoVO productoVo = null;
             List<ProductoVO> productos = productoDao.select();
@@ -18,10 +21,9 @@
             for (int i = 0; i < productos.size(); i++) {
                 productoVo = productos.get(i);
         %>
-    <body>
         <div class="contenido-completo swiper">
             <div class="contenido-caja">
-                <div class="cardd-wrapper swiper-wrapper">
+                <div class="tarjeta-wrapper swiper-wrapper">
                     <div class="tarjeta swiper-slide">
                         <div class="contenido-imagen">
                             <span class="fondo"></span>
@@ -39,24 +41,21 @@
                                 <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto()%>">
                                 <button class="button">Agregar&nbsp;&nbsp;<i class="fas fa-shopping-cart"></i></button>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
-        </div>
     </body>
-    <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
-    <script src="../../../js/swiper-bundle.min.js" type="text/javascript"></script>
+    <script src="js/swiper-bundle.min.js" type="text/javascript"></script>
     <script>
-        var swiper = new Swiper(".contenido-caja", {
+        var swiper = new swiper(".contenido-caja", {
             slidesPerView: 3,
-            spaceBetween: 30,
             slidesPerGroup: 3,
+            spaceBetween: 30,
             loop: true,
             centerSlide: 'true',
             fade: 'true',
@@ -64,16 +63,18 @@
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
-                DynamicsBullets: true,
+                DynamicsBullets: true
             },
             navigation: {
                 nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+                prevEl: ".swiper-button-prev"
+            }
         });
     </script>
     <%
-            }
-        %>
+        }
+    %>
+    <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
+
 </html>
 

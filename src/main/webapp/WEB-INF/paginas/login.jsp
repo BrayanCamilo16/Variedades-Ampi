@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="text-center mb-3">
-                    <a href="">&#191;Olvid&#243; su contrase&#241;a?</a>
+                    <a href="${pageContext.request.contextPath}/Recuperar.jsp">&#191;Olvid&#243; su contrase&#241;a?</a>
                 </div>
 
                 <div class="modal-footer">

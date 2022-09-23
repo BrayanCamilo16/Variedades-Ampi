@@ -1,23 +1,18 @@
-<%-- 
-    Document   : updateUser
-    Created on : 6/08/2022, 7:26:53 p.Â m.
-    Author     : pc
---%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="dao.UsuarioDAO"%>
 <%@page import="vo.UsuarioVO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>VariedadesAmpi|Actualizar</title>
-    </head>
-    <%
-        UsuarioVO VO = (UsuarioVO) request.getAttribute("UsuarioConsultado");
-    %>
     <body>
+        <%
+            UsuarioVO VO = new UsuarioVO();
+            if (request.getAttribute("UsuarioConsultado") != null) {//UsuarioVO VO = (UsuarioVO) request.getAttribute("UsuarioConsultado");%>
+        <script>
+            console.log('Entró');
+            windows.$("#Update").modal("show");
+        </script>
+        <%
+            } else {
+                out.print(request.getAttribute("UsuarioConsultado"));
+            }
+        %>
+        Este es el ususario: ${UsuarioConsultado}
         <div class="modal fade" id="Update">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -44,7 +39,7 @@
                             <label>Email</label>
                             <input type="text" disabled  name="email" value="${UsuarioConsultado.emailUsuario}">
 
-                            <label>ContraseÃ±a</label>
+                            <label>Contraseña</label>
                             <input type="password" disabled  name="pass" value="${UsuarioConsultado.passUsuario}">
 
 
@@ -103,4 +98,3 @@
             </div>
         </div>
     </body>
-</html>

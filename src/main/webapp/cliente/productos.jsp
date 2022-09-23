@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <buttom class=" btn btn-secondary text-white p-2 mb-2 my-3 float-end" data-bs-toggle="modal" data-bs-target="#registrarProducto"><i class="fas fa-plus-circle me-1"></i>Agregar producto</buttom>
+                    <buttom class=" btn btn-primary text-white p-2 mb-2 my-3 float-end" data-bs-toggle="modal" data-bs-target="#registrarProducto"><i class="fas fa-plus-circle me-1"></i>Agregar producto</buttom>
                     <table class="table table-striped">
                         <thead>
                             <tr class="text-center">

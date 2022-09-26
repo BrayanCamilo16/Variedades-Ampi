@@ -25,7 +25,7 @@
             <div class="ms-auto">
                 <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-self-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-secondary text-white me-1" href="" data-bs-toggle="modal" data-bs-target="#signup"><i class="fas fa-user-plus me-1"></i></i>Crear cuenta</a>
+                        <a class="nav-link btn btn-primary text-white me-1" href="" data-bs-toggle="modal" data-bs-target="#signup"><i class="fas fa-user-plus me-1"></i></i>Crear cuenta</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-primary text-white ms-1" href="" data-bs-toggle="modal" data-bs-target="#login"><i class="fas fa-sign-in-alt me-1"></i>Iniciar sesi&#243;n</a>

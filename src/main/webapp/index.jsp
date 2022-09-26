@@ -22,7 +22,7 @@
                         <!-- /categorias  -->
                         <h4 class="text-center fw-bold my-4">Productos</h4>
                         <!-- Productos  -->
-                        <jsp:include page="WEB-INF/paginas/comunes/productos.jsp" />
+                        
                         <!-- /Productos  -->
                     </div>
                 </div>

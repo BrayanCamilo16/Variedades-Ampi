@@ -1,94 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 .todo-contenido{
-    width: 210px;
-    perspective: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+}
+.card{
     position: relative;
-    margin: auto;
-    margin-top: 50px;
+    width: 400px;
+    height: 300px;
+    margin: 23px;
 }
-.carrusel{
-    width: 100%;
+.card .face{
     position: absolute;
-    animation: rotar 10s infinite linear;
-    transform-style: preserve-3d;
-}
-.carrusel:hover{
-    animation-play-state: paused;
-}
-.carrusel figure{
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
-    position: absolute;
-}
-figure .capa {
-    position: absolute;
-    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(104, 117, 119, 0.7);
-    opacity: 0;
-    visibility: hidden;
-    text-align: center;
-    transition: all 500ms ease-out;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: .5s;
 }
-figure:hover > .capa {
-    opacity: 2;
-    visibility: visible;
+.card .front{
+    transform: perspective(500px) rotateY(0deg);
+    box-shadow:  0 5px 10px #000;
 }
-/*aqui se esta seleccionando la primera figura y asi sucesivamente con todas las que se seleccionen*/
-/*en la segunda parte como un circulo tiene 360 grados debemos dividir ese 360 grados en 10 que son las 10 figuras e ir sumandole 36 a cada resultado que fue la division de 360/10*/
-.carrusel figure:nth-child(1){
-    transform: rotateY(0deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(40deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(80deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(120deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(160deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(200deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(240deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(280deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(320deg)
-    translateZ(300px);
-}
-.carrusel figure:nth-child(1){
-    transform: rotateY(360deg)
-    translateZ(300px);
-}
-.carrusel figure img{
+.card .front img{
+    position: absolute;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-@keyframes rotar{
-    from{
-        transform: rotateY(0deg);
-    }to{
-        transform: rotateY(360deg);
-    }
+.card .front h2{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    color: #474B52;
+    background: rgba(111, 161, 245,.4);
+    text-align: center;
+    font-family: 'Lobster', cursive;
+}
+.card .back{
+    width: 100%;
+    transform: perspective(500px) rotateY(100deg);
+    background: #ECF3FF;
+    padding: 15px;
+    color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow:  0 5px 10px #000;
+    overflow: hidden;
+
+}
+.card .back .circulo{
+    position: absolute;
+    width: 330px;
+    height: 300px;
+    border-radius: 50%;
+    background: #4070f4;
+    bottom: 0;
+    margin-left: 23px;
+    margin-bottom: 125px
+}
+.contenido{
+    position: relative;
+    font-family: 'Lobster', cursive;
+}
+.contenido h2{
+    font-size: 38px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    color: #474B52;
+}
+.contenido h5{
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-top: 150px;
+    text-align: center;
+    color: #474B52;
+}
+.card:hover .front{
+    transform: perspective(500px) rotateY(180deg);
+}
+.card:hover .back{
+    transform: perspective(500px) rotateY(360deg)
 }

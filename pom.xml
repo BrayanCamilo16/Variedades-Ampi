@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jhoncamargo.com</groupId>
-    <artifactId>variedades_ampi</artifactId>
+    <artifactId>variedades-ampi</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>variedades_ampi</name>
+    <name>variedades-ampi</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

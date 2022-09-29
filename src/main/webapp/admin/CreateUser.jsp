@@ -50,8 +50,8 @@
 
 
                         <div class="grupopassword">
-                            <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control mt-1" name="pass" id="password" required>
+<!--                            <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>-->
+                            <input type="hidden" name="pass" value="123456789">
                             <span class="passwordText"></span>
                         </div>
 

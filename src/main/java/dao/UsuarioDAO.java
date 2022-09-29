@@ -57,6 +57,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
     public boolean insert() {
         try {
 //            String consulta = "select * usuario where email_usuario=?";
+            conn = this.getConnection();
             sql = "insert into usuario(email_usuario, pass_usuario, nombre_usuario, apellido_usuario, num_documento_usuario, telefono_usuario, direccion_usuario, sexo_usuario, estado_usuario, id_rol_FK, id_tipo_doc_FK) values(?,?,?,?,?,?,?,?,?,?,?)";
 //            conn = this.getConnection();
 //            stmt = conn.prepareStatement(consulta);
@@ -369,7 +370,6 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
 //        }
 //        return res;
 //    }
-
     //recibe una id
     public UsuarioVO consultarId(int usuId) {
         //por si no encuentra el usuario retorne null
@@ -397,15 +397,11 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return user;
     }
-    
-    
+
     public boolean signup() {
         try {
-//            String consulta = "select * usuario where email_usuario=?";
+            conn = this.getConnection();
             sql = "insert into usuario(email_usuario, pass_usuario, nombre_usuario, apellido_usuario, sexo_usuario, estado_usuario, id_rol_FK, id_tipo_doc_FK) values(?,?,?,?,?,?,?,?)";
-//            conn = this.getConnection();
-//            stmt = conn.prepareStatement(consulta);
-//            stmt.executeQuery();
             //crear el puente, prepara lo que va a mandar
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a insertar
@@ -434,16 +430,15 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
-    
-    
-    
-    public boolean recoverPassword() {
+
+    public boolean recoverPassword(String email, String pass) {
         try {
-            sql = "update usuario pass_usuario? where id_usuario=?";
+            sql = "update usuario set pass_usuario=? where email_usuario=?";
+            conn = this.getConnection();
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a modificar
-            stmt.setString(1, pass);
-            stmt.setInt(2, usuId);
+            stmt.setString(1, Password.encript(pass));
+            stmt.setString(2, email);
             stmt.executeUpdate();
             operacionExitosa = true;
 
@@ -459,10 +454,36 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
         }
         return operacionExitosa;
     }
-    
+
     public static String generarNumeroAleatorio() {
         Random random = new Random();
         int randomNumber = random.nextInt(999999);
         return String.valueOf(randomNumber);
+    }
+
+    public boolean RecibirEmail(String email) {
+        //por defecto
+        boolean existe = false;
+
+        try {
+            conn = this.getConnection();
+            sql = "select * from usuario where email_usuario=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            //si en el mensajero encuentra lo buscado
+            if (rs.next()) {
+                existe = true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return existe;
     }
 }

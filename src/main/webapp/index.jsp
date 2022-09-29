@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
-
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 
@@ -11,6 +11,10 @@
         <!-- /header  -->
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta.jsp" />
+        
+        <div class="cajita">
+            <h1>No se que hacer:(( </h1>
+        </div>
 
         <section>
             <div class="container">
@@ -18,11 +22,11 @@
                     <div class="col-md-12">
                         <h4 class="text-center fw-bold my-4">Compra por categor&#237;as</h4>
                         <!-- categorias  -->
-                        
+                        <jsp:include page="WEB-INF/paginas/comunes/categorias.jsp" />
                         <!-- /categorias  -->
                         <h4 class="text-center fw-bold my-4">Productos</h4>
                         <!-- Productos  -->
-                        
+                        <jsp:include page="WEB-INF/paginas/comunes/productos.jsp" />
                         <!-- /Productos  -->
                     </div>
                 </div>

@@ -46,7 +46,6 @@
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Apellido</th>
                                         <th class="text-center">Email</th>
-                                        <!-- <th class="text-center">Contrase&#241;a</th> -->
                                         <th class="text-center">Tipo Documento</th>
                                         <th class="text-center">Numero Documento</th>
                                         <th class="text-center">Estado</th>
@@ -58,25 +57,23 @@
                                         <th class="text-center" colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
-
-                                <!-- <tfoot> 
+                                 <tfoot> 
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Email</th>
-                                        <th>Contrase�a</th>
-                                        <th>Tipo Documento</th>
-                                        <th>Numero Documento</th>
-                                        <th>Estado</th>
-                                        <th>Telefono</th>
-                                        <th>Direccion</th>
-                                        <th>Sexo</th>
-                                        <th>Rol/Cargo</th>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Tipo Documento</th>
+                                        <th class="text-center">Numero Documento</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Telefono</th>
+                                        <th class="text-center">Direccion</th>
+                                        <th class="text-center">Sexo</th>
+                                        <th class="text-center">Rol/Cargo</th>
             
-                                        <th colspan="3">Acciones</th>
+                                        <th class="text-center"  colspan="3">Acciones</th>
                                     </tr>
-                                </tfoot> -->
+                                </tfoot> 
                                 <%UsuarioDAO usuDAO = new UsuarioDAO();
                                     ArrayList<UsuarioVO> listarUsuarios = usuDAO.listar();
                                     request.setAttribute("lista", listarUsuarios);
@@ -146,22 +143,20 @@
         <!-- /File js  -->  
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
-        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-
-        <!-- JQUERY -->
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <!-- DATATABLES -->
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <!-- BOOTSTRAP -->
-        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-                                                        $('#example').DataTable({});
-        </script>
+        
+        
         <%//cuando es diferente a nulo es que si hubo un error
             if (request.getAttribute("titleerror") != null) {%>
         ${titleerror}
         <%} else {%>
         ${titleexito}
+        <%}%>
+        
+        <%//cuando es diferente a nulo es que si hubo un error
+            if (request.getAttribute("MensajeError") != null) {%>
+        ${MensajeError}
+        <%} else {%>
+        ${MensajeExito}
         <%}%>
         <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
     </body>

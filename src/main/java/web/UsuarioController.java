@@ -152,11 +152,17 @@ public class UsuarioController extends HttpServlet {
                         } else {
                             request.setAttribute("mensajeError", "El usuario no se registro correctamente");
                         }
+                        request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                        if (usuDAO.signup()) {
+                            request.setAttribute("mensajeExito", "El usuario se registro correctamente");
+                        } else {
+                            request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                        }
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
                     } catch (MessagingException e) {
                         resultado = "Error de envio " + e.getMessage();
                         e.printStackTrace();
                     }
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
 
@@ -270,36 +276,66 @@ public class UsuarioController extends HttpServlet {
                 break;
 
             case 8:
+                UsuarioDAO USUDAO = new UsuarioDAO();
                 String direccion2 = request.getParameter("email");
                 String asunto2 = "Recuperacion de Contraseña";
-                UsuarioDAO USUDAO = new UsuarioDAO();
-                String contenido2 = "Su Codigo de Verificacion es" + USUDAO.generarNumeroAleatorio() + "asegurese de suministrarlo  bien";
+                HttpSession lasesion = request.getSession();
+                String codigoVerificacion = USUDAO.generarNumeroAleatorio();
+                lasesion.setAttribute("emailActualizar", direccion2);
+                lasesion.setAttribute("codigoVerificacion", codigoVerificacion);
+
+                String contenido2 = "Su Codigo de Verificacion es" + codigoVerificacion + "asegurese de suministrarlo  bien";
                 String resultado = "";
 
-                try {
-                    EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, direccion2, asunto2, contenido2);
-                    UsuarioDAO uusDao = new UsuarioDAO();
-//                    if (uusDao.generarNumeroAleatorio()) {
-//                        request.setAttribute("mensajeExito", "Porfavor mire el correo que suministro, el codigo de verificacion fue enviado.");
-//                        request.getRequestDispatcher("comprobarCodigo.jsp").forward(request, response);
-//                    } else {
-//                        request.setAttribute("mensajeError", "El codigo no se pudo enviar");
-//                        request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
-//                    }
-                } catch (MessagingException e) {
-                    resultado = "Error de envio " + e.getMessage();
-                    e.printStackTrace();
+                if (USUDAO.RecibirEmail(direccion2)) {
+                    try {
+                        EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, direccion2, asunto2, contenido2);
+                        request.setAttribute("MensajeEnviado", "true");
+                        request.setAttribute("mensajeExito", "Porfavor mire el correo que suministro, el codigo de verificacion fue enviado.");
+                        request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
+
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        request.setAttribute("mensajeError", "El codigo no se pudo enviar");
+                        request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("mensajeError", "El correo no existe");
+                    request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
                 }
+
                 break;
 
             case 9:
+                HttpSession obtener = request.getSession();
+                String direcc = request.getParameter("codigoVerificacion");
+                String codigoV = (String) obtener.getAttribute("codigoVerificacion");
+
+                if (direcc.equals(codigoV)) {
+//                    UsuarioDAO uusDAO = new UsuarioDAO();
+                    request.setAttribute("mensajeExito", "Porfavor suministra la nueva contraseña");
+                    request.getRequestDispatcher("Password.jsp").forward(request, response);
+
+                } else {
+                    request.setAttribute("mensajeError", "El codigo no coincide con el enviado");
+                    request.getRequestDispatcher("Recuperar.jsp").forward(request, response);
+                }
+                break;
+
+            case 10:
                 UsuarioDAO DAO = new UsuarioDAO();
-                if (DAO.recoverPassword()) {
+                HttpSession obtenerr = request.getSession();
+                String mail = (String) obtenerr.getAttribute("emailActualizar");
+                String passs = request.getParameter("pass");
+                if (DAO.recoverPassword(mail, passs)) {
                     request.setAttribute("mensajeExito", "Tu contrase&ntilde;a se ha recuperado.");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+
                 } else {
                     request.setAttribute("mensajeError", "Tu contrase&ntilde;a NO se´pudo recuperar.");
+                    request.getRequestDispatcher("Password.jsp").forward(request, response);
+
                 }
-                request.getRequestDispatcher("Password.jsp").forward(request, response);
                 break;
         }
 

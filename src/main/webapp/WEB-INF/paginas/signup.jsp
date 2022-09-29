@@ -92,9 +92,9 @@
                                                 </div>-->
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro correctamente</p><br>
-                        <div class="g-recaptcha" data-sitekey="6Ld_AhkiAAAAAA1ltvB7iId9Ga3VczHWVSJ2qFVo"></div><br>
-                        <p id="mensaje2" class="d-none">Por favor seleccione el no soy un robot</p><br>
+                        <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro correctamente</p>
+                        <p id="mensaje2" class="d-none">Por favor seleccione el no soy un robot</p>
+                        <div class="g-recaptcha" data-sitekey="6Ld_AhkiAAAAAA1ltvB7iId9Ga3VczHWVSJ2qFVo"></div><br><br>
                         <button type="submit" class="btn btn-primary btn-lg">Registrarte</button>
                     </div>
                     <input type="hidden" value="2" name="action">
@@ -197,7 +197,7 @@
             if (apellido.value.match(ApellidoPattern)) {
                 grupoapellido.classList.add('valid');
                 grupoapellido.classList.remove('invalid');
-                apellidoText.innerHTML = "El apellido escrito es v�lido";
+                apellidoText.innerHTML = "El apellido escrito es v&aacute;lido";
                 apellidoText.style.color = "#2A892D";
             } else {
                 grupoapellido.classList.add('invalid');
@@ -218,7 +218,7 @@
             if (email.value.match(correoPattern)) {
                 grupocorreo.classList.add('valid');
                 grupocorreo.classList.remove('invalid');
-                correoText.innerHTML = "El correo escrito es v�lido";
+                correoText.innerHTML = "El correo escrito es v&aacute;lido";
                 correoText.style.color = "#2A892D";
             } else {
                 grupocorreo.classList.add('invalid');
@@ -239,7 +239,7 @@
             if (password.value.match(passwordPattern)) {
                 grupopassword.classList.add('valid');
                 grupopassword.classList.remove('invalid');
-                passwordText.innerHTML = "La contrase�a escrita es v�lida";
+                passwordText.innerHTML = "La contrase&ntilde;a escrita es v&aacute;lido";
                 passwordText.style.color = "#2A892D";
             } else {
                 grupopassword.classList.add('invalid');
@@ -259,7 +259,7 @@
             if (telefono.value.match(telefonoPattern)) {
                 grupotelefono.classList.add('valid');
                 grupotelefono.classList.remove('invalid');
-                telefonoText.innerHTML = "El telefono escrito es v�lido";
+                telefonoText.innerHTML = "El telefono escrito es v&aacute;lido";
                 telefonoText.style.color = "#2A892D";
             } else {
                 grupotelefono.classList.add('invalid');

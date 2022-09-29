@@ -20,14 +20,18 @@
     %>
     <body>
         <div class="todo-contenido">
-            <div class="carrusel">
-                <figure>
+            <div class="card">
+                <div class="face front">
                     <img src="${pageContext.request.contextPath}/files/categoria/<%= categoriaVo.getRutaImgCategoria()%>" alt="<%= categoriaVo.getDescripcionCategoria()%>">
-                    <div class="capa">
+                    <h2><%= categoriaVo.getNombreCategoria()%></h2>
+                </div>
+                <div class="face back">
+                    <div class="circulo"></div>
+                    <div class="contenido">
                         <h2><%= categoriaVo.getNombreCategoria()%></h2>
-                        <h5><%= categoriaVo.getDescripcionCategoria()%></h5>                
+                        <h5><%= categoriaVo.getDescripcionCategoria()%></h5>
                     </div>
-                </figure>
+                </div>
             </div>
         </div>
     </body>

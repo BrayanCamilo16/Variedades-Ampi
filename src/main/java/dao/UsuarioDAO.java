@@ -59,9 +59,7 @@ public class UsuarioDAO extends Conexion2 implements IUsuarioDAO {
 //            String consulta = "select * usuario where email_usuario=?";
             conn = this.getConnection();
             sql = "insert into usuario(email_usuario, pass_usuario, nombre_usuario, apellido_usuario, num_documento_usuario, telefono_usuario, direccion_usuario, sexo_usuario, estado_usuario, id_rol_FK, id_tipo_doc_FK) values(?,?,?,?,?,?,?,?,?,?,?)";
-//            conn = this.getConnection();
-//            stmt = conn.prepareStatement(consulta);
-//            stmt.executeQuery();
+            
             //crear el puente, prepara lo que va a mandar
             stmt = conn.prepareStatement(sql);
             //por el puente manda los datos a insertar

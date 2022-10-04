@@ -8,7 +8,8 @@
                         <h3 class="modal-title fw-bold lead">Registrarte</h3>
                         <span>Es f&#225;cil y r&#225;pido.</span>
                     </div>
-                    <button type="button" class="text-white bg-transparent border-0" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                    <button type="button" class="text-white bg-transparent border-0" 
+                            data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
                 </div>
                 <form action="${pageContext.request.contextPath}/Usuario" method="POST" id="formulario" style="overflow-y: scroll;">
                     <div class="modal-body">

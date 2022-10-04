@@ -49,18 +49,18 @@ public class UsuarioController extends HttpServlet {
             if (UsuaDAO.Inactivar()) {
                 String redirigirA = "";
                 request.setAttribute("titleexito", "Usuario Inactivado Correctamente");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
             } else {
                 request.setAttribute("titleerror", "El usuario no se pudo Inactivar");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
             }
         } else {
             if (UsuaDAO.Activar()) {
                 request.setAttribute("titleexito", "Usuario Activado Correctamente");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
             } else {
                 request.setAttribute("titleerror", "El usuario no se pudo Activar");
-                request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
             }
 
         }
@@ -91,7 +91,7 @@ public class UsuarioController extends HttpServlet {
         String estado = request.getParameter("estado");
         String rol2 = request.getParameter("rol");
         String rol = "3";
-        String estadoCliente = "true";
+        String estadoUnico = "true";
 
         int action = Integer.parseInt(request.getParameter("action"));
 
@@ -127,36 +127,21 @@ public class UsuarioController extends HttpServlet {
                 }
                 break;
 
-            case 2: // insert
-                HttpSession sesion = request.getSession();
-                if (sesion.getAttribute("usuarioVo") != null) {
-                    UsuarioVO usuarioVO = (UsuarioVO) sesion.getAttribute("usuarioVo");
-                    String idRol = usuarioVO.getIdRol();
-
-                    if (idRol.equals(1)) {
-                        rol = request.getParameter("idRol");
-                    }
-                }
+            case 2: // insert del usuario cliente
                  {
                     usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo,
-                            Boolean.parseBoolean(estadoCliente), rol, tipoDocu);
+                            Boolean.parseBoolean(estadoUnico), rol, tipoDocu);
                     usuDAO = new UsuarioDAO(usuarioVo);
                     String resultado = "";
-                    String asunto = "Bienvenido!!";
+                    String asunto = "Bienvenido!";
                     String contenido = "Registro Existoso<br> <p style='background: yellow;'>" + nombre + " " + apellido + "</p>.Te acabas de registrar a Variedades Ampi <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Volver</a>";
                     //SI ESTO RETORNA UN VERDADERO RETORNA UN MENSAJE EXITO
                     try {
                         EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, email, asunto, contenido);
-                        if (usuDAO.insert()) {
-                            request.setAttribute("mensajeExito", "El usuario se registro correctamente");
-                        } else {
-                            request.setAttribute("mensajeError", "El usuario no se registro correctamente");
-                        }
-                        request.getRequestDispatcher("admin/index.jsp").forward(request, response);
                         if (usuDAO.signup()) {
-                            request.setAttribute("mensajeExito", "El usuario se registro correctamente");
+                            request.setAttribute("mensajeExito", "Señor(@)" + " "+ nombre + " " + "se ha registrado correctamente");
                         } else {
-                            request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                            request.setAttribute("mensajeError", "NO se ha podido registrar");
                         }
                         request.getRequestDispatcher("index.jsp").forward(request, response);
                     } catch (MessagingException e) {
@@ -185,7 +170,7 @@ public class UsuarioController extends HttpServlet {
 
                     if (usuaaaVO.getIdRol().equals("1")) {
                         usuaaDAO.updateAdministrador();
-                        request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                        request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
                         request.setAttribute("mensajeExito", "Tus datos se modificaron correctamente");
                     } else if (usuaaDAO.update()) {
                         request.getRequestDispatcher("vendedor/ActualizarPerfilE.jsp").forward(request, response);
@@ -196,7 +181,7 @@ public class UsuarioController extends HttpServlet {
                 } else {
                     request.setAttribute("mensajeActualzar", "Tus datos son nulos");
                     System.out.println("Los datos son nulos");
-                    request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
                 }
                 break;
 
@@ -222,7 +207,7 @@ public class UsuarioController extends HttpServlet {
                     } else {
                         if (ususuuVO.getIdRol().equals(1)) {
                             request.setAttribute("MensajeError", "El usuario no esta registrado");
-                            request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                            request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
                         } else {
                             request.setAttribute("MensajeError", "El usuario no esta registrado");
                             request.getRequestDispatcher("vendedor/index.jsp").forward(request, response);
@@ -268,10 +253,10 @@ public class UsuarioController extends HttpServlet {
                 //CUANDO ES DIFERENTE A NULO ES QUE TIENE CONTENIDO
                 if (userVO != null) {
                     request.setAttribute("userConsultado", userVO);
-                    request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
                 } else {
                     request.setAttribute("MensajeError", "El usuario no se ha registrado");
-                    request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
                 }
                 break;
 
@@ -306,7 +291,7 @@ public class UsuarioController extends HttpServlet {
 
                 break;
 
-            case 9:
+            case 9://en este caso estamos comprobando que el codigo enviaado al correo sea correcto
                 HttpSession obtener = request.getSession();
                 String direcc = request.getParameter("codigoVerificacion");
                 String codigoV = (String) obtener.getAttribute("codigoVerificacion");
@@ -335,6 +320,35 @@ public class UsuarioController extends HttpServlet {
                     request.setAttribute("mensajeError", "Tu contrase&ntilde;a NO se´pudo recuperar.");
                     request.getRequestDispatcher("Password.jsp").forward(request, response);
 
+                }
+                break;
+                
+                case 11: // insert para cuando el administrador crea un usuario
+                 {
+                    usuarioVo = new UsuarioVO(email, pass, nombre, apellido, numDocu, telefono, direccion, sexo,
+                            Boolean.parseBoolean(estadoUnico), rol2, tipoDocu);
+                    usuDAO = new UsuarioDAO(usuarioVo);
+                    String resultadoo = "";
+                    String asunto3 = "Bienvenido!";
+//                     if (rol2.equals(1)) {
+//                         rol2="Administrador";
+//                     }else if(rol2.equals(2)){
+//                         rol2="Vendedor";
+//                     }
+                    String contenido3 = "Hola" + " " + nombre + " " + apellido + "<br>Te han registrado como"+ " " + rol2 + " "+ "Disfruta <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Variedades Ampi</a>";
+                    //SI ESTO RETORNA UN VERDADERO RETORNA UN MENSAJE EXITO
+                    try {
+                        EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, email, asunto3, contenido3);
+                        if (usuDAO.insert()) {
+                            request.setAttribute("mensajeExitoo", "El usuario se registro correctamente");
+                        } else {
+                            request.setAttribute("mensajeErroro", "El usuario no se registro correctamente");
+                        }
+                        request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
+                    } catch (MessagingException e) {
+                        resultadoo = "Error de envio " + e.getMessage();
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }

@@ -1,5 +1,4 @@
 <%@page import="vo.UsuarioVO"%>
-<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.UsuarioDAO"%>
 <%@include file="../cache.jsp" %>
@@ -8,132 +7,67 @@
 <html>
     <head>
         <title>VariedadesAmpi|Administrador</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-
+        <link href="../css/Administrador.css" rel="stylesheet" type="text/css"/>
         <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../js/funciones.js" type="text/javascript"></script>
     </head>
     <body>
-
-        ${userConsultado}
         <!-- Navbar  -->
         <jsp:include page="/WEB-INF/paginas/comunes/navbar.jsp" />
         <!-- /Navbar  -->
 
-        <!-- <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><a href="categorias.jsp">Gestionar categor&#237;as</a></p>
-                        <p><a href="productos.jsp">Gestionar productos</a></p>
+        <div class="todoContenido">
+            <div id="medioContenido" class="medioContenido">
+                <div class="cajas">
+
+                    <div class="caja">
+                        <a href="usuarios.jsp">
+                            <span></span>
+                            <img src="../img/usuarios.png" alt=""/>
+                            <h1>Gestion de Usuarios</h1>
+                        </a>
                     </div>
-                </div>
-            </div>
-        </section> -->
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#Create"><i class="fas fa-user-plus me-1"></i>Crear usuario</a>
-                    <div class="outer-wrapper">
-                        <div class="table-wrapper">
-                            <table id="example" class="tala">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Apellido</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Tipo Documento</th>
-                                        <th class="text-center">Numero Documento</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Telefono</th>
-                                        <th class="text-center">Direccion</th>
-                                        <th class="text-center">Sexo</th>
-                                        <th class="text-center">Rol/Cargo</th>
+                    <div class="caja">
+                        <a href="productos.jsp">
+                            <span></span>
+                            <img src="../img/productos.png" alt=""/>
+                            <h1>Gestion de Productos</h1>
+                        </a>
+                    </div>
+                    
+                    <div class="caja">
+                        <a href="categorias.jsp">
+                            <span></span>
+                            <img src="../img/categorias.png" alt=""/>
+                            <h1>Gestion de Categorias</h1>
+                        </a>
+                    </div>
 
-                                        <th class="text-center" colspan="3">Acciones</th>
-                                    </tr>
-                                </thead>
-                                 <tfoot> 
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Apellido</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Tipo Documento</th>
-                                        <th class="text-center">Numero Documento</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Telefono</th>
-                                        <th class="text-center">Direccion</th>
-                                        <th class="text-center">Sexo</th>
-                                        <th class="text-center">Rol/Cargo</th>
-            
-                                        <th class="text-center"  colspan="3">Acciones</th>
-                                    </tr>
-                                </tfoot> 
-                                <%UsuarioDAO usuDAO = new UsuarioDAO();
-                                    ArrayList<UsuarioVO> listarUsuarios = usuDAO.listar();
-                                    request.setAttribute("lista", listarUsuarios);
-                                %>
-
-                                <c:forEach items="${lista}" var="u">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center">${u.getIdUsuario()}</td>
-                                            <td class="text-center">${u.getNombreUsuario()}</td>
-                                            <td class="text-center">${u.getApellidoUsuario()}</td>
-                                            <td class="text-center">${u.getEmailUsuario()}</td>
-                                            <!-- <td class="text-center">${u.getPassUsuario()}</td> -->
-                                            <td class="text-center">${u.getTipoDocumento()}</td>
-                                            <td class="text-center">${u.getNumDocumentoUsuario()}</td>
-
-                                            <td class="text-center">
-                                                <c:if test="${u.isEstadoUsuario() == true}">
-                                                    <button class="btn btn-success rounded-pill">${u.isEstadoUsuario()}</button>
-                                                </c:if>
-                                                <c:if test="${u.isEstadoUsuario() == false}">
-                                                    <button class="btn btn-danger rounded-pill">${u.isEstadoUsuario()}</button>
-                                                </c:if>
-                                            </td>
-                                            <td class="text-center">${u.getTelefonoUsuario()}</td>
-                                            <td class="text-center">${u.getDireccionUsuario()}</td>
-                                            <td class="text-center">${u.getSexoUsuario()}</td>
-                                            <td class="text-center">${u.getIdRol()}</td>
-                                            <td class="text-center">
-                                                <form action="${pageContext.request.contextPath}/Usuario"  method="POST" >
-                                                    <input type="hidden" name="codigo" value="${u.getIdUsuario()}">
-                                                    <button class="btn-transparent bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#Update" type="submit"><i class="fas fa-edit text-info"></i></button>
-                                                    <input type="hidden" name="action" value="8">
-                                                </form>
-                                            </td>
-                                            <c:if test="${u.isEstadoUsuario() == true}">
-                                                <td>
-                                                    <input type="hidden" name="codigoId" value="${u.getIdUsuario()}">
-                                                    <button class="btn-transparent border-0 bg-transparent" onclick="alertaInactivar(${u.getIdUsuario()}, true)"><i class="bi bi-person-check-fill fa-x5 text-success" style="font-size: 50px;"></i></button>
-                                                </td>
-                                            </c:if>
-
-
-                                            <c:if test="${u.isEstadoUsuario() == false}">
-                                                <td>
-                                                    <input type="hidden" name="codigoId" value="${u.getIdUsuario()}">
-                                                    <button class="btn-transparent border-0 bg-transparent" onclick="alertaActivar(${u.getIdUsuario()}, false)"><i class="bi bi-person-x-fill fa-x5 text-danger" style="font-size: 50px;"></i></button>
-                                                </td>
-                                            </c:if>
-                                        </tr>
-                                    </tbody>
-                                </c:forEach>
-                            </table>
-                        </div>
+                    <div class="caja">
+                        <a href="">
+                            <span></span>
+                            <img src="../img/reporte.png" alt=""/>
+                            <h1>Reportes</h1>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <jsp:include page="CreateUser.jsp" />
+        <%//cuando es diferente a nulo es que si hubo un error
+            if (request.getAttribute("MensajeErroro") != null) {%>
+        ${MensajeErroro}
+        <%} else {%>
+        ${MensajeExitoo}
+        <%}%>
+
+
+        <%//cuando es diferente a nulo es que si hubo un error
+            if (request.getAttribute("titleerror") != null) {%>
+        ${titleerror}
+        <%} else {%>
+        ${titleexito}
+        <%}%>
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
         <!-- /footer  -->
@@ -143,21 +77,7 @@
         <!-- /File js  -->  
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
-        
-        
-        <%//cuando es diferente a nulo es que si hubo un error
-            if (request.getAttribute("titleerror") != null) {%>
-        ${titleerror}
-        <%} else {%>
-        ${titleexito}
-        <%}%>
-        
-        <%//cuando es diferente a nulo es que si hubo un error
-            if (request.getAttribute("MensajeError") != null) {%>
-        ${MensajeError}
-        <%} else {%>
-        ${MensajeExito}
-        <%}%>
+
         <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
     </body>
 </html>

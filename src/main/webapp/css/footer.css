@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto:wght@100&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+footer{
+    background: url("../img/ondas.svg");
+    background-size: cover;
+}
+.footer2{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    margin-top: 40px;
+    position: relative;
+    margin-bottom: 170px;
+}
+.empresa{
+    width: 300px;
+    margin-left: 220px;
+    padding: 10px 0;
+}
+.empresa img{
+    width: 200px;
+}
+.empresa p{
+    line-height: 1.4;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #2E3034;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+.sobre{
+    width: 300px;
+    margin-left: 30px;
+    margin-top: 0;
+}
+.sobre h1{
+    color: #0F42A6;
+    font-family: 'Kaushan Script', cursive;
+    padding-bottom: 50px;
+}
+.sobreN p{
+    position: relative;
+    text-decoration: none;
+    font-weight: 500;
+    color: #2E3034;
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all 5s ease;
+}
+.sobreN .nosotros, .sobreN .ayuda, .sobreN .contacto{
+    position: relative;
+    background: #709EF7;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+    color: black;
+    font-size: 18px;
+    line-height: 1.6;
+}
+.sobreN p:hover~.nosotros, .sobreN p:hover~.ayuda, .sobreN p:hover~.contacto{
+    display: block;
+    transition: all 5s ease;
+    cursor: pointer;
+}
+.redes{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+}
+.redes a{
+    text-decoration: none;
+    font-weight: 500;
+    color: #2E3034;
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+.redes h1{
+    color: #0F42A6;
+    font-family: 'Kaushan Script', cursive;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+.redes i{
+    background: #0F42A6;
+    color: white;
+    font-size: 20px;
+    border-radius: 10%;
+    padding: 4px;
+    margin: 4px
+}
+.derechos{
+    text-align: center;
+    background: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    padding: 10px;
+    color: #2A2C2F;
+}
+.derechos a{
+    text-decoration: none;
+    color: black;
+}

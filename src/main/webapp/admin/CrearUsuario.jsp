@@ -1,6 +1,6 @@
 <%@page import="vo.UsuarioVO" %>
 <body>
-    <div class="modal fade" id="Create">
+    <div class="modal fade" id="crear">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
@@ -50,7 +50,7 @@
 
 
                         <div class="grupopassword">
-<!--                            <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>-->
+                            <!--                            <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>-->
                             <input type="hidden" name="pass" value="123456789">
                             <span class="passwordText"></span>
                         </div>
@@ -99,24 +99,22 @@
                                 <option value="3">Otro</option>
                             </select>
                         </div>
-
-
-
+                        
                         <div class="form-group mb-2">
                             <label for="rol">Rol <span class="text-danger">*</span></label>
-                            <select class="form-select" name="idRol" required>
-                                <option value="2">Vendedor</option>
+                            <select class="form-select" name="rol" required>
                                 <option value="1">Administrador</option>
+                                <option value="2">Vendedor</option>
                             </select>
                         </div>
-
+                       
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro
                             correctamente</p>
                         <button type="submit" class="btn btn-primary btn-lg">Registrarte</button>
                     </div>
-                    <input type="hidden" value="2" name="action">
+                    <input type="hidden" value="11" name="action">
 
                 </form>
             </div>
@@ -173,7 +171,7 @@
             if (nombre.value.match(NombrePattern)) {
                 gruponombre.classList.add('valid');
                 gruponombre.classList.remove('invalid');
-                nombreText.innerHTML = "El nombre escrito es v�lido";
+                nombreText.innerHTML = "El nombre escrito es valido";
                 nombreText.style.color = "#2A892D";
             } else {
                 gruponombre.classList.add('invalid');
@@ -194,7 +192,7 @@
             if (apellido.value.match(ApellidoPattern)) {
                 grupoapellido.classList.add('valid');
                 grupoapellido.classList.remove('invalid');
-                apellidoText.innerHTML = "El apellido escrito es v�lido";
+                apellidoText.innerHTML = "El apellido escrito es valido";
                 apellidoText.style.color = "#2A892D";
             } else {
                 grupoapellido.classList.add('invalid');

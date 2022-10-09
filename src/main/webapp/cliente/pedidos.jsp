@@ -10,7 +10,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="../WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
         <title>Mis pedidos</title>
     </head>
     <body>

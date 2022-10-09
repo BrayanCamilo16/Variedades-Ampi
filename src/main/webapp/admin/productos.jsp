@@ -7,12 +7,13 @@
 <html>
     <head>
         <title>Categorias</title>
-        <jsp:include page="../WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
     </head>
     <body>
 
         <!-- Navbar  -->
-        <jsp:include page="..//WEB-INF/paginas/comunes/navbar.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
         <!-- /Navbar  -->
 
         <div class="container">

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="WEB-INF/paginas/comunes/head-bootstrap.jsp" />
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <jsp:include page="WEB-INF/paginas/comunes/head-css.jsp" />
     </head>
     <body>
 
         <!-- header  -->
-        <jsp:include page="/WEB-INF/paginas/comunes/header.jsp" />
+        <jsp:include page="WEB-INF/paginas/comunes/header.jsp" />
         <!-- /header  -->
 
-        <jsp:include page="/WEB-INF/paginas/comunes/alerta.jsp" />
+        <jsp:include page="WEB-INF/paginas/comunes/alerta.jsp" />
         
         <div class="cajita">
             <h1>No se que hacer:(( </h1>

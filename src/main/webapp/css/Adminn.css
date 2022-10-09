@@ -69,6 +69,8 @@
     border-top: solid #367FFC 1px;
     padding-top: 30px;
     text-decoration: none;
+    font-weight: 500;
+    color: #0F42A6;
 }
 /*
 
@@ -83,7 +85,7 @@
     padding: 20px;
     margin: 0 70px;
 }
-table{
+.tables{
     background-color: white;
     box-shadow:  0 5px 10px rgb(0, 0, 0);
     margin: 10px 50px;
@@ -91,18 +93,16 @@ table{
     border-radius: 10px;
     border-collapse: collapse;
 }
-table tr:nth-child(even){
+.tables tr:nth-child(even){
     background-color: #ddd;
 }
-table th{
+.tables thead, tfoot .titulo-usuarios{
+    background: #D9E6FB;
+    border-bottom: #317DFD 1px solid;
     color: #474A50;
     font-family: 'Kaushan Script', cursive;
     font-size: 17px;
 }
-table thead, tfoot th{
-    background: #D9E6FB;
-    border-bottom: #317DFD 1px solid;
-}
-table td{
+.tables td{
     padding: 20px 0;
 }

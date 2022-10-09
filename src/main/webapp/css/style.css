@@ -256,14 +256,14 @@ h1,h2,h3,h4,h5,h6{
     font-size:2.063rem
 }
 .cajita {
-            height: 500px;
-            background: linear-gradient(rgba(45, 121, 240, 0.70), rgba(157, 191, 243, 0.70));
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-attachment: contain;
-            color: white;
-            font-size: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    height: 500px;
+    background: linear-gradient(rgba(45, 121, 240, 0.70), rgba(157, 191, 243, 0.70));
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: contain;
+    color: white;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

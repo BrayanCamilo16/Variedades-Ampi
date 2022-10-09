@@ -329,22 +329,28 @@ public class UsuarioController extends HttpServlet {
                             Boolean.parseBoolean(estadoUnico), rol2, tipoDocu);
                     usuDAO = new UsuarioDAO(usuarioVo);
                     String resultadoo = "";
+                    String nuevorol= " ";
                     String asunto3 = "Bienvenido!";
-//                     if (rol2.equals(1)) {
-//                         rol2="Administrador";
-//                     }else if(rol2.equals(2)){
-//                         rol2="Vendedor";
-//                     }
-                    String contenido3 = "Hola" + " " + nombre + " " + apellido + "<br>Te han registrado como"+ " " + rol2 + " "+ "Disfruta <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Variedades Ampi</a>";
+                     if (rol2.equals("1")) {
+                         nuevorol="Administrador";
+                     }else if(rol2.equals("2")){
+                         nuevorol="Vendedor";
+                     }else{
+                         nuevorol="desconocido";
+                     }
+                    String contenido3 = "Hola" + " " + nombre + " " + apellido + "<br>Te han registrado como"+ " " + nuevorol + " "+ "Disfruta <a href=\"http://localhost:8080/Variedades_Ampi/index.jsp\">Variedades Ampi</a>";
                     //SI ESTO RETORNA UN VERDADERO RETORNA UN MENSAJE EXITO
+                    HttpSession obtenerSesion = request.getSession();
                     try {
                         EnvioCorreo.enviarCorreo(servidor, puerto, usuario, clave, email, asunto3, contenido3);
                         if (usuDAO.insert()) {
-                            request.setAttribute("mensajeExitoo", "El usuario se registro correctamente");
+                            obtenerSesion.setAttribute("mensajeExitoo", "El usuario se registro correctamente");
+                            response.sendRedirect("admin/usuarios.jsp");
                         } else {
-                            request.setAttribute("mensajeErroro", "El usuario no se registro correctamente");
+                            obtenerSesion.setAttribute("mensajeErroro", "El usuario no se registro correctamente");
+                            response.sendRedirect("admin/usuarios.jsp");
                         }
-                        request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
+                        
                     } catch (MessagingException e) {
                         resultadoo = "Error de envio " + e.getMessage();
                         e.printStackTrace();

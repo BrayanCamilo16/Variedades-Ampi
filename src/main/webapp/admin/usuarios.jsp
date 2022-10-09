@@ -8,59 +8,82 @@
     <head>
         <title>VariedadesAmpi|Administrador</title>
         <link href="../css/Administrador.css" rel="stylesheet" type="text/css"/>
-        <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../js/funciones.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
-
     </head>
     <body>
-
         ${userConsultado}
         <!-- Navbar  -->
-        <jsp:include page="/WEB-INF/paginas/comunes/navbar.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
         <!-- /Navbar  -->
+
+        <%//cuando es diferente a nulo es que si hubo un error
+            //este es el mensaje de activar e inactivar
+            if (request.getAttribute("titleerror") != null) {%>
+        ${titleerror}
+        <%} else {%>
+        ${titleexito}
+        <%}%>
+
+
+
+
+        <%//cuando es diferente a nulo es que si hubo un error
+            //este es el mensaje de usuario creado exitosamente o no
+            HttpSession sesiones = request.getSession();
+            if (sesiones.getAttribute("mensajeErroro") != null) {%>
+        <script>
+            alert("${mensajeErroro}");
+        </script>
+
+        <%} else {%>
+        <script>
+            alert("${mensajeExitoo}");
+        </script>
+        <%}%>
         <div class="todo">
             <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#crear"><i class="fas fa-user-plus me-1"></i>Crear usuario</a>
-            <table id="example">
+            <table id="example" class="tables">
                 <thead>
                     <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellido</th>
-                        <th class="text-center">Email</th>
-                        <th class="text-center">Tipo Documento</th>
-                        <th class="text-center">Numero Documento</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Direccion</th>
-                        <th class="text-center">Sexo</th>
-                        <th class="text-center">Cargo</th>
+                        <th class="titulo-usuarios text-center">#</th>
+                        <th class="titulo-usuarios text-center">Nombre</th>
+                        <th class="titulo-usuarios text-center">Apellido</th>
+                        <th class="titulo-usuarios text-center">Email</th>
+                        <th class="titulo-usuarios text-center">Tipo Documento</th>
+                        <th class="titulo-usuarios text-center">Numero Documento</th>
+                        <th class="titulo-usuarios text-center">Estado</th>
+                        <th class="titulo-usuarios text-center">Telefono</th>
+                        <th class="titulo-usuarios text-center">Direccion</th>
+                        <th class="titulo-usuarios text-center">Sexo</th>
+                        <th class="titulo-usuarios text-center">Cargo</th>
 
-                        <th class="text-center" colspan="3">Acciones</th>
+                        <th class="titulo-usuarios text-center" colspan="3">Acciones</th>
                     </tr>
                 </thead>
                 <tfoot> 
                     <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellido</th>
-                        <th class="text-center">Email</th>
-                        <th class="text-center">Tipo Documento</th>
-                        <th class="text-center">Numero Documento</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center">Telefono</th>
-                        <th class="text-center">Direccion</th>
-                        <th class="text-center">Sexo</th>
-                        <th class="text-center">Cargo</th>
+                        <th class="titulo-usuarios text-center">#</th>
+                        <th class="titulo-usuarios text-center">Nombre</th>
+                        <th class="titulo-usuarios text-center">Apellido</th>
+                        <th class="titulo-usuarios text-center">Email</th>
+                        <th class="titulo-usuarios text-center">Tipo Documento</th>
+                        <th class="titulo-usuarios text-center">Numero Documento</th>
+                        <th class="titulo-usuarios text-center">Estado</th>
+                        <th class="titulo-usuarios text-center">Telefono</th>
+                        <th class="titulo-usuarios text-center">Direccion</th>
+                        <th class="titulo-usuarios text-center">Sexo</th>
+                        <th class="titulo-usuarios text-center">Cargo</th>
 
-                        <th class="text-center"  colspan="3">Acciones</th>
+                        <th class="titulo-usuarios text-center"  colspan="3">Acciones</th>
                     </tr>
                 </tfoot> 
                 <%UsuarioDAO usuDAO = new UsuarioDAO();
                     ArrayList<UsuarioVO> listarUsuarios = usuDAO.listar();
                     request.setAttribute("lista", listarUsuarios);
+                    String estadou = "";
                 %>
 
                 <c:forEach items="${lista}" var="u">
@@ -70,16 +93,14 @@
                             <td class="text-center">${u.getNombreUsuario()}</td>
                             <td class="text-center">${u.getApellidoUsuario()}</td>
                             <td class="text-center">${u.getEmailUsuario()}</td>
-                            <!-- <td class="text-center">${u.getPassUsuario()}</td> -->
                             <td class="text-center">${u.getTipoDocumento()}</td>
                             <td class="text-center">${u.getNumDocumentoUsuario()}</td>
-
                             <td class="text-center">
                                 <c:if test="${u.isEstadoUsuario() == true}">
-                                    <button class="btn btn-primary rounded-pill">${u.isEstadoUsuario()}</button>
+                                    <button class="btn btn-primary rounded-pill"><%=estadou = "Activo"%></button>
                                 </c:if>
                                 <c:if test="${u.isEstadoUsuario() == false}">
-                                    <button class="btn btn-danger rounded-pill">${u.isEstadoUsuario()}</button>
+                                    <button class="btn btn-danger rounded-pill"><%=estadou = "Inactivo"%></button>
                                 </c:if>
                             </td>
                             <td class="text-center">${u.getTelefonoUsuario()}</td>
@@ -111,32 +132,7 @@
                     </tbody>
                 </c:forEach>
             </table>
-            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-            <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-            <script>
-                                        $(document).ready(function () {
-                                            $('#example').DataTable();
-                                        });
-            </script>
         </div>
-
-
-        <%//cuando es diferente a nulo es que si hubo un error
-            if (request.getAttribute("MensajeErroro") != null) {%>
-        ${MensajeErroro}
-        <%} else {%>
-        ${MensajeExitoo}
-        <%}%>
-
-
-        <%//cuando es diferente a nulo es que si hubo un error
-            if (request.getAttribute("titleerror") != null) {%>
-        ${titleerror}
-        <%} else {%>
-        ${titleexito}
-        <%}%>
-
         <jsp:include page="CrearUsuario.jsp" />
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
@@ -147,7 +143,6 @@
         <!-- /File js  -->  
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
-
         <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
     </body>
 </html>

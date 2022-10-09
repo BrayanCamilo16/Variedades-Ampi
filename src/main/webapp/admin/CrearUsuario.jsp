@@ -99,7 +99,7 @@
                                 <option value="3">Otro</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group mb-2">
                             <label for="rol">Rol <span class="text-danger">*</span></label>
                             <select class="form-select" name="rol" required>
@@ -107,7 +107,7 @@
                                 <option value="2">Vendedor</option>
                             </select>
                         </div>
-                       
+
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <p id="mensaje" class="d-none">Por favor sumnistre bien los campos para hacer el registro

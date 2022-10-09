@@ -16,7 +16,7 @@
 <html>
     <head>
         <title>JSP Page</title>
-        <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="/WEB-INF/paginas/comunes/head-bootstrap.jsp" />
     </head>
     <body>
         <!-- header  -->

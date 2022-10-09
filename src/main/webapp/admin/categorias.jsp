@@ -6,12 +6,13 @@
 <html>
     <head>
         <title>Categorias</title>
-        <jsp:include page="../WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
     </head>
     <body>
 
         <!-- Navbar  -->
-        <jsp:include page="../WEB-INF/paginas/comunes/navbar.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
         <!-- /Navbar  -->
 
         <div class="container">
@@ -58,7 +59,7 @@
                     <form action="${pageContext.request.contextPath}/Archivos" id="form" method="POST"
                           enctype="multipart/form-data">
                         <input type="file" class="form-control" accept=".csv" id="excel" name="excel">
-                        <button type="submit" class="btn btn-secondary mt-3 mb-1">Registrar catagorias</button>
+                        <button type="submit" class="btn btn-primary mt-3 mb-1">Registrar catagorias</button>
                     </form>
                     <a href="${pageContext.request.contextPath}/categorias.csv" download="categorias.csv">Descargar formato</a>
                     <div id="msg">

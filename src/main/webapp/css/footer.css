@@ -41,6 +41,7 @@ footer{
     color: #0F42A6;
     font-family: 'Kaushan Script', cursive;
     padding-bottom: 50px;
+    font-weight: 700;
 }
 .sobreN p{
     position: relative;
@@ -74,6 +75,12 @@ footer{
     flex-direction: column;
     margin-right: 100px;
 }
+.redes h1{
+    color: #0F42A6;
+    font-family: 'Kaushan Script', cursive;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
 .redes a{
     text-decoration: none;
     font-weight: 500;
@@ -81,12 +88,6 @@ footer{
     font-size: 18px;
     line-height: 1.6;
     font-family: 'Roboto', sans-serif;
-}
-.redes h1{
-    color: #0F42A6;
-    font-family: 'Kaushan Script', cursive;
-    padding-bottom: 15px;
-    font-weight: 700;
 }
 .redes i{
     background: #0F42A6;

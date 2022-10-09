@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <jsp:include page="/WEB-INF/paginas/comunes/head.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
     </head>
     <body class="position-relavite">
 
         <!-- Navbar  -->
-        <jsp:include page="/WEB-INF/paginas/comunes/navbar.jsp" />
+        <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
         <!-- /Navbar  -->
 
         <jsp:include page="../WEB-INF/paginas/comunes/alerta.jsp" />

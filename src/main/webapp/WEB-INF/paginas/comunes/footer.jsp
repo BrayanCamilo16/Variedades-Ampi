@@ -2,71 +2,79 @@
 <%
     Calendar cal = Calendar.getInstance();
     int year = cal.get(Calendar.YEAR);
-%> 
-<!-- Footer -->
-<footer class="text-center text-lg-start bg-light">
+%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="head-css.jsp" />
+    </head>
 
-
-    <!-- Section: Links  -->
-    <section class="border-bottom mt-3 p-4">
-        <div class="container text-center text-md-start">
-            <!-- Grid row -->
-            <div class="row mt-3 text-center">
-                <!-- Grid column -->
-                <div class="mx-auto">
-                    <!-- Links -->
-                    <a class="navbar-brand py-2" href="${pageContext.request.contextPath}">
-                        <img src="${pageContext.request.contextPath}/img/variedades-ampi.png" alt="" width="150">
-                    </a>
-                    <div class="mt-2 d-flex justify-content-center">
-                        <p class="me-4 py-2 text-primary"><a href="" class="text-decoration-none">Sobre nosotros</a></p>
-                        <p class="me-4 py-2 text-primary"><a href="" class="text-decoration-none">Contacto</a></p>
-                        <p class="me-4 py-2 text-primary"><a href="" class="text-decoration-none">Ayuda</a></p>
-                        <p class="me-4 py-2 text-primary"><a href="" class="text-decoration-none">Politicas de privacidad</a></p>
+    <footer>
+        <div class="footer2">
+            <div class="empresa">
+                <a href="${pageContext.request.contextPath}">
+                    <img src="${pageContext.request.contextPath}/img/variedades-ampi.png">
+                </a>
+                <p>Variedades Ampi esta ubicada en la localidad Ciudad Bolivar y ofrece productos de diferentes categorias y de buena calidad.</p>
+            </div>
+            <div class="sobre">
+                <h1>Información</h1>
+                <div class="sobreN">
+                    <p>Sobre nosotros</p>
+                    <div class="nosotros">
+                        Somos un grupo de desarrolladores conformado por Jhon, Kevin, Jose y Brayan nos hacemos llamar Los Dinamita
                     </div>
                 </div>
-                <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-        </div>
-    </section>
-    <!-- Section: Links  -->
+                <div class="sobreN">
+                    <p>Contácto</p>
+                    <div class="contacto">
+                        Comunicate al <b>3134377435</b> para cualquier cosa.
+                    </div>
+                </div>
+                <div class="sobreN">
+                    <p>Ayuda</p>
+                    <div class="ayuda">
+                        Para dudas, reclamos o sugerencias dejalas en el siguiente correo <b>variedadesampi@gmail.com</b>
+                    </div>
+                </div>
 
-    <!-- Section: Social media - copyright -->
-    <section class="container">
-        <div class="d-flex justify-content-center justify-content-lg-between p-4 flex-wrap">
-            <!-- Left -->
-            <div class="me-lg-2 p-md-2">
-                <div class="">
-                    <span>� <%=year%> <a class="text-decoration-none text-dark" href="">Variedades ampi</a>. Todos los derechos reservados</span>
+                <div class="sobreN">
+                    <p>Políticas de privacidad</p>
                 </div>
             </div>
-            <!-- Left -->
-
-            <!-- Right -->
-            <div>
-                <a href="" class="me-4 text-reset">
+            <div class="redes">
+                <h1>Redes Sociales</h1>
+                <a href="">
                     <i class="fab fa-facebook-f"></i>
+                    Facebook
                 </a>
-                <a href="" class="me-4 text-reset">
+                <a href="">
                     <i class="fab fa-twitter"></i>
+                    Twiter
                 </a>
-                <a href="" class="me-4 text-reset">
+                <a href="">
                     <i class="fab fa-google"></i>
+                    Google
                 </a>
-                <a href="" class="me-4 text-reset">
+                <a href="">
                     <i class="fab fa-instagram"></i>
+                    Instagram
                 </a>
-                <a href="" class="me-4 text-reset">
+                <a href="">
                     <i class="fab fa-linkedin"></i>
+                    LinKedln
                 </a>
-                <a href="" class="me-4 text-reset">
+                <a href="">
                     <i class="fab fa-github"></i>
+                    GitHub
                 </a>
             </div>
-            <!-- Right -->
         </div>
-    </section>
-    <!-- Section: Social media - copyright -->
-</footer>
-<!-- Footer -->
+        <div>
+            <div class="derechos">
+                <span>&copy; <%=year%> <a href="">Variedades Ampi</a>. Todos los derechos reservados</span>
+            </div>
+        </div>
+    </footer>
+</html>

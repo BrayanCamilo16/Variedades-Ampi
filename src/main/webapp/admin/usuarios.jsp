@@ -38,7 +38,7 @@
             alert("${mensajeErroro}");
         </script>
 
-        <%} else {%>
+        <%} else if(sesiones.getAttribute("mensajeExitoo") != null){%>
         <script>
             alert("${mensajeExitoo}");
         </script>

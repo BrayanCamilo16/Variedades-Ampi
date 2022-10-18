@@ -1,5 +1,4 @@
 <%@page import="vo.UsuarioVO"%>
-<%@include file="cache.jsp" %>
 <%    HttpSession sesion = request.getSession();
 
     UsuarioVO userVo = (UsuarioVO) sesion.getAttribute("usuarioVo");

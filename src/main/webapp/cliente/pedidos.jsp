@@ -4,6 +4,7 @@
 <%@page import="java.util.List"%>
 <%@page import="dao.PedidoDAO"%>
 <%@include file="../cache.jsp" %>
+<%@include file="ValidarRolCliente.jsp" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="es_CO" />

@@ -4,6 +4,8 @@
     Author     : SENA
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="vo.ProductoVO"%>
 <%@page import="java.util.Map"%>
 <%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
 <%@page import="java.util.HashMap"%>
@@ -17,27 +19,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <script>
-            var id = prompt("ingrese el id:");
-            if (id==null) {
-                window.location.href="index.jsp";
-} else {
-     window.location.href="factura.jsp?id="+id;
-}
+   
+             <%  HttpSession sesion = request.getSession();
+    Double precioTotal = 0.0;  
+   
+
+       if (sesion.getAttribute("productoCarrito") != null)
+       {
+    ProductoVO productoVo = new ProductoVO(); 
+    List<ProductoVO> productos = (List<ProductoVO>) sesion.getAttribute("productoCarrito"); 
     
-    </script>
-    <body>
-         <%
-       
-       if (request.getParameter("id")!=null) {
-               String valor =request.getParameter("id").toString();
-               Connection con;
+    String nombre= productoVo.getNombreProducto();
+    int cantidad=productoVo.getCantidad();
+    Double precio = productoVo.getPrecioUnitarioProducto();
+   
+    precioTotal += productoVo.getPrecioUnitarioProducto() * productoVo.getCantidad();
+    
+      
+        Connection con;
         
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/variedades_ampi","root","") ;
         File jasperfile = new File(application.getRealPath("reporte/factura.jasper"));
         Map parametro = new HashMap();
-        parametro.put("id", valor);
+        parametro.put("nombre", nombre);
+        parametro.put("precio",precioTotal);
+        parametro.put("cantidad", cantidad);
+        parametro.put("precio", precio);
         byte[] bytes =JasperRunManager.runReportToPdf(jasperfile.getPath(),parametro,con );
         
         response.setContentType("application/pdf");

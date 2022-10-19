@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.UsuarioDAO"%>
 <%@include file="../cache.jsp" %>
+<%@include file="ValidarRolAdmin.jsp" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
             alert("${mensajeErroro}");
         </script>
 
-        <%} else {%>
+        <%} else if(sesiones.getAttribute("mensajeExitoo") != null){%>
         <script>
             alert("${mensajeExitoo}");
         </script>

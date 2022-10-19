@@ -1,4 +1,5 @@
 <%@include file="../cache.jsp" %>
+<%@include file="ValidarRolCliente.jsp" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>

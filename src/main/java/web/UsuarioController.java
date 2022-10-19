@@ -114,8 +114,8 @@ public class UsuarioController extends HttpServlet {
                         if (usuarioVo.isEstadoUsuario() == true) {
                             response.sendRedirect("menu.jsp");
                         } else {
-                            response.sendRedirect("index.jsp");
                             request.setAttribute("MensajeErrorrr", "Tu estado actual esta INACTIVO");
+                            response.sendRedirect("index.jsp");
                         }
 
                     } else {

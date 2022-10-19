@@ -13,6 +13,22 @@
 
         <jsp:include page="WEB-INF/paginas/comunes/alerta.jsp" />
         
+        <%
+                            //cuando es diferente a nulo es que si hubo un error
+                            if (request.getAttribute("mensajeErrorrr") != null) {%>
+        ${mensajeErrorrr}
+        <% } else {%>
+        <%}%>
+
+
+        <%
+            //cuando es diferente a nulo es que si hubo un error
+            if (request.getAttribute("mensajeError") != null) {%>
+        ${mensajeError}
+        <% } else {%>
+        ${mensajeExito}
+        <%}%>
+        
         <div class="cajita">
             <h1>No se que hacer:(( </h1>
         </div>
@@ -33,12 +49,6 @@
                 </div>
             </div>
         </section>
-                        <%
-                    //cuando es diferente a nulo es que si hubo un error
-                    if (request.getAttribute("mensajeErrorrr") != null) {%>
-                    ${mensajeErrorrr}
-                <% } else {%>
-                <%}%>
 
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
@@ -46,14 +56,8 @@
 
         <jsp:include page="/WEB-INF/paginas/login.jsp" />
         <jsp:include page="/WEB-INF/paginas/signup.jsp" />
-        
-                        <%
-                    //cuando es diferente a nulo es que si hubo un error
-                    if (request.getAttribute("mensajeError") != null) {%>
-                    ${mensajeError}
-                <% } else {%>
-                    ${mensajeExito}
-                <%}%>
+
+
 
         <!-- File js  -->
         <jsp:include page="/WEB-INF/paginas/comunes/archivos-js.jsp" />

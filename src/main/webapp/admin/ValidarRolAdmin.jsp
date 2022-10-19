@@ -5,6 +5,6 @@
     String idRol = userVo.getIdRol();
     //aqui se le esta diciendo si rol es diferente a 1(admin) que lo redireccione a menu
     if (!idRol.equals("1")) {
-        request.getRequestDispatcher("menu.jsp").forward(request, response);
+        response.sendRedirect("../menu.jsp");
     }
 %>

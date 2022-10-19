@@ -3,13 +3,14 @@
 
     UsuarioVO userVo = (UsuarioVO) sesion.getAttribute("usuarioVo");
     String idRol = userVo.getIdRol();
+    
     if (idRol.equals("1")) {
-        response.sendRedirect("admin/index.jsp");
+        response.sendRedirect("/variedades-ampi/admin/index.jsp");
     } else if (idRol.equals("2")) {
-        response.sendRedirect("vendedor/index.jsp");
+        response.sendRedirect("/variedades-ampi/vendedor/index.jsp");
     } else if (idRol.equals("3")) {
-        response.sendRedirect("cliente/index.jsp");
+        response.sendRedirect("/variedades-ampi/cliente/index.jsp");
     } else {
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/variedades-ampi/cliente/index.jsp");
     }
 %>

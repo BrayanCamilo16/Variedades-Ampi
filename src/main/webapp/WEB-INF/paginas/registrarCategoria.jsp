@@ -78,9 +78,6 @@
         <%
             if (hayUnaCategoriaConsultada) {
         %>
-        <!-- footer  -->
-        <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
-        <!-- /footer  -->
         <script>
             window.$('#registrarCategoria').modal('show');
             $(document).on('click', '#closeModal', function () {
@@ -90,5 +87,9 @@
         <%
             }
         %>
+        
+        <!-- footer  -->
+        <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
+        <!-- /footer  -->
     </body>
 </html>

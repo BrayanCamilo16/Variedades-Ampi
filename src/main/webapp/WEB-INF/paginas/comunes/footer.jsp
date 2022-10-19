@@ -65,10 +65,6 @@
                     <i class="fab fa-linkedin"></i>
                     LinKedln
                 </a>
-                <a href="">
-                    <i class="fab fa-github"></i>
-                    GitHub
-                </a>
             </div>
         </div>
         <div>

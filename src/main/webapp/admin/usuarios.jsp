@@ -13,8 +13,8 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../js/funciones.js" type="text/javascript"></script>
     </head>
-    <body>
-        ${userConsultado}
+    <body>  
+        ${ConsultadoUsuario}
         <!-- Navbar  -->
         <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
         <!-- /Navbar  -->
@@ -45,6 +45,7 @@
         <%}%>
         <div class="todo">
             <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#crear"><i class="fas fa-user-plus me-1"></i>Crear usuario</a>
+            <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#update"><i class="fas fa-user-plus me-1"></i> usuario</a>
             <table id="example" class="tables">
                 <thead>
                     <tr>
@@ -110,8 +111,8 @@
                             <td class="text-center">
                                 <form action="${pageContext.request.contextPath}/Usuario"  method="POST" >
                                     <input type="hidden" name="codigo" value="${u.getIdUsuario()}">
-                                    <button class="btn-transparent bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#Update" type="submit"><i class="fas fa-edit text-info"></i></button>
-                                    <input type="hidden" name="action" value="">
+                                    <input type="hidden" name="action" value="6">
+                                    <button type="submit" class="btn-transparent bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#update"><i class="fas fa-edit text-info"></i></button>
                                 </form>
                             </td>
                             <c:if test="${u.isEstadoUsuario() == true}">
@@ -133,7 +134,6 @@
                 </c:forEach>
             </table>
         </div>
-        <jsp:include page="CrearUsuario.jsp" />
         <!-- footer  -->
         <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp" />
         <!-- /footer  -->
@@ -144,5 +144,8 @@
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
         <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
+        <jsp:include page="CrearUsuario.jsp" />
+        <jsp:include page="ModificarUsuario.jsp" />
+       
     </body>
 </html>

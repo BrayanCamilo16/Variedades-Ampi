@@ -94,6 +94,29 @@ public class CategoriaDAO extends Conexion2 {
         return operacionExitosa;
     }
     
+    public boolean insertExcel(String values) {
+
+        sql = "INSERT INTO categoria (nombre_categoria, descripcion_categoria, nombre_img_categoria) VALUES " + values;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+//            stmt.setString(1, values);
+            stmt.executeUpdate();
+            
+            operacionExitosa = true;
+            
+        } catch (SQLException ex) {
+            operacionExitosa = false;
+            System.out.println("Error al insertar la categoria masiva: " + ex.toString());
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+
+        return operacionExitosa;
+    }
+    
     public boolean update(CategoriaVO categoriaVo) {
 
         sql = "UPDATE categoria SET nombre_categoria = ?, descripcion_categoria = ?, nombre_img_categoria = ? WHERE id_categoria = ?";

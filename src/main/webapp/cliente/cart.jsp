@@ -5,8 +5,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="es_CO" />
 <%@include file="../cache.jsp" %>
+<%@include file="ValidarRolCliente.jsp" %>
 <%    Double precioTotal = 0.0;
-    HttpSession sesion = request.getSession();
+    HttpSession sesionn = request.getSession();
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,9 +40,9 @@
                             </thead>
                             <tbody>
                                 <%
-                                    if (sesion.getAttribute("productoCarrito") != null) {
+                                    if (sesionn.getAttribute("productoCarrito") != null) {
                                         ProductoVO productoVo = new ProductoVO();
-                                        List<ProductoVO> productos = (List<ProductoVO>) sesion.getAttribute("productoCarrito");
+                                        List<ProductoVO> productos = (List<ProductoVO>) sesionn.getAttribute("productoCarrito");
                                         for (int i = 0; i < productos.size(); i++) {
                                             productoVo = productos.get(i);
                                             precioTotal += productoVo.getPrecioUnitarioProducto() * productoVo.getCantidad();

@@ -1,4 +1,5 @@
 <%@include file="../cache.jsp" %>
+<%@include file="ValidarRolVendedor.jsp" %>
 <%@page import="vo.UsuarioVO"%>
 <!DOCTYPE html>
 <html>

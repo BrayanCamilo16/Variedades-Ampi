@@ -1,7 +1,7 @@
 <link href="${pageContext.request.contextPath}/css/nav-enlaces.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/navbar-rol.css" rel="stylesheet" type="text/css"/>
-<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet" type="text/css"/>
-<link href="${pageContext.request.contextPath}/css/Adminn.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/Foter.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/administrador.css" rel="stylesheet" type="text/css"/>
 
 
 <script src="https://kit.fontawesome.com/dca352768f.js" crossorigin="anonymous"></script>

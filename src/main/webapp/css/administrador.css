@@ -3,7 +3,6 @@
 /*estilos del respectivo index de administrador*/
 .todoContenido{
     background: url("../img/super.jpg");
-    padding: 50px;
     background-attachment: fixed;
     background-size: cover;
     overflow: hidden;

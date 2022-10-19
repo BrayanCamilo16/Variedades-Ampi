@@ -1,9 +1,5 @@
-<%-- 
-    Document   : reporte
-    Created on : 22/08/2022, 7:32:32 a. m.
-    Author     : SENA
---%>
-
+<%@include file="../cache.jsp" %>
+<%@include file="ValidarRolVendedor.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

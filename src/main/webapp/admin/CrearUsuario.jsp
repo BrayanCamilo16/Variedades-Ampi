@@ -51,7 +51,7 @@
 
                         <div class="grupopassword">
                             <!--                            <label for="password">Contrase&#241;a <span class="text-danger">*</span></label>-->
-                            <input type="hidden" name="pass" value="123456789">
+                            <input type="hidden" name="pass" value="1234567890">
                             <span class="passwordText"></span>
                         </div>
 

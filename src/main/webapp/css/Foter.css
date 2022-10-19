@@ -6,6 +6,7 @@
 footer{
     background: url("../img/ondas.svg");
     background-size: cover;
+    border-top: solid 1px #0b5ed7;
 }
 .footer2{
     width: 100%;
@@ -65,6 +66,7 @@ footer{
     line-height: 1.6;
 }
 .sobreN p:hover~.nosotros, .sobreN p:hover~.ayuda, .sobreN p:hover~.contacto{
+    position: relative;
     display: block;
     transition: all 5s ease;
     cursor: pointer;
@@ -74,8 +76,10 @@ footer{
     display: flex;
     flex-direction: column;
     margin-right: 100px;
+    position: relative;
 }
 .redes h1{
+    position: relative;
     color: #0F42A6;
     font-family: 'Kaushan Script', cursive;
     padding-bottom: 15px;

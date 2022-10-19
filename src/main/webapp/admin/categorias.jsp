@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <buttom class=" btn btn-primary text-white p-2 mb-2 my-3 float-end" data-bs-toggle="modal" data-bs-target="#registrarCategoria"><i class="fas fa-plus-circle me-1"></i>Agregar categor&#237;a</buttom>
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="category">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">#</th>
@@ -85,6 +85,13 @@
 <jsp:include page="../WEB-INF/paginas/registrarCategoria.jsp" />
 <!-- /registrar categoria  -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#category').DataTable();
+    });
+</script>
 <script>
     $('#form').on('submit', (e) => {
         e.preventDefault();
@@ -97,8 +104,15 @@
             type: 'POST',
             contentType: false,
             processData: false,
+            beforeSend: function () {
+                $('#msg').html("Guardando los datos en la base de datos, por favor espere...");
+            },
+            error: function () {
+                $('#msg').html("Ocurri? un error al Guardar la Informaci?n");
+            },
             success: function (mensaje) {
                 $('#msg').html(mensaje);
+                $('#excel').val("")
                 setTimeout(() => {
                     $('#msg').html("");
                 }, 5000);

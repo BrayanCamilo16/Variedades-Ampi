@@ -89,27 +89,43 @@ public class ManejoExcel {
      * @param nameFile, nombre del archivo
      * @return List<Pelicula>, Retorna una lista de datos
      */
-    public static List<CategoriaVO> leerArchivo(String nameFile) {
-        List<CategoriaVO> categorias = new ArrayList<>();
-        CategoriaVO categoriaVo = null;
+    public static List<String> leerArchivo(String nameFile) {
+        List<String> totalCategorias = new ArrayList<>();
+        String categorias = "";
+        String categoriaVo = "";
         try {
             BufferedReader reader = new BufferedReader(new FileReader("C:\\variedades-ampi\\src\\main\\webapp\\files\\excel\\" + nameFile));
             String line = null;
+            int contador = 0;
             while ((line = reader.readLine()) != null) {
+                contador++;
                 String[] parts = line.split(";");
                 int totalParts = parts.length;
                 for (int i = 0; i < totalParts; i++) {
-                    categoriaVo = new CategoriaVO(parts[0], parts[1], parts[2]);
                     if (i > 0) {
                         continue;
                     }
-                    categorias.add(categoriaVo);
+                    categoriaVo = "('" + parts[0] + "','" + parts[1] + "','" + parts[2] + "'),";
+                    categorias += categoriaVo;
                 }
+
+                if (contador > 5000) {
+                    categorias = categorias.substring(0, categorias.length() - 1);
+                    totalCategorias.add(categorias);
+                    categorias = "";
+                    contador = 0;
+                }
+
+            }
+            if (categorias.length() > 2 && contador > 0) {
+                categorias = categorias.substring(0, categorias.length() - 1);
+                totalCategorias.add(categorias);
             }
         } catch (IOException ex) {
             System.out.println("ex = " + ex.toString());
         }
-        return categorias;
+        System.out.println("Total categorias: " + totalCategorias.size());
+        return totalCategorias;
     }
 
 }

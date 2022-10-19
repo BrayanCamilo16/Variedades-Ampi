@@ -78,17 +78,16 @@ public class FilesController extends HttpServlet {
                     // Nuevo nombre al archivo
                     String nameFile = ManejoExcel.saveFile(excelCsv, uploads);
 
-                    List<CategoriaVO> lista = ManejoExcel.leerArchivo(nameFile);
-                    lista.remove(0);
-
                     String mensajeOperacion = "Error al insertar los archivos";
 
-                    for (int i = 0; i < lista.size(); i++) {
-                        categoriaVo = lista.get(i);
-                        if (categoriaDao.insert(categoriaVo)) {
+                    List<String> listaStr = ManejoExcel.leerArchivo(nameFile);
+                    String lista;
+                    for (int i = 0; i < listaStr.size(); i++) {
+                        if (categoriaDao.insertExcel(listaStr.get(i))) {
                             mensajeOperacion = "Registro exitoso";
                         }
                     }
+
                     out.print(mensajeOperacion);
                     out.print("<script>Swal.fire('Insercion exitosa', 'Los datos el archivo fueron insertados en la base de datos', 'success');</script>");
                     String nameFileOld = uploads + "\\" + nameFile;

@@ -1,18 +1,13 @@
 <%@page import="vo.UsuarioVO" %>
 <%
     UsuarioVO VO = new UsuarioVO();
-    boolean ConsultadoUsuario = false;
-    String modalStatic = "";
+//    boolean ConsultadoUsuario = false;
+//    String modalStatic = "";
     if (request.getAttribute("ConsultadoUsuario") != null) {
-        ConsultadoUsuario = true;
-        modalStatic = "data-backdrop=\"static\" data-keyboard=\"false\" tabindex=\"-1\"";
-    }
-
+//        ConsultadoUsuario = true;
+//        modalStatic = "data-backdrop=\"static\" data-keyboard=\"false\" tabindex=\"-1\"";
+//    }
 %>
-<head>
-        <title>JSP Page</title>
-        <jsp:include page="/WEB-INF/paginas/comunes/head-bootstrap.jsp" />
-    </head>
 <body>
     <div class="modal fade" id="update">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -30,7 +25,7 @@
                     <div class="modal-body">
 
 
-                       <input type="hidden" name="codigoId" value="${ConsultadoUsuario.idUsuario}">
+                        <input type="hidden" name="codigoId" value="${ConsultadoUsuario.idUsuario}">
 
 
                         <label>Nombre</label>
@@ -93,20 +88,6 @@
             </div>
         </div>
     </div>
-                         <!-- File js  -->
-        <jsp:include page="/WEB-INF/paginas/comunes/archivos-js.jsp" />
-        <!-- /File js  -->
+    <%}%>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <%
-            if (ConsultadoUsuario) {
-        %>
-        <script>
-            window.$('#update').modal('show');
-            $(document).on('click', '#closeModal', function () {
-                location.href = "${pageContext.request.contextPath}/admin/usuarios.jsp";
-            });
-        </script>      
-        <%
-            }
-        %>
 </body>

@@ -35,7 +35,7 @@
                 <a aria-current="page" href="${pageContext.request.contextPath}/admin/productos.jsp" class="enlacesss">Productos<i class="fas fa-solid fa-carrot"></i></a>
             </li>  
             <li class="listass-enlacess">
-                <a aria-current="page" href="${pageContext.request.contextPath}/vendedor/reporte.jsp" class="enlacesss">Reportes<i class="fas fa-solid fa-envelope-open-text"></i></a>
+                <a aria-current="page" href="${pageContext.request.contextPath}/admin/reporte.jsp" class="enlacesss">Reportes<i class="fas fa-solid fa-envelope-open-text"></i></a>
             </li>
 
             <!--            <li>

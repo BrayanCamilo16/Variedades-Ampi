@@ -256,8 +256,33 @@ public class ProductoController extends HttpServlet {
 
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int codigoId = Integer.parseInt(request.getParameter("codigoId"));
+        String action = request.getParameter("action");
+        
+        ProductoVO VO = new ProductoVO(codigoId, action);
+        ProductoDAO DAO = new ProductoDAO(VO);
+        if (action.equals("Activo")) {
+            if (DAO.InactivarProducto(codigoId)) {
+                request.setAttribute("titleexito", "Producto Inactivado Correctamente");
+                request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
+            } else {
+                request.setAttribute("titleerror", "El Producto no se pudo Inactivar");
+                request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
+            }
+        } else {
+            if (DAO.ActivarProducto(codigoId)) {
+                request.setAttribute("titleexito", "Producto Activado Correctamente");
+                request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
+            } else {
+                request.setAttribute("titleerror", "El Producto no se pudo Activar");
+                request.getRequestDispatcher("admin/productos.jsp").forward(request, response);
+            }
+
+        }
+
         this.accionDefault(request, response);
     }
 }

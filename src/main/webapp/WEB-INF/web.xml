@@ -23,7 +23,7 @@
     </context-param>
     <context-param>
         <param-name>clave</param-name>
-        <param-value>gjxvflnwxltrgoka</param-value>
+        <param-value>qrnnwxvpgfdccixu</param-value>
     </context-param>
     <welcome-file-list>
         <welcome-file>RecuperarContraseña.jsp</welcome-file>

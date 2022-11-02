@@ -17,6 +17,13 @@ public class ProductoDAO extends Conexion2{
     private String sql = "";
     boolean operacionExitosa = false;
 
+    public ProductoDAO() {
+    }
+
+    public ProductoDAO(ProductoVO VO) {
+    }
+    
+    
     public List<ProductoVO> select() {
         List<ProductoVO> productos = new ArrayList();
         ProductoVO productoVo = null;
@@ -160,5 +167,56 @@ public class ProductoDAO extends Conexion2{
             Conexion.close(conn);
         }
         return productos;
+    }
+    
+    
+    public boolean InactivarProducto(int idProducto) {
+        try {
+            sql = "update producto set estado_producto='Inactivo'  where id_producto=?";
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a eliminar, estos van en orden a la base de datos
+            stmt.setInt(1, idProducto);
+
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
+    }
+
+    public boolean ActivarProducto(int IdProducto) {
+        try {
+            sql = "update producto set estado_producto='Activo'  where id_producto=?";
+            conn = this.getConnection();
+            //crear el puente, prepara lo que va a mandar
+            stmt = conn.prepareStatement(sql);
+            //por el puente manda los datos a eliminar, estos van en orden a la base de datos
+            stmt.setInt(1, IdProducto);
+
+            stmt.executeUpdate();
+            operacionExitosa = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, e);
+        } //
+        finally {
+            try {
+                this.close();
+            } catch (Exception e) {
+                Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacionExitosa;
     }
 }

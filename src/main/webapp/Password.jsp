@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Password
-    Created on : 21/09/2022, 8:00:23 p. m.
-    Author     : pc
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,7 +34,7 @@
         formulario.addEventListener('submit', (e) => {
             if (password1.value !== password2.value) {
                 e.preventDefault();
-                document.getElementById("alerta").innerHTML = "Las contraseñas no coinciden, assegurese de suministrarlas correctamente";
+                document.getElementById("alerta").innerHTML = "Las contraseñas no coinciden, asegurese de suministrarlas correctamente";
             }
         });
     </script>

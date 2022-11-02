@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="caja">
-                        <a href="">
+                        <a href="reporte.jsp">
                             <span></span>
                             <img src="../img/reporte.png" alt=""/>
                             <h1>Reportes</h1>

@@ -1,6 +1,5 @@
 package web;
 
-
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -13,15 +12,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author pc
- */
 public class EnvioCorreo {
     //en este metodo se va a configurar todo lo de correo por tal razon es estatico
     public static void enviarCorreo(String servidor, String Puerto, final String usuario,

@@ -8,11 +8,10 @@
 <html>
     <head>
         <title>VariedadesAmpi|Administrador</title>
-        <link href="../css/Administrador.css" rel="stylesheet" type="text/css"/>
         <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
         <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../js/funciones.js" type="text/javascript"></script>
+        <script src="../js/EstadosUsuario.js" type="text/javascript"></script>
     </head>
     <body>  
         ${ConsultadoUsuario}
@@ -39,32 +38,29 @@
             alert("${mensajeErroro}");
         </script>
 
-        <%} else if(sesiones.getAttribute("mensajeExitoo") != null){%>
+        <%} else if (sesiones.getAttribute("mensajeExitoo") != null) {%>
         <script>
             alert("${mensajeExitoo}");
         </script>
         <%}%>
         <div class="todo">
             <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#crear"><i class="fas fa-user-plus me-1"></i>Crear usuario</a>
-            <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#update"><i class="fas fa-user-plus me-1"></i> usuario</a>
-            <table id="example" class="tables">
-                <thead>
-                    <tr>
-                        <th class="titulo-usuarios text-center">#</th>
-                        <th class="titulo-usuarios text-center">Nombre</th>
-                        <th class="titulo-usuarios text-center">Apellido</th>
-                        <th class="titulo-usuarios text-center">Email</th>
-                        <th class="titulo-usuarios text-center">Tipo Documento</th>
-                        <th class="titulo-usuarios text-center">Numero Documento</th>
-                        <th class="titulo-usuarios text-center">Estado</th>
-                        <th class="titulo-usuarios text-center">Telefono</th>
-                        <th class="titulo-usuarios text-center">Direccion</th>
-                        <th class="titulo-usuarios text-center">Sexo</th>
-                        <th class="titulo-usuarios text-center">Cargo</th>
+            <table id="user" class="tables">
+                <tr class="theadd">
+                    <th class="titulo-usuarios text-center">#</th>
+                    <th class="titulo-usuarios text-center">Nombre</th>
+                    <th class="titulo-usuarios text-center">Apellido</th>
+                    <th class="titulo-usuarios text-center">Email</th>
+                    <th class="titulo-usuarios text-center">Tipo Documento</th>
+                    <th class="titulo-usuarios text-center">Numero Documento</th>
+                    <th class="titulo-usuarios text-center">Estado</th>
+                    <th class="titulo-usuarios text-center">Telefono</th>
+                    <th class="titulo-usuarios text-center">Direccion</th>
+                    <th class="titulo-usuarios text-center">Sexo</th>
+                    <th class="titulo-usuarios text-center">Cargo</th>
 
-                        <th class="titulo-usuarios text-center" colspan="3">Acciones</th>
-                    </tr>
-                </thead>
+                    <th class="titulo-usuarios text-center" colspan="3">Acciones</th>
+                </tr>
                 <tfoot> 
                     <tr>
                         <th class="titulo-usuarios text-center">#</th>
@@ -144,9 +140,19 @@
         <!-- /File js  -->  
 
         <jsp:include page="/WEB-INF/paginas/comunes/alerta-modal.jsp" />
-        <script src="https://kit.fontawesome.com/bdbed0aafa.js" crossorigin="anonymous"></script>
         <jsp:include page="CrearUsuario.jsp" />
-        <jsp:include page="ModificarUsuario.jsp" />
-       
     </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+                                        $(document).ready(function () {
+                                            $('#user').DataTable({
+                                                "language": {
+                                                    "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+                                                }
+                                            });
+                                        });
+</script>
+

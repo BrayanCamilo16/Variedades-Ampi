@@ -95,7 +95,7 @@
 .tables tr:nth-child(even){
     background-color: #ddd;
 }
-.tables thead, tfoot .titulo-usuarios{
+.tables .theadd .titulo-usuarios, tfoot .titulo-usuarios{
     background: #D9E6FB;
     border-bottom: #317DFD 1px solid;
     color: #474A50;

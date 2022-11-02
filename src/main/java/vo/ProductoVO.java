@@ -20,6 +20,12 @@ public class ProductoVO {
     public ProductoVO() {
     }
 
+    public ProductoVO(int idProducto, String estadoProducto) {
+        this.idProducto = idProducto;
+        this.estadoProducto = estadoProducto;
+    }
+    
+    
     public ProductoVO(String nombreProducto, String descripcionProducto, double precioUnitarioProducto, double stockProducto, double unidadMinimaProducto, String nombreImgProducto, String estadoProducto) {
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;

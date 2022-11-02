@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%@include file="../cache.jsp" %>
+=======
+
+>>>>>>> 6f179a10263f22c02063b2d63aab323d68225356
 <%@include file="ValidarRolAdmin.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

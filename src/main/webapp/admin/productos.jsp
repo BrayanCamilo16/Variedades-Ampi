@@ -54,29 +54,26 @@
                                 <td class="text-center align-middle">$ <%= f.format(productoVo.getPrecioUnitarioProducto())%></td>
                                 <td class="text-center align-middle"><%= f.format(productoVo.getStockProducto())%></td>
                                 <td class="text-center align-middle"><%= productoVo.getEstadoProducto()%></td>
-                                <td class="text-center align-middle"><img src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto()%>" alt="<%= productoVo.getNombreProducto()%>" width="50px"/></td>
-                                <td class="text-center align-middle d-flex justify-content-evenly align-items-center h-100">
+                                <td class="text-center align-middle"><img  src="${pageContext.request.contextPath}/files/producto/<%= productoVo.getNombreImgProducto()%>" alt="<%= productoVo.getNombreProducto()%>" width="50px"/></td>
+                                <td class="text-center d-flex justify-content-evenly align-items-center h-100">
                                     <form action="${pageContext.request.contextPath}/Producto" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="idProducto" value="<%= productoVo.getIdProducto()%>">
                                         <input type="hidden" name="opcion" value="1">
                                         <button type="submit" class="border-0 bg-transparent text-primary"><i class="fas fa-edit"></i></button>
                                     </form>
                                     <%
-                                            if (productoVo.getEstadoProducto().equals("Activo")) {%>
+                                        if (productoVo.getEstadoProducto().equals("Activo")) {%>
 
                                     <input type="hidden" name="codigoId" value="<%=productoVo.getIdProducto()%>">
-                                    <button class="btn-transparent border-0 bg-transparent" onclick="alertaInactivarP(<%=productoVo.getIdProducto()%>, 'Activo')"><i class="bi bi-person-check-fill fa-x5 text-primary" style="font-size: 25px;"></i></button>
+                                    <button class="btn-transparent border-0 bg-transparent py-2" onclick="alertaInactivarP(<%=productoVo.getIdProducto()%>, 'Activo')"><i class="bi bi-person-check-fill fa-x5 text-primary" style="font-size: 25px;"></i></button>
 
                                     <%} else if (productoVo.getEstadoProducto().equals("Inactivo")) {%>
 
                                     <input type="hidden" name="codigoId" value="<%=productoVo.getIdProducto()%>">
-                                    <button class="btn-transparent border-0 bg-transparent" onclick="alertaActivarP(<%=productoVo.getIdProducto()%>, 'Inactivo')"><i class="bi bi-person-x-fill fa-x5 text-danger" style="font-size: 25px;"></i></button>
+                                    <button class="btn-transparent border-0 bg-transparent py-2" onclick="alertaActivarP(<%=productoVo.getIdProducto()%>, 'Inactivo')"><i class="bi bi-person-x-fill fa-x5 text-danger" style="font-size: 25px;"></i></button>
 
                                     <%}%>
                                 </td>
-
-
-
 
                             </tr>
                             <%
@@ -107,12 +104,12 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-                                $(document).ready(function () {
-                                    $('#product').DataTable({
-                                        "language": {
-                                            "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
-                                        }
-                                    });
-                                });
+                                        $(document).ready(function () {
+                                            $('#product').DataTable({
+                                                "language": {
+                                                    "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+                                                }
+                                            });
+                                        });
 </script>
 

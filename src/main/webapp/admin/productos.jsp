@@ -39,7 +39,7 @@
                         <tbody>
                             <%                                ProductoDAO productoDao = new ProductoDAO();
                                 ProductoVO productoVo = null;
-                                List<ProductoVO> categorias = productoDao.select();
+                                List<ProductoVO> categorias = productoDao.selectAllProducts();
                                 DecimalFormat f = new DecimalFormat("##.00");
                                 int contadorProductos = 0;
 

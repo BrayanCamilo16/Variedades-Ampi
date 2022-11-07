@@ -28,6 +28,32 @@ public class ProductoDAO extends Conexion2{
         List<ProductoVO> productos = new ArrayList();
         ProductoVO productoVo = null;
 
+        sql = "SELECT * FROM producto WHERE estado_producto = 'Activo'  ORDER BY nombre_producto";
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                productoVo = new ProductoVO(rs.getInt("id_producto"), rs.getString("nombre_producto"), rs.getString("descripcion_producto"), rs.getDouble("precio_unitario_producto"), rs.getDouble("stock_producto"), rs.getDouble("unidad_minima_producto"), rs.getString("nombre_img_producto"), rs.getString("estado_producto"), rs.getInt("id_marca_FK"), rs.getInt("id_categoria_FK"));
+                productos.add(productoVo);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Ocurrió un error al listar los productos: " + ex.toString());
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+
+        return productos;
+    }
+    
+    public List<ProductoVO> selectAllProducts() {
+        List<ProductoVO> productos = new ArrayList();
+        ProductoVO productoVo = null;
+
         sql = "SELECT * FROM producto ORDER BY nombre_producto";
         try {
             conn = Conexion.getConnection();

@@ -10,16 +10,20 @@
 <fmt:setLocale value="es_CO" />
 <!DOCTYPE html>
 <html>
-    <head>
+     <head>
         <jsp:include page="../WEB-INF/paginas/comunes/head-css.jsp" />
         <jsp:include page="../WEB-INF/paginas/comunes/head-bootstrap.jsp" />
-        <title>Mis pedidos</title>
     </head>
-    <body>
-        <jsp:include page="../WEB-INF/paginas/comunes/header.jsp" />
+    <body class="position-relavite">
+
+        <!-- Navbar  -->
+        <jsp:include page="../WEB-INF/paginas/comunes/navbar-enlaces.jsp" />
+        <!-- /Navbar  -->
+
+        <jsp:include page="../WEB-INF/paginas/comunes/alerta.jsp" />
         <div class="container">
             <div class="row">
-                <!--<div class="col-md-2"></div>-->
+               <!--<div class="col-md-2"></div>-->
                 <div class="col-md-12 my-3">
                     <h1 class="text-center fw-bold my-2">Mis pedidos</h1>
                     <table class="table table-striped">
@@ -33,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%                                HttpSession sesion = request.getSession();
+                            <%
                                 UsuarioVO usuarioVo = (UsuarioVO) sesion.getAttribute("usuarioVo");
                                 PedidoDAO pedidoDao = new PedidoDAO();
                                 ProductoDAO productoDao = new ProductoDAO();
@@ -57,6 +61,9 @@
                                 <td class="text-center"><fmt:formatNumber value="<%= productoVo.getPrecioUnitarioProducto() * productoVo.getCantidad()%>" type="currency" /></td>
                                 <td class="text-center"><%= pedidoVo.getFechaEntrega()%></td>
                                 <td class="text-center"><%= pedidoVo.getEstadoPedido()%></td>
+                                <td class="text-center"><a href="facturas.jsp">ver factura</td>
+ 
+
                             </tr>
                             <%
                                 }

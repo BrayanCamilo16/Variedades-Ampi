@@ -1,9 +1,4 @@
-<%-- 
-    Document   : factura
-    Created on : 16/09/2022, 8:44:43 a. m.
-    Author     : SENA
---%>
-
+<%@page import="vo.UsuarioVO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.*"%>
 <%@page import="vo.ProductoVO"%>
@@ -11,6 +6,8 @@
 <%@page import="java.io.File"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+<%@include file="../cache.jsp" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,15 +16,13 @@
         <title>JSP Page</title>
     </head>  
 <%
+     UsuarioVO usuarioVo = (UsuarioVO) session.getAttribute("usuarioVo");
         Connection con;
-         Date ahora = new Date();
-        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/variedades_ampi","root","") ;
-        File jasperfile = new File(application.getRealPath("reporte/factura.jasper"));
+        File jasperfile = new File(application.getRealPath("reporte/facturas.jasper"));
         Map parametro = new HashMap();
-        parametro.put("fac",formateador.format(ahora));
+        parametro.put("us",usuarioVo.getIdUsuario());
         byte[] bytes =JasperRunManager.runReportToPdf(jasperfile.getPath(),parametro,con );
         
         response.setContentType("application/pdf");

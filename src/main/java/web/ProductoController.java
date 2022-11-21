@@ -34,7 +34,10 @@ public class ProductoController extends HttpServlet {
 //    private Set<Integer> idProductos = new HashSet();
     private List<Integer> idProductos = new ArrayList();
     private HttpSession sesion = null;
-
+    
+ 
+    
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idProducto = request.getParameter("idProducto");
@@ -210,6 +213,9 @@ public class ProductoController extends HttpServlet {
         aplication.setAttribute("productoCarrito", productoEnElCarrito);
         response.sendRedirect("cliente/");
     }
+    
+
+
 
     private void accionDefault(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("menu.jsp").forward(request, response);
